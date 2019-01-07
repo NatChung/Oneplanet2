@@ -4,7 +4,10 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import RootContainer from './RootContainer'
 import createStore from '../Redux'
+import Amplify from 'aws-amplify'
+import awsConfig from "../aws-exports"
 
+Amplify.configure(awsConfig)
 // create our store
 const store = createStore()
 
