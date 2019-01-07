@@ -148,6 +148,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-splash-screen')
     compile project(':amazon-cognito-identity-js')
     compile project(':react-native-i18n')
     compile project(':react-native-vector-icons')
