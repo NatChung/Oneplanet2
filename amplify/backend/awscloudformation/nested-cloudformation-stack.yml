@@ -127,6 +127,19 @@
 					"authRoleArn": "arn:aws:iam::485066281892:role/neplanet2-20190107150821-authRole"
 				}
 			}
+		},
+		"apioneplanet2": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"Parameters": {
+					"AppSyncApiName": "oneplanet2",
+					"schemaGraphql": "s3://neplanet2-20190107150821-deployment/amplify-appsync-files/schema.graphql.1546854871300",
+					"ResolverBucket": "neplanet2-20190107150821-deployment",
+					"ResolverRootKey": "amplify-appsync-files",
+					"DeploymentTimestamp": "1546854871300"
+				}
+			}
 		}
 	},
 	"Outputs": {

@@ -19,7 +19,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/auth/cognito24d2ce1e-cloudformation-template.yml",
 				"logicalId": "authcognito24d2ce1e"
 			},
-			"lastPushTimeStamp": "2019-01-07T07:17:15.675Z",
+			"lastPushTimeStamp": "2019-01-07T09:56:06.958Z",
 			"output": {
 				"AppClientSecret": "1sns6ihs4c9lo68r2drmd62fmpkrdslhuump5krldbue8juubgsn",
 				"UserPoolId": "ap-northeast-1_TMTjvrae3",
@@ -31,6 +31,24 @@
 			},
 			"lastPushDirHash": "IcxObuPT8C77CqXU1ADehskebI4=",
 			"[object Object]": {}
+		}
+	},
+	"api": {
+		"oneplanet2": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"securityType": "API_KEY",
+				"GraphQLAPIIdOutput": "giznnu7grzb7dm2kmned4uylfy",
+				"GraphQLAPIEndpointOutput": "https://lwodewohhbe7nckd7lh2siopby.appsync-api.ap-northeast-1.amazonaws.com/graphql",
+				"GraphQLAPIKeyOutput": "da2-zmqlznzoivcilbcaqyf4ixxfpy"
+			},
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"logicalId": "apioneplanet2"
+			},
+			"lastPushTimeStamp": "2019-01-07T09:56:07.942Z",
+			"lastPushDirHash": "wCLHQW5+FaVTFl6jK7ltj7Pe6sQ="
 		}
 	}
 }

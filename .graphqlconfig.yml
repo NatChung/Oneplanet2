@@ -1,0 +1,16 @@
+projects:
+  oneplanet2:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - App/graphql/**/*.js
+    excludes:
+      - amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src/graphql
+        graphQLApiId: giznnu7grzb7dm2kmned4uylfy
+      endpoints:
+        prod: >-
+          https://lwodewohhbe7nckd7lh2siopby.appsync-api.ap-northeast-1.amazonaws.com/graphql
