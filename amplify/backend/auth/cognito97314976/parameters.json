@@ -1,0 +1,44 @@
+{
+    "userPoolName": "oneplanet297314976_userpool_97314976",
+    "autoVerifiedAttributes": [
+        "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+        "SMS Text Message"
+    ],
+    "roleName": "cognito97314976_sns-role",
+    "roleExternalId": "cognito97314976_role_external_id",
+    "policyName": "cognito97314976-sns-policy",
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": true,
+    "passwordPolicyMinLength": "6",
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [
+        "email"
+    ],
+    "userpoolClientName": "cognito97314976_app_client",
+    "userpoolClientGenerateSecret": true,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientReadAttributes": [
+        "email"
+    ],
+    "mfaLambdaRole": "cognito97314976_totp_lambda_role",
+    "mfaLambdaLogPolicy": "cognito97314976_totp_lambda_log_policy",
+    "mfaPassRolePolicy": "cognito97314976_totp_pass_role_policy",
+    "mfaLambdaIAMPolicy": "cognito97314976_totp_lambda_iam_policy",
+    "userpoolClientLambdaRole": "cognito97314976_userpoolclient_lambda_role",
+    "userpoolClientLogPolicy": "cognito97314976_userpoolclient_lambda_log_policy",
+    "userpoolClientLambdaPolicy": "cognito97314976_userpoolclient_lambda_iam_policy",
+    "userpoolClientSetAttributes": false,
+    "useDefault": "manual",
+    "authSelections": "userPoolOnly",
+    "resourceName": "cognito97314976",
+    "unAuthRoleName": "neplanet2-20190107150022-unauthRole",
+    "authRoleName": "neplanet2-20190107150022-authRole",
+    "unAuthRoleArn": "arn:aws:iam::021433545628:role/neplanet2-20190107150022-unauthRole",
+    "authRoleArn": "arn:aws:iam::021433545628:role/neplanet2-20190107150022-authRole"
+}

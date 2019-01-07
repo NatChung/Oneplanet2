@@ -27,6 +27,8 @@
   },
   "dependencies": {
     "apisauce": "^0.14.2",
+    "aws-amplify": "^1.1.18",
+    "aws-amplify-react-native": "^2.1.6",
     "format-json": "^1.0.3",
     "identity-obj-proxy": "^3.0.0",
     "lodash": "^4.17.11",

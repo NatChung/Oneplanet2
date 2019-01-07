@@ -1,0 +1,36 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "neplanet2-20190107150821-authRole",
+			"UnauthRoleArn": "arn:aws:iam::485066281892:role/neplanet2-20190107150821-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::485066281892:role/neplanet2-20190107150821-authRole",
+			"Region": "ap-northeast-1",
+			"DeploymentBucketName": "neplanet2-20190107150821-deployment",
+			"UnauthRoleName": "neplanet2-20190107150821-unauthRole",
+			"StackName": "neplanet2-20190107150821",
+			"StackId": "arn:aws:cloudformation:ap-northeast-1:485066281892:stack/neplanet2-20190107150821/044a82f0-124b-11e9-b301-0a534bae3094"
+		}
+	},
+	"auth": {
+		"cognito24d2ce1e": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/auth/cognito24d2ce1e-cloudformation-template.yml",
+				"logicalId": "authcognito24d2ce1e"
+			},
+			"lastPushTimeStamp": "2019-01-07T07:17:15.675Z",
+			"output": {
+				"AppClientSecret": "1sns6ihs4c9lo68r2drmd62fmpkrdslhuump5krldbue8juubgsn",
+				"UserPoolId": "ap-northeast-1_TMTjvrae3",
+				"AppClientIDWeb": "6t0lbgk3nl42sbqe6mu347371v",
+				"AppClientID": "691lhiib0q1cp6dcb6fnvb48g2",
+				"UserPoolName": "oneplanet224d2ce1e_userpool_24d2ce1e",
+				"IdentityPoolId": "ap-northeast-1:228636e1-82e6-4e8e-b170-a0198e6f3746",
+				"IdentityPoolName": "oneplanet218c09f6d_identitypool_18c09f6d"
+			},
+			"lastPushDirHash": "IcxObuPT8C77CqXU1ADehskebI4=",
+			"[object Object]": {}
+		}
+	}
+}

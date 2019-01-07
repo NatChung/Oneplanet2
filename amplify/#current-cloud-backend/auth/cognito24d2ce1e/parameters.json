@@ -1,0 +1,52 @@
+{
+    "identityPoolName": "oneplanet218c09f6d_identitypool_18c09f6d",
+    "allowUnauthenticatedIdentities": true,
+    "thirdPartyAuth": false,
+    "lambdaLogPolicy": "cognito24d2ce1e_lambda_log_policy",
+    "openIdLambdaRoleName": "cognito24d2ce1e_openid_lambda_role",
+    "openIdRolePolicy": "cognito24d2ce1e_openid_pass_role_policy",
+    "openIdLambdaIAMPolicy": "cognito24d2ce1e_openid_lambda_iam_policy",
+    "openIdLogPolicy": "cognito24d2ce1e_openid_lambda_log_policy",
+    "userPoolName": "oneplanet224d2ce1e_userpool_24d2ce1e",
+    "autoVerifiedAttributes": [
+        "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+        "SMS Text Message"
+    ],
+    "roleName": "cognito24d2ce1e_sns-role",
+    "roleExternalId": "cognito24d2ce1e_role_external_id",
+    "policyName": "cognito24d2ce1e-sns-policy",
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": true,
+    "passwordPolicyMinLength": "6",
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [
+        "email"
+    ],
+    "userpoolClientName": "cognito24d2ce1e_app_client",
+    "userpoolClientGenerateSecret": true,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientReadAttributes": [
+        "email"
+    ],
+    "mfaLambdaRole": "cognito24d2ce1e_totp_lambda_role",
+    "mfaLambdaLogPolicy": "cognito24d2ce1e_totp_lambda_log_policy",
+    "mfaPassRolePolicy": "cognito24d2ce1e_totp_pass_role_policy",
+    "mfaLambdaIAMPolicy": "cognito24d2ce1e_totp_lambda_iam_policy",
+    "userpoolClientLambdaRole": "cognito24d2ce1e_userpoolclient_lambda_role",
+    "userpoolClientLogPolicy": "cognito24d2ce1e_userpoolclient_lambda_log_policy",
+    "userpoolClientLambdaPolicy": "cognito24d2ce1e_userpoolclient_lambda_iam_policy",
+    "userpoolClientSetAttributes": false,
+    "useDefault": "manual",
+    "authSelections": "identityPoolAndUserPool",
+    "resourceName": "cognito24d2ce1e",
+    "unAuthRoleName": "neplanet2-20190107150821-unauthRole",
+    "authRoleName": "neplanet2-20190107150821-authRole",
+    "unAuthRoleArn": "arn:aws:iam::485066281892:role/neplanet2-20190107150821-unauthRole",
+    "authRoleArn": "arn:aws:iam::485066281892:role/neplanet2-20190107150821-authRole"
+}

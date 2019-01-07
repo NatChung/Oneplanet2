@@ -1,0 +1,14 @@
+{
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "neplanet2-20190107150821-authRole",
+            "UnauthRoleArn": "arn:aws:iam::485066281892:role/neplanet2-20190107150821-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::485066281892:role/neplanet2-20190107150821-authRole",
+            "Region": "ap-northeast-1",
+            "DeploymentBucketName": "neplanet2-20190107150821-deployment",
+            "UnauthRoleName": "neplanet2-20190107150821-unauthRole",
+            "StackName": "neplanet2-20190107150821",
+            "StackId": "arn:aws:cloudformation:ap-northeast-1:485066281892:stack/neplanet2-20190107150821/044a82f0-124b-11e9-b301-0a534bae3094"
+        }
+    }
+}
