@@ -6,11 +6,24 @@ import RootContainer from './RootContainer';
 import createStore from '../Redux';
 import Amplify from 'aws-amplify';
 import SplashScreen from 'react-native-splash-screen';
-import awsConfig from '../aws-exports';
+import AppSyncConfig from '../aws-exports'
+import AWSAppSyncClient from 'aws-appsync'
+import { ApolloProvider } from 'react-apollo'
+import { Rehydrated } from 'aws-appsync-react'
 
-Amplify.configure(awsConfig);
+Amplify.configure(AppSyncConfig);
 // create our store
 const store = createStore();
+
+const client = new AWSAppSyncClient({
+	url: AppSyncConfig.aws_appsync_graphqlEndpoint,
+	region: AppSyncConfig.aws_project_region,
+	auth: {
+	  type: AppSyncConfig.aws_appsync_authenticationType,
+	  apiKey: AppSyncConfig.aws_appsync_apiKey,
+	  // jwtToken: async () => token, // Required when you use Cognito UserPools OR OpenID Connect. token object is obtained previously
+	}
+  })
 
 /**
  * Provides an entry point into our application.  Both index.ios.js and index.android.js
@@ -29,7 +42,11 @@ class App extends Component {
 	render() {
 		return (
 			<Provider store={store}>
-				<RootContainer />
+				<ApolloProvider client={client}>
+    				<Rehydrated>
+						<RootContainer />
+					</Rehydrated>
+  				</ApolloProvider>
 			</Provider>
 		);
 	}
