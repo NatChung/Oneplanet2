@@ -32,6 +32,7 @@
     "aws-appsync": "^1.7.0",
     "aws-appsync-react": "^1.2.5",
     "format-json": "^1.0.3",
+    "graphql-tag": "^2.10.0",
     "identity-obj-proxy": "^3.0.0",
     "lodash": "^4.17.11",
     "prop-types": "^15.6.1",

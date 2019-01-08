@@ -1,5 +1,6 @@
 import { createSwitchNavigator } from "react-navigation";
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import TestAppSyncContainer from '../Containers/TestAppSyncContainer'
 import TestCognitoContainer from '../Containers/TestCognitoContainer'
 import LaunchScreen from '../Containers/LaunchScreen'
 
@@ -19,10 +20,11 @@ const PrimaryNav = createStackNavigator({
 })
 
 const PrimarySwitch  = createSwitchNavigator({
+  TestAppSyncContainer: { screen: TestAppSyncContainer },
   TestCognitoContainer: { screen: TestCognitoContainer },
   PrimaryNav: PrimaryNav
 },{
-  initialRouteName: 'TestCognitoContainer'
+  initialRouteName: 'TestAppSyncContainer'
 })
 
 export default createAppContainer(PrimarySwitch)
