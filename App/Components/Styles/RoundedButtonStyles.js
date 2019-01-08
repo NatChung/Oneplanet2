@@ -3,8 +3,8 @@ import { Fonts, Colors, Metrics } from '../../Themes/'
 
 export default StyleSheet.create({
   button: {
-    height: 45,
-    borderRadius: 5,
+    height: 46,
+    borderRadius: 23,
     marginHorizontal: Metrics.section,
     marginVertical: Metrics.baseMargin,
     backgroundColor: Colors.facebook,
