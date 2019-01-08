@@ -65,7 +65,7 @@ class TestAppSyncContainer extends Component {
         </Mutation>
 
         <Query query={getUser} variables={{id:'nat.chung@mores.com.tw'}}>
-          {props => (<Text style={styles.error}>{`Query(${props.data.getUser.id}): `+props.data.getUser.nickname}</Text>)}
+          {props => (<Text style={styles.error}>{`Query: `+ JSON.stringify(props.data)}</Text>)}
         </Query>
         
       </ScrollView>

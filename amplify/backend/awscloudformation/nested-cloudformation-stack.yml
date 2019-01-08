@@ -84,7 +84,7 @@
 				"TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/auth/cognito24d2ce1e-cloudformation-template.yml",
 				"Parameters": {
 					"identityPoolName": "oneplanet218c09f6d_identitypool_18c09f6d",
-					"allowUnauthenticatedIdentities": true,
+					"allowUnauthenticatedIdentities": false,
 					"thirdPartyAuth": false,
 					"lambdaLogPolicy": "cognito24d2ce1e_lambda_log_policy",
 					"openIdLambdaRoleName": "cognito24d2ce1e_openid_lambda_role",
@@ -134,10 +134,25 @@
 				"TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"Parameters": {
 					"AppSyncApiName": "oneplanet2",
-					"schemaGraphql": "s3://neplanet2-20190107150821-deployment/amplify-appsync-files/schema.graphql.1546854871300",
+					"schemaGraphql": "s3://neplanet2-20190107150821-deployment/amplify-appsync-files/schema.graphql.1546942368411",
 					"ResolverBucket": "neplanet2-20190107150821-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1546854871300"
+					"DeploymentTimestamp": "1546942368411"
+				}
+			}
+		},
+		"storages32eb41f05": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+				"Parameters": {
+					"bucketName": "oneplanet2c6f70803f8f648fbabaf16d466ba1d74",
+					"authPolicyName": "s3_amplify_2eb41f05",
+					"unauthPolicyName": "s3_amplify_2eb41f05",
+					"authRoleName": "neplanet2-20190107150821-authRole",
+					"unauthRoleName": "neplanet2-20190107150821-unauthRole",
+					"authPermissions": "rw",
+					"unauthPermissions": ""
 				}
 			}
 		}
