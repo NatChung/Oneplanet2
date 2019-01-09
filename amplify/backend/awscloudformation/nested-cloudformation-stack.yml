@@ -134,10 +134,10 @@
 				"TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"Parameters": {
 					"AppSyncApiName": "oneplanet2",
-					"schemaGraphql": "s3://neplanet2-20190107150821-deployment/amplify-appsync-files/schema.graphql.1546942368411",
+					"schemaGraphql": "s3://neplanet2-20190107150821-deployment/amplify-appsync-files/schema.graphql.1547004546186",
 					"ResolverBucket": "neplanet2-20190107150821-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1546942368411"
+					"DeploymentTimestamp": "1547004546186"
 				}
 			}
 		},
