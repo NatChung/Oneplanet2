@@ -16,8 +16,10 @@ export default StyleSheet.create({
 		position: 'absolute',
 		top: 54,
 		right: 16,
-		paddingVertical: 12,
-		paddingHorizontal: 10.5
+		width: Metrics.images.medium,
+		height: Metrics.images.medium,
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	container: {
 		flex: 1,

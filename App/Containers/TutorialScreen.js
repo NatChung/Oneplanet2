@@ -10,7 +10,7 @@ import styles from './Styles/TutorialScreenStyle';
 import RoundedButton from '../Components/RoundedButton';
 
 class TutorialScreen extends Component {
-	onSkip = () => this.props.navigation.navigate('LoginScreen');
+	onSkip = () => this.props.navigation.navigate('LandingScreen');
 
 	render() {
 		return (
