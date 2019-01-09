@@ -10,13 +10,12 @@ import styles from './Styles/TutorialScreenStyle';
 import RoundedButton from '../Components/RoundedButton';
 
 class TutorialScreen extends Component {
-	onSkip = () => {};
+	onSkip = () => this.props.navigation.navigate('LoginScreen');
 
 	render() {
-		console.tron.log(styles.container);
 		return (
 			<View style={styles.mainContainer}>
-				<Image source={Images.loginBackground} style={styles.backgroundImage} resizeMode="stretch" />
+				<Image source={Images.loginBackground} style={styles.backgroundImage} />
 				<View style={styles.container}>
 					<Pages>
 						{Images.tutorials.map((img, i) => <Image key={i} style={styles.tutorialImage} source={img} />)}

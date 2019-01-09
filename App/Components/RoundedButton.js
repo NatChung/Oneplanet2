@@ -25,7 +25,7 @@ export default class RoundedButton extends Component {
 		navigator: PropTypes.object,
 		outline: PropTypes.bool,
 		style: ViewPropTypes.style,
-		textStyle: ViewPropTypes.style
+		textStyle: Text.propTypes.style
 	};
 
 	getText = () => {

@@ -28,7 +28,12 @@ const images = {
 		require('../Images/tutorials/375x667.png'),
 		require('../Images/tutorials/375x667.png'),
 		require('../Images/tutorials/375x667.png')
-	]
+	],
+	logoText: require('../Images/ui_logotext.png'),
+	icons: {
+		mute: require('../Images/Icons/mute.png'),
+		unmute: require('../Images/Icons/unmute.png')
+	}
 };
 
 export default images;
