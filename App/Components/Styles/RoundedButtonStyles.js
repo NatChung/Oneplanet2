@@ -20,8 +20,5 @@ export default StyleSheet.create({
 		backgroundColor: 'transparent',
 		borderWidth: 1,
 		borderColor: Colors.snow
-	},
-	outlineText: {
-		color: Colors.snow
 	}
 });

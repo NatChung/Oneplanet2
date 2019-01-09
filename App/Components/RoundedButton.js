@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { ViewPropTypes, TouchableOpacity, Text } from 'react-native'
-import styles from './Styles/RoundedButtonStyles'
-import ExamplesRegistry from '../Services/ExamplesRegistry'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { ViewPropTypes, TouchableOpacity, Text } from 'react-native';
+import styles from './Styles/RoundedButtonStyles';
+import ExamplesRegistry from '../Services/ExamplesRegistry';
 
 // Note that this file (App/Components/RoundedButton) needs to be
 // imported in your app somewhere, otherwise your component won't be
@@ -10,39 +10,38 @@ import ExamplesRegistry from '../Services/ExamplesRegistry'
 
 // Ignore in coverage report
 /* istanbul ignore next */
-ExamplesRegistry.addComponentExample('Rounded Button', () =>
-  <RoundedButton
-    text='real buttons have curves'
-    onPress={() => window.alert('Rounded Button Pressed!')}
+ExamplesRegistry.addComponentExample('Rounded Button', () => (
+  <RoundedButton 
+    text="real buttons have curves" 
+    onPress={() => window.alert('Rounded Button Pressed!')} 
   />
-)
+));
 
 export default class RoundedButton extends Component {
-  static propTypes = {
-    onPress: PropTypes.func,
-    text: PropTypes.string,
-    children: PropTypes.string,
-    navigator: PropTypes.object,
-    outline: PropTypes.bool,
-    style: ViewPropTypes.style,
-    textStyle: Text.propTypes.style
-  }
+	static propTypes = {
+		onPress: PropTypes.func,
+		text: PropTypes.string,
+		children: PropTypes.string,
+		navigator: PropTypes.object,
+		outline: PropTypes.bool,
+		style: ViewPropTypes.style,
+		textStyle: Text.propTypes.style
+	};
 
-  getText () {
-    const buttonText = this.props.text || this.props.children || ''
-    return buttonText
-  }
+	getText() {
+		const buttonText = this.props.text || this.props.children || '';
+		return buttonText;
+	}
 
-  buttonProps = () => {
+	buttonProps = () => {
 		// Defaults
 		const props = {
-      ...this.props,
-      style: [styles.button],
-			textStyle: [styles.buttonText]
+			...this.props,
+			style: [ styles.button ],
+			textStyle: [ styles.buttonText ]
 		};
 
-    if (this.props.outline) {
-			props.textStyle.push(styles.outlineText);
+		if (this.props.outline) {
 			props.style.push(styles.outline);
 		}
 		if (this.props.style) {
@@ -55,12 +54,12 @@ export default class RoundedButton extends Component {
 		return props;
 	};
 
-  render () {
-    const {textStyle, ...props} = this.buttonProps();
-    return (
-      <TouchableOpacity {...props}>
-        <Text style={textStyle}>{this.getText()}</Text>
-      </TouchableOpacity>
-    )
-  }
+	render() {
+		const { textStyle, ...props } = this.buttonProps();
+		return (
+			<TouchableOpacity {...props}>
+				<Text style={textStyle}>{this.getText()}</Text>
+			</TouchableOpacity>
+		);
+	}
 }
