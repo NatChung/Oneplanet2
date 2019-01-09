@@ -5,6 +5,11 @@ export const getUser = `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
     nickname
+    avatar {
+      bucket
+      region
+      key
+    }
   }
 }
 `;
@@ -17,6 +22,11 @@ export const listUsers = `query ListUsers(
     items {
       id
       nickname
+      avatar {
+        bucket
+        region
+        key
+      }
     }
     nextToken
   }

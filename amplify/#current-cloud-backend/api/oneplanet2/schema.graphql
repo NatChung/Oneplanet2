@@ -18,4 +18,25 @@
 type User @model {
   id: ID! #email
   nickname: String!
+  avatar: S3Object
+}
+
+enum Visibility {
+    public
+    private
+}
+
+input S3ObjectInput {
+    bucket: String!
+    region: String!
+    localUri: String
+    visibility: Visibility
+    key: String
+    mimeType: String
+}
+
+type S3Object {
+    bucket: String!
+    region: String!
+    key: String!
 }

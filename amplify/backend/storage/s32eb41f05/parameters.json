@@ -1,0 +1,9 @@
+{
+    "bucketName": "oneplanet2c6f70803f8f648fbabaf16d466ba1d74",
+    "authPolicyName": "s3_amplify_2eb41f05",
+    "unauthPolicyName": "s3_amplify_2eb41f05",
+    "authRoleName": "neplanet2-20190107150821-authRole",
+    "unauthRoleName": "neplanet2-20190107150821-unauthRole",
+    "authPermissions": "rw",
+    "unauthPermissions": ""
+}
