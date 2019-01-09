@@ -3,6 +3,7 @@ package com.oneplanet2;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.amazonaws.RNAWSCognitoPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFetchBlobPackage(),
             new SplashScreenReactPackage(),
             new RNAWSCognitoPackage(),
             new RNI18nPackage(),

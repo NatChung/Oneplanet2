@@ -18,5 +18,10 @@ export default StyleSheet.create({
     ...Fonts.style.normal,
     marginTop: 20,
     textAlign:'center'
+  },
+  uploadImage:{
+    flex:1,
+    height: 50,
+    marginHorizontal: 20,
   }
 })
