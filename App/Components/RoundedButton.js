@@ -25,16 +25,15 @@ export default class RoundedButton extends Component {
 		navigator: PropTypes.object,
 		outline: PropTypes.bool,
 		style: ViewPropTypes.style,
-		textStyle: Text.propTypes.style
+		textStyle: ViewPropTypes.style
 	};
 
-	getText() {
+	getText = () => {
 		const buttonText = this.props.text || this.props.children || '';
 		return buttonText;
 	}
 
 	buttonProps = () => {
-		// Defaults
 		const props = {
 			...this.props,
 			style: [ styles.button ],
