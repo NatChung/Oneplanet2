@@ -27,7 +27,7 @@ class LandingScreen extends Component {
 
 	buttonStyle = (key) => {
 		const text = I18n.t(key);
-		if (key == 'singUp') return { text, style: styles.buttonSignUp };
+		if (key == 'signUp') return { text, style: styles.buttonSignUp };
 		return { text, style: styles.button, textStyle: styles.buttonText };
 	};
 

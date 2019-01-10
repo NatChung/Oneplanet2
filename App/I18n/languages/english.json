@@ -21,5 +21,9 @@
 	"login": "Login",
 	"later": "Later",
 	"terms": "Terms",
-	"bySigningUpOrLoginYouAgreeToOurTerms": "By signing up or login, you agree to our {{terms}}."
+	"bySigningUpOrLoginYouAgreeToOurTerms": "By signing up or login, you agree to our {{terms}}.",
+
+	"#": "LoginScreen",
+	"or": "OR",
+	"usernameOrEmail": "Username or email"
 }
