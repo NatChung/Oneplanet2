@@ -45,7 +45,7 @@ export default StyleSheet.create({
 		marginVertical: 8
 	},
 	buttonSignUp: {
-		backgroundColor: '#5FD2CE'
+		backgroundColor: Colors.oneplanet.button
 	},
 	termsText: {
 		...BaseStyles.text,
