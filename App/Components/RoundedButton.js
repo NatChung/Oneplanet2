@@ -24,6 +24,7 @@ export default class RoundedButton extends Component {
 		children: PropTypes.string,
 		navigator: PropTypes.object,
 		outline: PropTypes.bool,
+		disabled: PropTypes.bool,
 		style: ViewPropTypes.style,
 		textStyle: Text.propTypes.style
 	};
@@ -31,7 +32,7 @@ export default class RoundedButton extends Component {
 	getText = () => {
 		const buttonText = this.props.text || this.props.children || '';
 		return buttonText;
-	}
+	};
 
 	buttonProps = () => {
 		const props = {
@@ -42,6 +43,9 @@ export default class RoundedButton extends Component {
 
 		if (this.props.outline) {
 			props.style.push(styles.outline);
+		}
+		if (this.props.disabled) {
+			props.style.push(styles.disabled);
 		}
 		if (this.props.style) {
 			props.style.push(this.props.style);
