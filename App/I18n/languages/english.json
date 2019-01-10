@@ -1,8 +1,8 @@
 {
-   "#":"SingupScreen",
-   "singUp": "Sing Up",
+   "#":"SignupScreen",
+   "signUp": "Sign Up",
    "password": "Password",
    "emailAddress":"Email Address",
-   "orSingUpWithEmail":"Or Sing Up With Email",
+   "orSignUpWithEmail":"Or Sign Up With Email",
    "quickRegisteration":"Quick Registeration"
 }

@@ -9,14 +9,16 @@ import I18n from "../I18n";
 import SocailMediaButtons from "../Components/SocailMediaButtons"
 import RoundedButton from "../Components/RoundedButton"
 import RoundedTextInput from "../Components/RoundedTextInput";
+import {HeaderBackButton} from "react-navigation"
 
-class SingupScreen extends Component {
+class SignupScreen extends Component {
 
-  static navigationOptions = {
-    title: I18n.t('singUp'),
+  static navigationOptions = ({navigation}) => ({
+    title: I18n.t('signUp'),
     headerTransparent:true,
-    headerTintColor:'white'
-  }
+    headerTintColor:'white',
+    // headerLeft: (<View style={{marginLeft:30}}><HeaderBackButton tintColor='white' onPress={() => navigation.goBack() } /></View>)
+  })
 
   state = {
     email:null,
@@ -55,7 +57,7 @@ class SingupScreen extends Component {
             <Text style={styles.text}>{I18n.t('quickRegisteration')}</Text>
         </View>
         <View style={styles.emailContainer}>
-          <Text style={styles.text}>{I18n.t('orSingUpWithEmail')}</Text>
+          <Text style={styles.text}>{I18n.t('orSignUpWithEmail')}</Text>
           <RoundedTextInput {...this.emailInputProps()}/>
           <RoundedTextInput {...this.passwordInputProps()}/>
           <RoundedButton onPress={() => console.tron.log(this.state.email, this.state.password)}/>
@@ -66,4 +68,4 @@ class SingupScreen extends Component {
 }
 
 
-export default SingupScreen
+export default SignupScreen

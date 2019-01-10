@@ -1,6 +1,6 @@
 import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import SingupScreen from '../Containers/SingupScreen'
+import SignupScreen from '../Containers/SignupScreen'
 import TestAppSyncContainer from '../Containers/TestAppSyncContainer';
 import TestCognitoContainer from '../Containers/TestCognitoContainer';
 import LaunchScreen from '../Containers/LaunchScreen';
@@ -12,13 +12,13 @@ import styles from './Styles/NavigationStyles';
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
-	SingupScreen: { screen: SingupScreen },
+	SignupScreen: { screen: SignupScreen },
 	LoginScreen: { screen: LoginScreen },
 	LandingScreen: { screen: LandingScreen },
 	LaunchScreen: { screen: LaunchScreen }
 },{
 	// Default config for all screens
-	initialRouteName: 'SingupScreen',
+	initialRouteName: 'LandingScreen',
 });
 
 
