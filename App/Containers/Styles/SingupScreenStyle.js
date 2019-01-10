@@ -7,7 +7,13 @@ export default StyleSheet.create({
     flex:1,
   },
   text:{
-    ...Fonts.style.normal,
+    ...Fonts.style.description,
+    color: Colors.snow,
+    textAlign: 'center'
+  },
+  quickTitle:{
+    marginBottom: 5,
+    ...Fonts.style.description,
     color: Colors.snow,
     textAlign: 'center'
   },
@@ -17,7 +23,7 @@ export default StyleSheet.create({
     paddingBottom: 35,
   },
   emailContainer: {
-    flex:2.5,
+    flex:2.7,
     
   }
 })

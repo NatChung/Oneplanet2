@@ -8,8 +8,7 @@ import I18n from "../I18n";
 
 import SocailMediaButtons from "../Components/SocailMediaButtons"
 import RoundedButton from "../Components/RoundedButton"
-import RoundedTextInput from "../Components/RoundedTextInput";
-import {HeaderBackButton} from "react-navigation"
+import RoundedTextInput from "../Components/RoundedTextInput"
 
 class SignupScreen extends Component {
 
@@ -22,9 +21,12 @@ class SignupScreen extends Component {
 
   state = {
     email:null,
-    password: null
+    emailError: null,
+    password: null,
+    passwordError: null
   }
 
+  onSignup = () => {}
   onFb = () => {}
   onTwitter = () => {}
   onGoogle= () => {}
@@ -33,7 +35,8 @@ class SignupScreen extends Component {
     value:this.state.email,
     onChangeText:email => this.setState({email}),
     placeholder:I18n.t('emailAddress'),
-    placeholderTextColor:'grey'
+    placeholderTextColor:'grey',
+    error: this.state.emailError
   })
 
   passwordInputProps = () => ({
@@ -41,7 +44,8 @@ class SignupScreen extends Component {
     value:this.state.password,
     onChangeText:password => this.setState({password}),
     placeholder:I18n.t('password'),
-    placeholderTextColor:'grey'
+    placeholderTextColor:'grey',
+    error: this.state.passwordError
   })
 
   render () {
@@ -54,13 +58,13 @@ class SignupScreen extends Component {
             onTwitter={this.onTwitter}
             onGoogle={this.onGoogle}
             onFb={this.onFb} />
-            <Text style={styles.text}>{I18n.t('quickRegisteration')}</Text>
+            <Text style={styles.quickTitle}>{I18n.t('quickRegisteration')}</Text>
         </View>
         <View style={styles.emailContainer}>
           <Text style={styles.text}>{I18n.t('orSignUpWithEmail')}</Text>
           <RoundedTextInput {...this.emailInputProps()}/>
           <RoundedTextInput {...this.passwordInputProps()}/>
-          <RoundedButton onPress={() => console.tron.log(this.state.email, this.state.password)}/>
+          <RoundedButton onPress={this.onSignup}/>
         </View>
       </View>
     )

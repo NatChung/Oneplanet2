@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import { View, TextInput } from 'react-native'
 import styles from './Styles/RoundedTextInputStyle'
 
 export default class RoundedTextInput extends Component {
 
+	static propTypes = {
+		outline: PropTypes.bool,
+		error: PropTypes.string
+	}
+	
 	static defaultProps = {
     outline: true
   }
