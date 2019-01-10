@@ -8,30 +8,36 @@ import I18n from "../I18n";
 
 import SocailMediaButtons from "../Components/SocailMediaButtons"
 import RoundedButton from "../Components/RoundedButton"
-import RoundedTextInput from "../Components/RoundedTextInput";
+import RoundedTextInput from "../Components/RoundedTextInput"
 
-class SingupScreen extends Component {
+class SignupScreen extends Component {
 
-  static navigationOptions = {
-    title: I18n.t('singUp'),
+  static navigationOptions = ({navigation}) => ({
+    title: I18n.t('signUp'),
     headerTransparent:true,
-    headerTintColor:'white'
-  }
+    headerTintColor:'white',
+    // headerLeft: (<View style={{marginLeft:30}}><HeaderBackButton tintColor='white' onPress={() => navigation.goBack() } /></View>)
+  })
 
   state = {
     email:null,
-    password: null
+    emailError: null,
+    password: null,
+    passwordError: null
   }
 
+  onSignup = () => {}
   onFb = () => {}
   onTwitter = () => {}
   onGoogle= () => {}
   onWechat = () => {}
+
   emailInputProps = () => ({
     value:this.state.email,
     onChangeText:email => this.setState({email}),
     placeholder:I18n.t('emailAddress'),
-    placeholderTextColor:'grey'
+    placeholderTextColor:'grey',
+    error: this.state.emailError
   })
 
   passwordInputProps = () => ({
@@ -39,7 +45,14 @@ class SingupScreen extends Component {
     value:this.state.password,
     onChangeText:password => this.setState({password}),
     placeholder:I18n.t('password'),
-    placeholderTextColor:'grey'
+    placeholderTextColor:'grey',
+    error: this.state.passwordError
+  })
+
+  signupButtonProps = () => ({
+    text:I18n.t('signUp'),
+    onPress:this.onSignup,
+    style: styles.signupButton
   })
 
   render () {
@@ -52,13 +65,13 @@ class SingupScreen extends Component {
             onTwitter={this.onTwitter}
             onGoogle={this.onGoogle}
             onFb={this.onFb} />
-            <Text style={styles.text}>{I18n.t('quickRegisteration')}</Text>
+            <Text style={styles.quickTitle}>{I18n.t('quickRegisteration')}</Text>
         </View>
         <View style={styles.emailContainer}>
-          <Text style={styles.text}>{I18n.t('orSingUpWithEmail')}</Text>
+          <Text style={styles.text}>{I18n.t('orSignUpWithEmail')}</Text>
           <RoundedTextInput {...this.emailInputProps()}/>
           <RoundedTextInput {...this.passwordInputProps()}/>
-          <RoundedButton onPress={() => console.tron.log(this.state.email, this.state.password)}/>
+          <RoundedButton {...this.signupButtonProps()} />
         </View>
       </View>
     )
@@ -66,4 +79,4 @@ class SingupScreen extends Component {
 }
 
 
-export default SingupScreen
+export default SignupScreen

@@ -30,7 +30,7 @@ class LandingScreen extends Component {
 		return { text, style: styles.button, textStyle: styles.buttonText };
 	};
 
-	onSignUp = () => this.props.navigation.navigate('SingupScreen');
+	onSignUp = () => this.props.navigation.navigate('SignupScreen');
 
 	onLogin = () => {};
 

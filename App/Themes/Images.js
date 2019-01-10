@@ -39,6 +39,9 @@ const images = {
 		google: require('../Images/socailmedias/ic_google_nor.png'),
 		twitter: require('../Images/socailmedias/ic_twitter_nor.png'),
 		wechat: require('../Images/socailmedias/ic_wechat_nor.png'),
+	},
+	addProfile: {
+		avatar: require('../Images/addProfile/ic_addmypic_nor.png')
 	}
 
 };

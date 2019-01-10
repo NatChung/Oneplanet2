@@ -1,8 +1,15 @@
 {
-   "#":"SingupScreen",
-   "singUp": "Sing Up",
+   "#":"SignupScreen",
+   "signUp": "Sign Up",
    "password": "Password",
    "emailAddress":"Email Address",
-   "orSingUpWithEmail":"Or Sing Up With Email",
-   "quickRegisteration":"Quick Registeration"
+   "orSignUpWithEmail":"Or Sign Up With Email",
+   "quickRegisteration":"Quick Registeration",
+
+   "#":"AddProfileScreen",
+   "next":"Next",
+   "addAProfilePhotoSoYourFriendsKnowItsYou":"Add a profile photo so your friends know it's you",
+   "addProfilePhoto":"add profile photo",
+   "welcomeToOneplanet":"Welcome to Oneplanet",
+   "nickname":"Nickname"
 }
