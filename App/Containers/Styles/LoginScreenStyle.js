@@ -1,6 +1,13 @@
 import { StyleSheet } from 'react-native';
 import { Colors, Metrics, Fonts, ApplicationStyles } from '../../Themes/';
 
+const BaseStyles = StyleSheet.create({
+	tips: {
+		fontSize: Fonts.size.small,
+		color: Colors.snow
+	}
+});
+
 export default StyleSheet.create({
 	...ApplicationStyles.screen,
 	socailMediaContainer: {
@@ -14,11 +21,27 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		marginVertical: 5
 	},
+	emailTips: {
+		...BaseStyles.tips,
+		alignSelf: 'center'
+	},
+	passwordTips: {
+		...BaseStyles.tips,
+		alignSelf: 'flex-end'
+	},
+	textInputContainer: {
+		marginVertical: 0,
+		marginHorizontal: 0
+	},
 	inputGroupContainer: {
 		flex: 2.7
 	},
+	inputGroup: {
+		marginHorizontal: 36,
+		marginBottom: 10
+	},
 	loginButton: {
-		marginTop: 30,
+		marginTop: 26,
 		backgroundColor: '#5FD2CE'
 	}
 });

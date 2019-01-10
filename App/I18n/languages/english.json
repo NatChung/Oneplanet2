@@ -25,5 +25,8 @@
 
 	"#": "LoginScreen",
 	"or": "OR",
-	"usernameOrEmail": "Username or email"
+	"usernameOrEmail": "Username or email",
+	"resendTheEmail": "Resend the email.",
+	"youDidNotReceiveTheEmailResendTheEmail": "You did not receive the email? {{resendTheEmail}}",
+	"forgotPassword": "Forgot password?"
 }

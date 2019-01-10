@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text } from 'react-native';
 
-import styles from './Styles/RichI18NStyle';
+import styles from './Styles/RichI18nStyle';
 import I18n from '../I18n';
 
-export default class RichI18N extends Component {
+export default class RichI18n extends Component {
 	// Prop type warnings
 	static propTypes = {
 		id: PropTypes.string.isRequired,

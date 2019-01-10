@@ -10,7 +10,7 @@ import styles from './Styles/LandingScreenStyle';
 import I18n from '../I18n';
 
 import RoundedButton from '../Components/RoundedButton';
-import RichI18N from '../Components/RichI18N';
+import RichI18n from '../Components/RichI18n';
 
 const mp4 = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 const hls = 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8';
@@ -44,9 +44,9 @@ class LandingScreen extends Component {
 		this.setState({ muted: !muted });
 	};
 
-	termsMaps = ({
-		terms: <Text style={styles.underline} onPress={this.onTerms}>{I18n.t('terms')}</Text> 
-	})
+	richI18nMaps = () => ({
+		terms: <Text style={styles.underline} onPress={this.onTerms}>{I18n.t('terms')}</Text>
+	});
 
 	render() {
 		const { muted } = this.state;
@@ -66,10 +66,10 @@ class LandingScreen extends Component {
 						<Text style={styles.text}>{I18n.t('alreadyHaveAnAccount')}</Text>
 						<RoundedButton {...this.buttonStyle('login')} onPress={this.onLogin} />
 						<RoundedButton {...this.buttonStyle('later')} onPress={this.onLater} />
-						<RichI18N
+						<RichI18n
 							id="bySigningUpOrLoginYouAgreeToOurTerms"
 							style={styles.termsText}
-							values={this.termsMaps}
+							values={this.richI18nMaps()}
 						/>
 					</View>
 				</View>

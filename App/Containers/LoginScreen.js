@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Text, View } from 'react-native';
 import { Images } from '../Themes';
+import _ from 'lodash';
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
@@ -11,6 +12,7 @@ import I18n from '../I18n';
 import SocailMediaButtons from '../Components/SocailMediaButtons';
 import RoundedButton from '../Components/RoundedButton';
 import RoundedTextInput from '../Components/RoundedTextInput';
+import RichI18n from '../Components/RichI18n';
 
 class LoginScreen extends Component {
 	static navigationOptions = {
@@ -20,8 +22,28 @@ class LoginScreen extends Component {
 	};
 
 	state = {
-		email: null,
-		password: null
+		account: null,
+		password: null,
+		isLoginDisabled: true
+	};
+
+	validations = {
+		account: (value) => {
+			if (value.length == 0) return false;
+			return true;
+		},
+		password: (value) => {
+			if (value.length < 6) return false;
+			return true;
+		}
+	};
+
+	validate = () => {
+		const isValid = _.every(this.validations, (validate, key) => {
+			const value = this.state[key];
+			return value && validate(value);
+		});
+		this.setState({ isLoginDisabled: !isValid });
 	};
 
 	onFb = () => {};
@@ -29,19 +51,42 @@ class LoginScreen extends Component {
 	onGoogle = () => {};
 	onWechat = () => {};
 
-	emailInputProps = () => ({
-		value: this.state.email,
-		onChangeText: (email) => this.setState({ email }),
+	onLogin = () => {};
+
+	onResendEmail = () => {};
+
+	onForgotPassword = () => {};
+
+	handleInputChange = (fieldName) => (value) => {
+		this.setState({ [fieldName]: value }, this.validate);
+	};
+
+	accountInputProps = () => ({
+		containerStyle: styles.textInputContainer,
+		value: this.state.account,
+		onChangeText: this.handleInputChange('account'),
 		placeholder: I18n.t('usernameOrEmail'),
 		placeholderTextColor: 'grey'
 	});
 
 	passwordInputProps = () => ({
-		secureTextEntry: true,
+		containerStyle: styles.textInputContainer,
 		value: this.state.password,
-		onChangeText: (password) => this.setState({ password }),
+		onChangeText: this.handleInputChange('password'),
 		placeholder: I18n.t('password'),
-		placeholderTextColor: 'grey'
+		placeholderTextColor: 'grey',
+		secureTextEntry: true
+	});
+
+	loginButtonProps = () => ({
+		style: styles.loginButton,
+		text: I18n.t('login'),
+		onPress: this.onLogin,
+		disabled: this.state.isLoginDisabled
+	});
+
+	richI18nMaps = () => ({
+		resendTheEmail: <Text onPress={this.onResendEmail}>{I18n.t('resendTheEmail')}</Text>
 	});
 
 	render() {
@@ -50,22 +95,29 @@ class LoginScreen extends Component {
 				<Image source={Images.loginBackground} style={styles.backgroundImage} />
 				<View style={styles.socailMediaContainer}>
 					<SocailMediaButtons
-						onWechat={this.onWechat}
+						onFb={this.onFb}
 						onTwitter={this.onTwitter}
 						onGoogle={this.onGoogle}
-						onFb={this.onFb}
+						onWechat={this.onWechat}
 					/>
 					<Text style={styles.text}>{I18n.t('or')}</Text>
 				</View>
 				<View style={styles.inputGroupContainer}>
-					<RoundedTextInput {...this.emailInputProps()} />
-					<RoundedTextInput {...this.passwordInputProps()} />
-					<RoundedButton
-						disabled
-						style={styles.loginButton}
-						text={I18n.t('login')}
-						onPress={() => console.tron.log(this.state.email, this.state.password)}
-					/>
+					<View style={styles.inputGroup}>
+						<RoundedTextInput {...this.accountInputProps()} />
+						<RichI18n
+							id="youDidNotReceiveTheEmailResendTheEmail"
+							style={styles.emailTips}
+							values={this.richI18nMaps()}
+						/>
+					</View>
+					<View style={styles.inputGroup}>
+						<RoundedTextInput {...this.passwordInputProps()} />
+						<Text style={styles.passwordTips} onPress={this.onForgotPassword}>
+							{I18n.t('forgotPassword')}
+						</Text>
+					</View>
+					<RoundedButton {...this.loginButtonProps()} />
 				</View>
 			</View>
 		);
