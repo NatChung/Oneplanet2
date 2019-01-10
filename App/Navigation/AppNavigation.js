@@ -34,10 +34,8 @@ const PrimarySwitch = createSwitchNavigator(
 		PrimaryNav: PrimaryNav
 	},
 	{
-},{
-  initialRouteName: 'TestAppSyncContainer'
-})
+  		initialRouteName: 'TestCognitoContainer'
 	}
-);
+)
 
 export default createAppContainer(PrimarySwitch);
