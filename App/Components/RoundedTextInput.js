@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, TextInput } from 'react-native'
+import { View, TextInput, Text } from 'react-native'
 import styles from './Styles/RoundedTextInputStyle'
 
 export default class RoundedTextInput extends Component {
@@ -17,7 +17,7 @@ export default class RoundedTextInput extends Component {
   textInputProps = () => {
 		const props = {
 			...this.props,
-			style: [ styles.container, styles.inputText ],
+			style: [ styles.inputContainer, styles.inputText ],
 		};
 
 		if (this.props.outline) {
@@ -27,13 +27,19 @@ export default class RoundedTextInput extends Component {
 			props.style.push(this.props.style);
 		}
 
+		if(this.props.error){
+			props.style.push(styles.errorOutLine);
+		}
+
 		return props;
 	}
 
   render () {
-    const { ...props } = this.textInputProps()
     return (
-      <TextInput {...props} />
+			<View style={styles.container}>
+      	<TextInput {...this.textInputProps()} />
+				{(this.props.error) ? (<Text style={styles.error}>{this.props.error}</Text>) : null}
+			</View>
     )
   }
 }
