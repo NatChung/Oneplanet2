@@ -31,6 +31,7 @@ class SignupScreen extends Component {
   onTwitter = () => {}
   onGoogle= () => {}
   onWechat = () => {}
+
   emailInputProps = () => ({
     value:this.state.email,
     onChangeText:email => this.setState({email}),
@@ -46,6 +47,12 @@ class SignupScreen extends Component {
     placeholder:I18n.t('password'),
     placeholderTextColor:'grey',
     error: this.state.passwordError
+  })
+
+  signupButtonProps = () => ({
+    text:I18n.t('signUp'),
+    onPress:this.onSignup,
+    style: styles.signupButton
   })
 
   render () {
@@ -64,7 +71,7 @@ class SignupScreen extends Component {
           <Text style={styles.text}>{I18n.t('orSignUpWithEmail')}</Text>
           <RoundedTextInput {...this.emailInputProps()}/>
           <RoundedTextInput {...this.passwordInputProps()}/>
-          <RoundedButton onPress={this.onSignup}/>
+          <RoundedButton {...this.signupButtonProps()} />
         </View>
       </View>
     )

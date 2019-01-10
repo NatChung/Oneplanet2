@@ -24,6 +24,9 @@ export default StyleSheet.create({
   },
   emailContainer: {
     flex:2.7,
-    
+  },
+  signupButton:{
+    marginTop: 30,
+    backgroundColor:'#5FD2CE'
   }
 })
