@@ -1,4 +1,5 @@
 import I18n from 'react-native-i18n'
+import './I18n'
 
 const missingTranslationRegex = /^\[missing ".*" translation\]$/
 
@@ -8,7 +9,7 @@ const translateOrFallback = (initialMsg, options) => {
   // The native I18n function will simply crash instead of rejecting the attempt with an error message
   if (typeof initialMsg !== 'string') {
     __DEV__ &&
-      console.log(
+      console.tron.log(
         `I18n: you must give a string to translate instead of "${typeof initialMsg}"`
       )
 
@@ -21,7 +22,7 @@ const translateOrFallback = (initialMsg, options) => {
   // Instead we return the message we tried to translate
   if (missingTranslationRegex.test(localMsg)) {
     __DEV__ &&
-      console.log(
+      console.tron.log(
         `translation "${initialMsg}" does not exists in translations files`
       )
 

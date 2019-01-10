@@ -33,7 +33,14 @@ const images = {
 	icons: {
 		mute: require('../Images/Icons/mute.png'),
 		unmute: require('../Images/Icons/unmute.png')
+	},
+	socailmedia: {
+		fb: require('../Images/socailmedias/ic_facebook_nor.png'),
+		google: require('../Images/socailmedias/ic_google_nor.png'),
+		twitter: require('../Images/socailmedias/ic_twitter_nor.png'),
+		wechat: require('../Images/socailmedias/ic_wechat_nor.png'),
 	}
+
 };
 
 export default images;

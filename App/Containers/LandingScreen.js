@@ -13,6 +13,11 @@ const mp4 = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/B
 const hls = 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8';
 
 class LandingScreen extends Component {
+	static navigationOptions = {
+		header:null,
+		headerBackTitle: null
+	}
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -25,7 +30,7 @@ class LandingScreen extends Component {
 		return { text, style: styles.button, textStyle: styles.buttonText };
 	};
 
-	onSignUp = () => {};
+	onSignUp = () => this.props.navigation.navigate('SingupScreen');
 
 	onLogin = () => {};
 
