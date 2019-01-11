@@ -22,6 +22,12 @@ class AddProfileScreen extends Component {
     error: this.state.nicknameError
   })
 
+  nextButtonProps = () => ({
+    style:styles.nextButton,
+    text:I18n.t('next'),
+    onPress:() => this.props.navigation.navigate('EmailSentScreen')
+  })
+
 
   render () {
     return (
@@ -34,7 +40,7 @@ class AddProfileScreen extends Component {
         </TouchableOpacity>
         <RoundedButton outline={true} text={I18n.t('addProfilePhoto')}/>
         <Text style={styles.text}>{I18n.t('addAProfilePhotoSoYourFriendsKnowItsYou')}</Text>
-        <RoundedButton style={styles.nextButton} text={I18n.t('next')}/>
+        <RoundedButton {...this.nextButtonProps()}/>
         
       </View>
     )

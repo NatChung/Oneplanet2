@@ -17,7 +17,7 @@ export default StyleSheet.create({
   },
   nextButton: {
     marginTop: 30,
-    backgroundColor:'#5FD2CE'
+    backgroundColor:Colors.oneplanet.button
   },
   avatar:{
     marginVertical: 40,

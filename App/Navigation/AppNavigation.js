@@ -1,5 +1,6 @@
 import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import EmailSentScreen from '../Containers/EmailSentScreen'
 import AddProfileScreen from '../Containers/AddProfileScreen'
 import SignupScreen from '../Containers/SignupScreen'
 import TestAppSyncContainer from '../Containers/TestAppSyncContainer';
@@ -17,18 +18,19 @@ const PrimaryNav = createStackNavigator({
 	LaunchScreen: { screen: LaunchScreen }
 },{
 	// Default config for all screens
-	initialRouteName: 'SignupScreen',
+	initialRouteName: 'LandingScreen',
 });
 
 
 const PrimarySwitch = createSwitchNavigator({
+	EmailSentScreen: { screen: EmailSentScreen },
 	AddProfileScreen: { screen: AddProfileScreen },
 	TutorialScreen: { screen: TutorialScreen },
 	TestAppSyncContainer: { screen: TestAppSyncContainer },
 	TestCognitoContainer: { screen: TestCognitoContainer },
 	PrimaryNav
 },{
-	initialRouteName: 'PrimaryNav'
+	initialRouteName: 'EmailSentScreen'
 })
 
 export default createAppContainer(PrimarySwitch);

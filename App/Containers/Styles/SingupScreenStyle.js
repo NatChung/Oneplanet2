@@ -27,6 +27,6 @@ export default StyleSheet.create({
   },
   signupButton:{
     marginTop: 30,
-    backgroundColor:'#5FD2CE'
+    backgroundColor:Colors.oneplanet.button
   }
 })
