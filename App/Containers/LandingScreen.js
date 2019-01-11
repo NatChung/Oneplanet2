@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Image, Text, View, TouchableOpacity } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import Video from 'react-native-video';
 import { Images } from '../Themes';
 // Add Actions - replace 'Your' with whatever your reducer is called :)
@@ -22,8 +23,21 @@ class LandingScreen extends Component {
 	};
 
 	state = {
+		focused: true,
 		muted: false
 	};
+
+	componentDidMount() {
+		const { navigation } = this.props;
+		this.subscriptions = [
+			navigation.addListener('willFocus', () => this.setState({ focused: true })),
+			navigation.addListener('willBlur', () => this.setState({ focused: false }))
+		];
+	}
+
+	componentWillUnmount() {
+		this.subscriptions.forEach((subscription) => subscription.remove());
+	}
 
 	buttonStyle = (key) => {
 		const text = I18n.t(key);
@@ -49,14 +63,20 @@ class LandingScreen extends Component {
 	});
 
 	render() {
-		const { muted } = this.state;
+		const { focused, muted } = this.state;
 		const { unmute, mute } = Images.icons;
 
 		return (
 			<View style={styles.mainContainer}>
 				<Image source={Images.loginBackground} style={styles.backgroundImage} />
-				<Video source={{ uri: hls }} style={styles.fullScreen} resizeMode="cover" muted={muted} repeat />
-
+				<Video
+					source={{ uri: hls }}
+					style={styles.fullScreen}
+					resizeMode="cover"
+					paused={!focused}
+					muted={muted}
+					repeat
+				/>
 				<View style={styles.container}>
 					<View style={styles.centered}>
 						<Image source={Images.logoText} style={styles.logo} />
