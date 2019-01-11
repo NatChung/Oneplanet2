@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, Text, View, Alert } from 'react-native';
 import { Images } from '../Themes';
 import _ from 'lodash';
+import validator from 'validator';
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
@@ -29,11 +30,10 @@ class LoginScreen extends Component {
 
 	validations = {
 		account: (value) => {
-			if (value.length == 0) return false;
 			return true;
 		},
 		password: (value) => {
-			if (value.length < 6) return false;
+			if (validator.isLength(value, { max: 5 })) return false;
 			return true;
 		}
 	};
@@ -55,8 +55,8 @@ class LoginScreen extends Component {
 		const { account } = this.state;
 		const incorrectMaps = {
 			account: {
-				title: I18n.t('incorrectUsername'),
-				message: I18n.t('theUsernameYouEnteredDoesntAppearToBelongToAnAccountPleaseCheckYourUsernameAndTryAgain')
+				title: I18n.t('incorrectEmail'),
+				message: I18n.t('theEmailYouEnteredDoesntAppearToBelongToAnAccountPleaseCheckYourEmailAndTryAgain')
 			},
 			password: {
 				title: I18n.t('incorrectPasswordForAccount', { account }),
@@ -68,20 +68,41 @@ class LoginScreen extends Component {
 		Alert.alert(title, message, [ { text: I18n.t('tryAgain') } ]);
 	};
 
-	onResendEmail = () => {};
+	onResendEmail = async () => {
+		const { account } = this.state;
+		if (!account) return;
+		if (!validator.isEmail(account)) {
+			return Alert.alert('Error', I18n.t('incorrectEmail'));
+		}
+		const isNeedResend = await new Promise((resolve, reject) => {
+			Alert.alert(
+				I18n.t('sendANewPassword'),
+				I18n.t('theOldPasswordWillBeInvalidOk'),
+				[
+					{ text: I18n.t('cancel'), onPress: () => resolve(false), style: 'cancel' },
+					{ text: I18n.t('ok'), onPress: () => resolve(true) }
+				],
+				{ cancelable: false }
+			);
+		});
+		if (isNeedResend && validator.isEmail(account)) {
+			// Do something...
+		}
+	};
 
 	onForgotPassword = () => {};
 
 	handleInputChange = (fieldName) => (value) => {
-		this.setState({ [fieldName]: value }, this.validate);
+		this.setState({ [fieldName]: validator.trim(value) }, this.validate);
 	};
 
 	accountInputProps = () => ({
 		containerStyle: styles.textInputContainer,
 		value: this.state.account,
 		onChangeText: this.handleInputChange('account'),
-		placeholder: I18n.t('usernameOrEmail'),
-		placeholderTextColor: 'grey'
+		placeholder: I18n.t('email'),
+		placeholderTextColor: 'grey',
+		autoCapitalize: 'none'
 	});
 
 	passwordInputProps = () => ({
