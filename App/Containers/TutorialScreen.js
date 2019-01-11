@@ -7,6 +7,8 @@ import { Images } from '../Themes';
 
 // Styles
 import styles from './Styles/TutorialScreenStyle';
+import I18n from '../I18n';
+
 import RoundedButton from '../Components/RoundedButton';
 
 class TutorialScreen extends Component {
@@ -20,7 +22,7 @@ class TutorialScreen extends Component {
 					<Pages>
 						{Images.tutorials.map((img, i) => <Image key={i} style={styles.tutorialImage} source={img} />)}
 					</Pages>
-					<RoundedButton outline style={styles.skip} text="Skip" onPress={this.onSkip} />
+					<RoundedButton outline style={styles.skip} text={I18n.t('skip')} onPress={this.onSkip} />
 				</View>
 			</View>
 		);

@@ -20,5 +20,8 @@ export default StyleSheet.create({
 		backgroundColor: 'transparent',
 		borderWidth: 1,
 		borderColor: Colors.snow
+	},
+	disabled: {
+		opacity: 0.6,
 	}
 });
