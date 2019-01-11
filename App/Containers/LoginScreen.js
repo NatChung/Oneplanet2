@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Text, View } from 'react-native';
+import { Image, Text, View, Alert } from 'react-native';
 import { Images } from '../Themes';
 import _ from 'lodash';
 // Add Actions - replace 'Your' with whatever your reducer is called :)
@@ -51,7 +51,22 @@ class LoginScreen extends Component {
 	onGoogle = () => {};
 	onWechat = () => {};
 
-	onLogin = () => {};
+	onLogin = () => {
+		const { account } = this.state;
+		const incorrectMaps = {
+			account: {
+				title: I18n.t('incorrectUsername'),
+				message: I18n.t('theUsernameYouEnteredDoesntAppearToBelongToAnAccountPleaseCheckYourUsernameAndTryAgain')
+			},
+			password: {
+				title: I18n.t('incorrectPasswordForAccount', { account }),
+				message: I18n.t('thePasswordYouEnteredIsIncorrectPleaseTryAgain')
+			}
+		};
+		const type = 'account';
+		const { title, message } = incorrectMaps[type];
+		Alert.alert(title, message, [ { text: I18n.t('tryAgain') } ]);
+	};
 
 	onResendEmail = () => {};
 
