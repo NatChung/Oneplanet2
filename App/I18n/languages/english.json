@@ -28,5 +28,9 @@
 	"usernameOrEmail": "Username or email",
 	"resendTheEmail": "Resend the email.",
 	"youDidNotReceiveTheEmailResendTheEmail": "You did not receive the email? {{resendTheEmail}}",
-	"forgotPassword": "Forgot password?"
+	"forgotPassword": "Forgot password?",
+
+	"#":"EmailSentScree",
+	"theEmailHasBeenSentPleaseClickTheLinkInTheEmailToCompleteTheRegistrationProcess":"The email has been sent please click the link in the email to complete the registration process",
+	"ok":"OK"
 }
