@@ -26,6 +26,7 @@ export default StyleSheet.create({
 	},
 	error: {
 		color: 'red',
-		marginLeft: 20
+		marginLeft: 55,
+		marginTop: -10
 	}
 });
