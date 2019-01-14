@@ -10,6 +10,18 @@ import AppSyncConfig from '../aws-exports';
 import AWSAppSyncClient from 'aws-appsync';
 import { ApolloProvider } from 'react-apollo';
 import { Rehydrated } from 'aws-appsync-react';
+import { GoogleSignin } from 'react-native-google-signin'
+
+GoogleSignin.configure({
+	scopes: ['email', 'profile', 'openid' ], // what API you want to access on behalf of the user, default is email and profile
+	webClientId: '883353348649-k5lqtthfc0e8brfe47ufi4rkkp99r7pm.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+	offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+	hostedDomain: '', // specifies a hosted domain restriction
+	loginHint: '', // [iOS] The user's ID, or email address, to be prefilled in the authentication UI if possible. [See docs here](https://developers.google.com/identity/sign-in/ios/api/interface_g_i_d_sign_in.html#a0a68c7504c31ab0b728432565f6e33fd)
+	forceConsentPrompt: true, // [Android] if you want to show the authorization prompt at each login.
+	accountName: '', // [Android] specifies an account name on the device that should be used,
+	iosClientId:'883353348649-jbnu41msip3h4gue1nmikcpn43b7pirf.apps.googleusercontent.com'
+  })
 
 Amplify.configure(AppSyncConfig);
 // create our store

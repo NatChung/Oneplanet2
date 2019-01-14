@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, Text } from 'react-native'
+import { View, Image, Text, Alert} from 'react-native'
 import { Images } from '../Themes'
 import I18n from "../I18n"
 import validator from 'validator'
@@ -9,6 +9,8 @@ import { getUser } from "../Qraphql/Query";
 import SocailMediaButtons from "../Components/SocailMediaButtons"
 import RoundedButton from "../Components/RoundedButton"
 import RoundedTextInput from "../Components/RoundedTextInput"
+import { GoogleSignin } from 'react-native-google-signin'
+import to from 'await-to-js'
 // Styles
 import styles from './Styles/SingupScreenStyle'
 
@@ -30,9 +32,24 @@ class SignupScreen extends Component {
 
   onFb = () => {}
   onTwitter = () => {}
-  onGoogle= () => {}
-  onWechat = () => {}
 
+  onWechat = async () => {
+    await GoogleSignin.revokeAccess();
+    await GoogleSignin.signOut();
+  }
+
+  onGoogle= async () => {
+
+    const service = await GoogleSignin.hasPlayServices()
+    if(!service) return Alert.alert(I18n.t('Error'), I18n.t('googleSigninNotSupported'), [ { text: I18n.t('ok') } ]) 
+
+    const [signinError, userInfo] = await to(GoogleSignin.signIn())
+    if(signinError) return Alert.alert(I18n.t('Error'), I18n.t('googleSigninError'), [ { text: I18n.t('ok') } ]) 
+    
+    const {email, name, photo} = userInfo.user
+    this.props.navigation.navigate('AddProfileScreen', {email, nickname:name, photo})
+  }
+  
   onSignup = async (client) => {
     const { password, email } = this.state
     const {data} = await client.query({
