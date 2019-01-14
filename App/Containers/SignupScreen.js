@@ -48,7 +48,7 @@ class SignupScreen extends Component {
     if(!service) return Alert.alert(I18n.t('Error'), I18n.t('googleSigninNotSupported'), [ { text: I18n.t('ok') } ]) 
 
     const [signinError, userInfo] = await to(GoogleSignin.signIn())
-    if(signinError) return Alert.alert(I18n.t('Error'), I18n.t('googleSigninError'), [ { text: I18n.t('ok') } ]) 
+    if(signinError) return console.tron.log(signinError)
     
     const {email, name, photo} = userInfo.user
     const {data} = await client.query({query: getUser,variables: {id: email}})
