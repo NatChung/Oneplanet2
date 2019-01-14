@@ -18,7 +18,7 @@ const PrimaryNav = createStackNavigator({
 	LaunchScreen: { screen: LaunchScreen }
 },{
 	// Default config for all screens
-	initialRouteName: 'SignupScreen',
+	initialRouteName: 'LandingScreen',
 });
 
 
@@ -30,7 +30,7 @@ const PrimarySwitch = createSwitchNavigator({
 	TestCognitoContainer: { screen: TestCognitoContainer },
 	PrimaryNav
 },{
-	initialRouteName: 'PrimaryNav'
+	initialRouteName: 'TutorialScreen'
 })
 
 export default createAppContainer(PrimarySwitch);

@@ -43,25 +43,24 @@ class SignupScreen extends Component {
     if(!service) return Alert.alert(I18n.t('Error'), I18n.t('googleSigninNotSupported'), [ { text: I18n.t('ok') } ]) 
 
     const [signinError, userInfo] = await to(GoogleSignin.signIn())
-    console.tron.log(signinError)
     if(signinError) return Alert.alert(I18n.t('Error'), I18n.t('googleSigninError'), [ { text: I18n.t('ok') } ]) 
     
     const {email, name, photo} = userInfo.user
-    const [err, data] = await to(Auth.confirmSignUp(email.toLowerCase(), '000000', {forceAliasCreation: false}))
+    const [err, data] = await to(Auth.confirmSignUp(email, '000000', {forceAliasCreation: false}))
     if(err.code != 'UserNotFoundException') {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
       return Alert.alert(I18n.t('Error'), I18n.t('theEmailAlredyInUsed'), [ { text: I18n.t('ok') } ])
     }
 
-    this.props.navigation.navigate('AddProfileScreen', {email, nickname:name, avatarPath:photo})
+    this.props.navigation.navigate('AddProfileScreen', {email, nickname:name, avatarPath:photo, type:'google'})
   }
   
   onSignup = async () => {
-    const { password, email } = this.state
-    const [err, data] = await to(Auth.confirmSignUp(email.toLowerCase(), '000000', {forceAliasCreation: false}))
+    const {email, password} = this.state
+    const [err, data] = await to(Auth.confirmSignUp(email, '000000', {forceAliasCreation: false}))
     if(err.code != 'UserNotFoundException') return this.setState({emailError: I18n.t('theEmailAlredyInUsed')})
-    this.props.navigation.navigate('AddProfileScreen', {email, password})
+    this.props.navigation.navigate('AddProfileScreen', {email, password, type:'email'})
   }
 
   onCheckEamil = () => {
@@ -78,7 +77,7 @@ class SignupScreen extends Component {
 
   emailInputProps = () => ({
     value:this.state.email,
-    onChangeText:this.handleInputChange('email'),
+    onChangeText:this.onEmailChangeText,
     placeholder:I18n.t('emailAddress'),
     placeholderTextColor:'grey',
     error: this.state.emailError,
@@ -88,7 +87,7 @@ class SignupScreen extends Component {
   passwordInputProps = () => ({
     secureTextEntry:true,
     value:this.state.password,
-    onChangeText:this.handleInputChange('password'),
+    onChangeText:this.onPasswordChangeText,
     placeholder:I18n.t('password'),
     placeholderTextColor:'grey',
     error: this.state.passwordError,
@@ -114,13 +113,17 @@ class SignupScreen extends Component {
 		});
 		this.setState({ signupDisabled: !isValid });
   }
-  
-  handleInputChange = (fieldName) => (value) => {
-    this.setState({ [fieldName]: validator.trim(value) }, this.validate);
-    if(this.state.passwordError)  this.onCheckPassowrd()
-    if(this.state.emailError) this.onCheckEamil()
-	}
 
+  onPasswordChangeText = password => {
+    this.setState({password}, this.validate)
+    if(this.state.passwordError)  this.onCheckPassowrd()
+  }
+
+  onEmailChangeText = value => {
+    this.setState({email:value.toLowerCase()}, this.validate)
+    if(this.state.emailError) this.onCheckEamil()
+  }
+  
   render () {
     return (
       <View style={styles.container}>
