@@ -32,7 +32,7 @@ const client = new AWSAppSyncClient({
 	region: AppSyncConfig.aws_project_region,
 	auth: {
 		type: AppSyncConfig.aws_appsync_authenticationType,
-		apiKey: AppSyncConfig.aws_appsync_apiKey
+		apiKey: "da2-5g7wtkr52nhi3iw6hdqoe3qip4"
 		// jwtToken: async () => token, // Required when you use Cognito UserPools OR OpenID Connect. token object is obtained previously
 	},
 	complexObjectsCredentials: () => Amplify.Auth.currentCredentials()

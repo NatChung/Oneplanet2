@@ -18,7 +18,7 @@ const PrimaryNav = createStackNavigator({
 	LaunchScreen: { screen: LaunchScreen }
 },{
 	// Default config for all screens
-	initialRouteName: 'LandingScreen',
+	initialRouteName: 'SignupScreen',
 });
 
 
