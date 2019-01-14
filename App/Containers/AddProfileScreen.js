@@ -8,7 +8,7 @@ import ImagePicker from 'react-native-image-crop-picker'
 import to from 'await-to-js'
 import validator from 'validator'
 import _ from 'lodash'
-import { createUser } from "../Qraphql/Mutation"
+import { createUser } from "../Graphql/Mutation"
 import { Mutation } from 'react-apollo'
 import { Auth } from 'aws-amplify'
 import { v4 as uuid } from "uuid"
