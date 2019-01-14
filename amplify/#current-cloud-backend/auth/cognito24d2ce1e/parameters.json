@@ -1,6 +1,6 @@
 {
     "identityPoolName": "oneplanet218c09f6d_identitypool_18c09f6d",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "thirdPartyAuth": false,
     "lambdaLogPolicy": "cognito24d2ce1e_lambda_log_policy",
     "openIdLambdaRoleName": "cognito24d2ce1e_openid_lambda_role",

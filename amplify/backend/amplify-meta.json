@@ -19,7 +19,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/auth/cognito24d2ce1e-cloudformation-template.yml",
 				"logicalId": "authcognito24d2ce1e"
 			},
-			"lastPushTimeStamp": "2019-01-14T06:05:03.040Z",
+			"lastPushTimeStamp": "2019-01-14T10:38:02.038Z",
 			"output": {
 				"AppClientSecret": "1sns6ihs4c9lo68r2drmd62fmpkrdslhuump5krldbue8juubgsn",
 				"UserPoolId": "ap-northeast-1_TMTjvrae3",
@@ -29,7 +29,7 @@
 				"IdentityPoolId": "ap-northeast-1:228636e1-82e6-4e8e-b170-a0198e6f3746",
 				"IdentityPoolName": "oneplanet218c09f6d_identitypool_18c09f6d"
 			},
-			"lastPushDirHash": "zNwqe8f51MN1Nk4VxT1TYG7OoE0=",
+			"lastPushDirHash": "IcxObuPT8C77CqXU1ADehskebI4=",
 			"[object Object]": {}
 		}
 	},
@@ -47,8 +47,8 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"logicalId": "apioneplanet2"
 			},
-			"lastPushTimeStamp": "2019-01-14T06:05:03.041Z",
-			"lastPushDirHash": "05QP2idtXUZBPQbuxMZDI/2Jrn8="
+			"lastPushTimeStamp": "2019-01-14T10:38:02.584Z",
+			"lastPushDirHash": "W6BVSCFYNCQbdCBRX+PItEYTjyQ="
 		}
 	},
 	"storage": {
@@ -59,7 +59,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
 				"logicalId": "storages32eb41f05"
 			},
-			"lastPushTimeStamp": "2019-01-14T06:05:03.043Z",
+			"lastPushTimeStamp": "2019-01-14T10:38:02.039Z",
 			"output": {
 				"BucketName": "oneplanet2c6f70803f8f648fbabaf16d466ba1d74",
 				"Region": "ap-northeast-1"

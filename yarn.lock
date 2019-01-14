@@ -8276,6 +8276,11 @@ react-native-gesture-handler@^1.0.12:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
+react-native-google-signin@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-google-signin/-/react-native-google-signin-1.0.2.tgz#027b2bba3c03504170fdf6e44cd44bf65ecdbc7f"
+  integrity sha512-4HPPSecI29gX0Pu7h2E7ZYXnKO4r+6eh5f+Unm67liE1RfvCQfOqoDliPbK96Mb/91VgHwqyxi0sUEC4j54/AQ==
+
 react-native-i18n@2.0.14:
   version "2.0.14"
   resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-2.0.14.tgz#21503bd6cb21988d67aa6cfa39f495dede740325"

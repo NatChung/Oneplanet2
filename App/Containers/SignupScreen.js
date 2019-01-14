@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
-import { View, Image, Text } from 'react-native'
+import { View, Image, Text, Alert} from 'react-native'
 import { Images } from '../Themes'
 import I18n from "../I18n"
 import validator from 'validator'
 import _ from 'lodash'
-import { ApolloConsumer } from 'react-apollo'
-import { getUser } from "../Qraphql/Query";
 import SocailMediaButtons from "../Components/SocailMediaButtons"
 import RoundedButton from "../Components/RoundedButton"
 import RoundedTextInput from "../Components/RoundedTextInput"
+import { GoogleSignin } from 'react-native-google-signin'
+import { Auth } from 'aws-amplify'
+import to from 'await-to-js'
 // Styles
 import styles from './Styles/SingupScreenStyle'
 
@@ -30,17 +31,37 @@ class SignupScreen extends Component {
 
   onFb = () => {}
   onTwitter = () => {}
-  onGoogle= () => {}
-  onWechat = () => {}
 
-  onSignup = async (client) => {
+  onWechat = async () => {
+    await GoogleSignin.revokeAccess();
+    await GoogleSignin.signOut();
+  }
+
+  onGoogle= async () => {
+
+    const service = await GoogleSignin.hasPlayServices()
+    if(!service) return Alert.alert(I18n.t('Error'), I18n.t('googleSigninNotSupported'), [ { text: I18n.t('ok') } ]) 
+
+    const [signinError, userInfo] = await to(GoogleSignin.signIn())
+    console.tron.log(signinError)
+    if(signinError) return Alert.alert(I18n.t('Error'), I18n.t('googleSigninError'), [ { text: I18n.t('ok') } ]) 
+    
+    const {email, name, photo} = userInfo.user
+    const [err, data] = await to(Auth.confirmSignUp(email.toLowerCase(), '000000', {forceAliasCreation: false}))
+    if(err.code != 'UserNotFoundException') {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+      return Alert.alert(I18n.t('Error'), I18n.t('theEmailAlredyInUsed'), [ { text: I18n.t('ok') } ])
+    }
+
+    this.props.navigation.navigate('AddProfileScreen', {email, nickname:name, avatarPath:photo})
+  }
+  
+  onSignup = async () => {
     const { password, email } = this.state
-    const {data} = await client.query({
-      query: getUser,
-      variables: {id: email.toLowerCase()}
-    })
-    if(data.getUser) this.setState({emailError:I18n.t('existedEmail')})
-    else this.props.navigation.navigate('AddProfileScreen', {email, password})
+    const [err, data] = await to(Auth.confirmSignUp(email.toLowerCase(), '000000', {forceAliasCreation: false}))
+    if(err.code != 'UserNotFoundException') return this.setState({emailError: I18n.t('theEmailAlredyInUsed')})
+    this.props.navigation.navigate('AddProfileScreen', {email, password})
   }
 
   onCheckEamil = () => {
@@ -74,9 +95,9 @@ class SignupScreen extends Component {
     onBlur: this.onCheckPassowrd
   })
 
-  signupButtonProps = (client) => ({
+  signupButtonProps = () => ({
     text:I18n.t('signUp'),
-    onPress:() => this.onSignup(client),
+    onPress:this.onSignup,
     style: styles.signupButton,
     disabled: this.state.signupDisabled
   })
@@ -116,9 +137,7 @@ class SignupScreen extends Component {
           <Text style={styles.text}>{I18n.t('orSignUpWithEmail')}</Text>
           <RoundedTextInput {...this.emailInputProps()}/>
           <RoundedTextInput {...this.passwordInputProps()}/>
-          <ApolloConsumer >
-            {client => <RoundedButton {...this.signupButtonProps(client)} />}
-          </ApolloConsumer>
+          <RoundedButton {...this.signupButtonProps()} />
         </View>
       </View>
     )
