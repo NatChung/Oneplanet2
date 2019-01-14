@@ -84,7 +84,7 @@
 				"TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/auth/cognito24d2ce1e-cloudformation-template.yml",
 				"Parameters": {
 					"identityPoolName": "oneplanet218c09f6d_identitypool_18c09f6d",
-					"allowUnauthenticatedIdentities": false,
+					"allowUnauthenticatedIdentities": true,
 					"thirdPartyAuth": false,
 					"lambdaLogPolicy": "cognito24d2ce1e_lambda_log_policy",
 					"openIdLambdaRoleName": "cognito24d2ce1e_openid_lambda_role",
@@ -152,7 +152,7 @@
 					"authRoleName": "neplanet2-20190107150821-authRole",
 					"unauthRoleName": "neplanet2-20190107150821-unauthRole",
 					"authPermissions": "rw",
-					"unauthPermissions": ""
+					"unauthPermissions": "rw"
 				}
 			}
 		}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, Image, TouchableOpacity} from 'react-native'
+import { Text, View, Image, Alert} from 'react-native'
 import { Images } from "../Themes"
 import RoundedButton from "../Components/RoundedButton"
 import RoundedTextInput from "../Components/RoundedTextInput"
@@ -8,6 +8,12 @@ import ImagePicker from 'react-native-image-crop-picker'
 import to from 'await-to-js'
 import validator from 'validator'
 import _ from 'lodash'
+import { createUser } from "../Qraphql/Mutation"
+import { Mutation } from 'react-apollo'
+import { Auth, Storage } from 'aws-amplify'
+import { v4 as uuid } from "uuid"
+import AwsConfig from '../aws-exports'
+import RNFetchBlob from 'rn-fetch-blob'
 // Styles
 import styles from './Styles/AddProfileScreenStyle'
 
@@ -20,38 +26,58 @@ class AddProfileScreen extends Component {
     nextDisabled: true
   }
 
-  nicknameInputProps = () => ({
-    placeholderTextColor:'grey',
-    placeholder:I18n.t('nickname'),
-    value: this.state.nickname,
-    onChangeText: this.handleInputChange,
-    error: this.state.nicknameError
-  })
-
   handleInputChange = (value) => {
     this.setState({ 
       nickname: validator.trim(value),
       nicknameError: validator.isLength(value, { max: 14 }) ? null: I18n.t('incorrectNickanme')
     }, this.validate)
-	}
+  }
+  
+  onNextPress = async (createUser) => {
 
-  nextButtonProps = () => ({
-    style:styles.nextButton,
-    text:I18n.t('next'),
-    onPress:() => this.props.navigation.navigate('EmailSentScreen'),
-    disabled: this.state.nextDisabled
-  })
+    const email = this.props.navigation.getParam('email');
+    const password = this.props.navigation.getParam('password')
+    if(!email || !password) return Alert.alert(I18n.t('Error'), 'the props of Email/Password is empty', [ { text: I18n.t('ok') } ]) 
 
-  avatarProps = () => ({
-    style: (this.state.avatarPath) ? [styles.avatar, styles.avatarOutline] : styles.avatar,
-    source: (this.state.avatarPath) ? {uri: this.state.avatarPath} : Images.addProfile.avatar,
-  })
+    const [dataError, imageData] = await to(RNFetchBlob.fs.readFile(this.state.avatarPath,'base64'))
+    if(dataError) return Alert.alert(I18n.t('Error'), 'Read selected image fomr local got error', [ { text: I18n.t('ok') } ])
 
-  addPhotoProps = () => ({
-    outline: true,
-    text: (this.state.avatarPath) ? I18n.t('changeProfilePhoto') : I18n.t('addProfilePhoto'),
-    onPress:this.onAvatarPress
-  })
+    const username = email.toLowerCase()
+    const [authError, authData] = await to(Auth.signUp({
+      username,
+      password,
+      attributes: {email},
+    }))
+
+    if(!authError) this.addUserPorfile(username, this.state.nickname, imageData, createUser, )
+    else Alert.alert(authError.name, authError.message, [ { text: I18n.t('ok'), onPress: this.backToLadingPage } ])
+  }
+
+  backToLadingPage = () => this.props.navigation.navigate('SignupScreen')
+
+  addUserPorfile = async (id, nickname, imageData, createUser) => {
+  
+    const {identityId} = await Auth.currentCredentials()
+    const key = `public/${identityId}/${uuid()}.jpg`;
+    const [err, ret]  = await to(createUser({variables: {
+      input: {
+        id,
+        nickname,
+        avatar: {
+          bucket:AwsConfig.aws_user_files_s3_bucket,
+          key,
+          region:AwsConfig.aws_user_files_s3_bucket_region,
+          mimeType:'image/jpg',
+          localUri: new Buffer(imageData, 'base64')
+        }
+      }
+    }}))
+
+    if(err) {
+      Alert.alert(I18n.t('Error'), 'Create user profile failed', [ { text: I18n.t('ok') } ])
+      console.tron.log(err)
+    }
+  }
 
   onAvatarPress = async () => {
     [error, image] = await to(ImagePicker.openPicker({
@@ -78,6 +104,48 @@ class AddProfileScreen extends Component {
 		this.setState({ nextDisabled: !isValid });
   }
 
+  onCreateUserCompleted = data => {
+    console.tron.log('onCreateUserCompleted ' + JSON.stringify(data))
+    this.props.navigation.navigate('EmailSentScreen')
+  }
+
+  onCreawteUserError = error => {
+    console.tron.log('onCreawteUserError ' + JSON.stringify(error))
+    Alert.alert(authError.name, 'Sign up failed', [ { text: I18n.t('ok'), onPress: this.backToLadingPage } ])
+  }
+
+  nextButtonProps = (createUser) => ({
+    style:styles.nextButton,
+    text:I18n.t('next'),
+    onPress: () => this.onNextPress(createUser),
+    disabled: this.state.nextDisabled
+  })
+
+  avatarProps = () => ({
+    style: (this.state.avatarPath) ? [styles.avatar, styles.avatarOutline] : styles.avatar,
+    source: (this.state.avatarPath) ? {uri: this.state.avatarPath} : Images.addProfile.avatar,
+  })
+
+  addPhotoProps = () => ({
+    outline: true,
+    text: (this.state.avatarPath) ? I18n.t('changeProfilePhoto') : I18n.t('addProfilePhoto'),
+    onPress:this.onAvatarPress
+  })
+
+  mutationProps = () => ({
+    mutation:createUser,
+    onCompleted:this.onCreateUserCompleted,
+    onError:this.onCreawteUserError,
+  })
+
+  nicknameInputProps = () => ({
+    placeholderTextColor:'grey',
+    placeholder:I18n.t('nickname'),
+    value: this.state.nickname,
+    onChangeText: this.handleInputChange,
+    error: this.state.nicknameError
+  })
+  
   render () {
     return (
       <View style={styles.container}>
@@ -87,7 +155,10 @@ class AddProfileScreen extends Component {
         <Image {...this.avatarProps()} />
         <RoundedButton {...this.addPhotoProps()}/>
         <Text style={styles.text}>{I18n.t('addAProfilePhotoSoYourFriendsKnowItsYou')}</Text>
-        <RoundedButton {...this.nextButtonProps()}/>
+        
+        <Mutation {...this.mutationProps()}>
+          {(createUser) => <RoundedButton {...this.nextButtonProps(createUser)}/>}
+        </Mutation>
       </View>
     )
   }

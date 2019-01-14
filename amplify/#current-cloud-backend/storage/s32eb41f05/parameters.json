@@ -5,5 +5,5 @@
     "authRoleName": "neplanet2-20190107150821-authRole",
     "unauthRoleName": "neplanet2-20190107150821-unauthRole",
     "authPermissions": "rw",
-    "unauthPermissions": ""
+    "unauthPermissions": "rw"
 }
