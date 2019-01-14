@@ -8,8 +8,9 @@ import SocailMediaButtons from "../Components/SocailMediaButtons"
 import RoundedButton from "../Components/RoundedButton"
 import RoundedTextInput from "../Components/RoundedTextInput"
 import { GoogleSignin } from 'react-native-google-signin'
-import { Auth } from 'aws-amplify'
 import to from 'await-to-js'
+import { ApolloConsumer } from 'react-apollo'
+import { getUser } from "../Graphql/Query";
 // Styles
 import styles from './Styles/SingupScreenStyle'
 
@@ -29,39 +30,42 @@ class SignupScreen extends Component {
     signupDisabled: true
   }
 
-  onFb = () => {}
-  onTwitter = () => {}
-
-  onWechat = async () => {
+  googleSignup = async () => {
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
   }
 
-  onGoogle= async () => {
+  onFb = () => {}
+  onTwitter = () => {}
+
+  onWechat = () => {
+    this.googleSignup()
+  }
+
+  onGoogle =  client => async () => {
 
     const service = await GoogleSignin.hasPlayServices()
     if(!service) return Alert.alert(I18n.t('Error'), I18n.t('googleSigninNotSupported'), [ { text: I18n.t('ok') } ]) 
 
     const [signinError, userInfo] = await to(GoogleSignin.signIn())
-    console.tron.log(signinError)
-    if(signinError) return Alert.alert(I18n.t('Error'), I18n.t('googleSigninError'), [ { text: I18n.t('ok') } ]) 
+    if(signinError) return console.tron.log(signinError)
     
     const {email, name, photo} = userInfo.user
-    const [err, data] = await to(Auth.confirmSignUp(email.toLowerCase(), '000000', {forceAliasCreation: false}))
-    if(err.code != 'UserNotFoundException') {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
+    const {data} = await client.query({query: getUser,variables: {id: email}, fetchPolicy:'network-only'})
+    
+    if(data && data.getUser) {
+      this.googleSignup()
       return Alert.alert(I18n.t('Error'), I18n.t('theEmailAlredyInUsed'), [ { text: I18n.t('ok') } ])
-    }
+    } 
 
-    this.props.navigation.navigate('AddProfileScreen', {email, nickname:name, avatarPath:photo})
+    this.props.navigation.navigate('AddProfileScreen', {email, nickname:name, avatarPath:photo, type:'google'})
   }
   
-  onSignup = async () => {
-    const { password, email } = this.state
-    const [err, data] = await to(Auth.confirmSignUp(email.toLowerCase(), '000000', {forceAliasCreation: false}))
-    if(err.code != 'UserNotFoundException') return this.setState({emailError: I18n.t('theEmailAlredyInUsed')})
-    this.props.navigation.navigate('AddProfileScreen', {email, password})
+  onSignup = client => async () => {
+    const {email, password} = this.state
+    const {data} = await client.query({query: getUser,variables: {id: email}, fetchPolicy:'network-only'})
+    if(data && data.getUser) return this.setState({emailError: I18n.t('theEmailAlredyInUsed')})
+    this.props.navigation.navigate('AddProfileScreen', {email, password, type:'email'})
   }
 
   onCheckEamil = () => {
@@ -78,7 +82,7 @@ class SignupScreen extends Component {
 
   emailInputProps = () => ({
     value:this.state.email,
-    onChangeText:this.handleInputChange('email'),
+    onChangeText:this.onEmailChangeText,
     placeholder:I18n.t('emailAddress'),
     placeholderTextColor:'grey',
     error: this.state.emailError,
@@ -88,16 +92,16 @@ class SignupScreen extends Component {
   passwordInputProps = () => ({
     secureTextEntry:true,
     value:this.state.password,
-    onChangeText:this.handleInputChange('password'),
+    onChangeText:this.onPasswordChangeText,
     placeholder:I18n.t('password'),
     placeholderTextColor:'grey',
     error: this.state.passwordError,
     onBlur: this.onCheckPassowrd
   })
 
-  signupButtonProps = () => ({
+  signupButtonProps = client => ({
     text:I18n.t('signUp'),
-    onPress:this.onSignup,
+    onPress:this.onSignup(client),
     style: styles.signupButton,
     disabled: this.state.signupDisabled
   })
@@ -114,30 +118,38 @@ class SignupScreen extends Component {
 		});
 		this.setState({ signupDisabled: !isValid });
   }
-  
-  handleInputChange = (fieldName) => (value) => {
-    this.setState({ [fieldName]: validator.trim(value) }, this.validate);
-    if(this.state.passwordError)  this.onCheckPassowrd()
-    if(this.state.emailError) this.onCheckEamil()
-	}
 
+  onPasswordChangeText = password => {
+    this.setState({password}, this.validate)
+    if(this.state.passwordError)  this.onCheckPassowrd()
+  }
+
+  onEmailChangeText = value => {
+    this.setState({email:value.toLowerCase()}, this.validate)
+    if(this.state.emailError) this.onCheckEamil()
+  }
+  
   render () {
     return (
       <View style={styles.container}>
         <Image source={Images.loginBackground} style={styles.backgroundImage} />
         <View style={styles.socailMediaContainer}>
-          <SocailMediaButtons 
-            onWechat={this.onWechat}
-            onTwitter={this.onTwitter}
-            onGoogle={this.onGoogle}
-            onFb={this.onFb} />
+          <ApolloConsumer>
+            {client => (<SocailMediaButtons 
+              onWechat={this.onWechat}
+              onTwitter={this.onTwitter}
+              onGoogle={this.onGoogle(client)}
+              onFb={this.onFb} />)}
+            </ApolloConsumer>
             <Text style={styles.quickTitle}>{I18n.t('quickRegisteration')}</Text>
         </View>
         <View style={styles.emailContainer}>
           <Text style={styles.text}>{I18n.t('orSignUpWithEmail')}</Text>
           <RoundedTextInput {...this.emailInputProps()}/>
           <RoundedTextInput {...this.passwordInputProps()}/>
-          <RoundedButton {...this.signupButtonProps()} />
+          <ApolloConsumer>
+            {client => <RoundedButton {...this.signupButtonProps(client)} />}
+          </ApolloConsumer>
         </View>
       </View>
     )

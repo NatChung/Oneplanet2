@@ -32,7 +32,7 @@ const PrimarySwitch = createSwitchNavigator({
 	TestCognitoContainer: { screen: TestCognitoContainer },
 	PrimaryNav
 },{
-	initialRouteName: 'PrimaryNav'
+	initialRouteName: 'TutorialScreen'
 })
 
 export default createAppContainer(PrimarySwitch);

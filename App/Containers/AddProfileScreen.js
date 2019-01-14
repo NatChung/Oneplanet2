@@ -8,9 +8,9 @@ import ImagePicker from 'react-native-image-crop-picker'
 import to from 'await-to-js'
 import validator from 'validator'
 import _ from 'lodash'
-import { createUser } from "../Qraphql/Mutation"
+import { createUser } from "../Graphql/Mutation"
 import { Mutation } from 'react-apollo'
-import { Auth, Storage } from 'aws-amplify'
+import { Auth } from 'aws-amplify'
 import { v4 as uuid } from "uuid"
 import AwsConfig from '../aws-exports'
 import RNFetchBlob from 'rn-fetch-blob'
@@ -26,6 +26,12 @@ class AddProfileScreen extends Component {
     nextDisabled: true
   }
 
+  componentDidMount = async () => {
+    const {nickname, avatarPath} = this.props.navigation.state.params
+    this.setState({nickname, avatarPath}, this.validate)
+  }
+
+
   handleInputChange = (value) => {
     this.setState({ 
       nickname: validator.trim(value),
@@ -33,29 +39,49 @@ class AddProfileScreen extends Component {
     }, this.validate)
   }
   
-  onNextPress = async (createUser) => {
-
-    const email = this.props.navigation.getParam('email');
-    const password = this.props.navigation.getParam('password')
-    if(!email || !password) return Alert.alert(I18n.t('error'), I18n.t('missingEmailOrPassword'), [ { text: I18n.t('ok') } ]) 
-
-    const [dataError, imageData] = await to(RNFetchBlob.fs.readFile(this.state.avatarPath,'base64'))
-    if(dataError) return Alert.alert(I18n.t('error'), I18n.t('readSelectedImageError'), [ { text: I18n.t('ok') } ])
-
-    const username = email.toLowerCase()
-    const [authError, authData] = await to(Auth.signUp({
-      username,
+  emailSignUp = async (imageBuffer, createUser) => {
+    const {email, password} = this.props.navigation.state.params
+    const [authError, _] = await to(Auth.signUp({
+      username: email,
       password,
       attributes: {email},
     }))
 
-    if(!authError) this.addUserPorfile(username, this.state.nickname, imageData, createUser, )
+    if(!authError) this.addUserPorfile(username, this.state.nickname, imageBuffer, createUser )
     else Alert.alert(authError.name, authError.message, [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
+  }
+
+  googleSignUp = async (imageBuffer, createUser) => {
+    const {email} = this.props.navigation.state.params
+    this.addUserPorfile(email, this.state.nickname, imageBuffer, createUser )
+  }
+
+  onNextPress = async (createUser) => {
+
+    let imageBuffer = null
+    const isFile = (!/^(f|ht)tps?:\/\//i.test(this.state.avatarPath))
+
+    if(isFile){
+      const [dataError, imageData] = await to(RNFetchBlob.fs.readFile(this.state.avatarPath,'base64'))
+      if(dataError) return Alert.alert(I18n.t('error'), I18n.t('readSelectedImageError'), [ { text: I18n.t('ok') } ])
+      imageBuffer = new Buffer(imageData, 'base64')
+    }else {
+      const [dataError, imageData] = await to(RNFetchBlob.fetch('GET', this.state.avatarPath))
+      if(dataError) return Alert.alert(I18n.t('error'), I18n.t('readSelectedImageError'), [ { text: I18n.t('ok') } ])
+      imageBuffer = new Buffer(imageData.data, 'base64')
+    }
+    
+    const type = this.props.navigation.getParam('type')
+    switch(type){
+      case 'google': return this.googleSignUp(imageBuffer, createUser)
+      case 'email': return this.emailSignUp(imageBuffer, createUser)
+      default: this.onCreateUserError()
+    }
   }
 
   backToLandingScreen = () => this.props.navigation.navigate('LandingScreen')
 
-  addUserPorfile = async (id, nickname, imageData, createUser) => {
+  addUserPorfile = async (id, nickname, imageBuffer, createUser) => {
   
     const {identityId} = await Auth.currentCredentials()
     const key = `public/${identityId}/${uuid()}.jpg`;
@@ -68,7 +94,7 @@ class AddProfileScreen extends Component {
           key,
           region:AwsConfig.aws_user_files_s3_bucket_region,
           mimeType:'image/jpg',
-          localUri: new Buffer(imageData, 'base64')
+          localUri: imageBuffer
         }
       }
     }}))
@@ -80,12 +106,12 @@ class AddProfileScreen extends Component {
   }
 
   onAvatarPress = async () => {
-    [error, image] = await to(ImagePicker.openPicker({
+    const [error, image] = await to(ImagePicker.openPicker({
       width: 100,
       height: 100,
       cropping: true,
       cropperCircleOverlay: true,
-      compressImageQuality: 0.2
+      compressImageQuality: 0.1
     }))
 
     if(!error) this.setState({avatarPath: image.path}, this.validate)
@@ -105,13 +131,14 @@ class AddProfileScreen extends Component {
   }
 
   onCreateUserCompleted = data => {
-    console.tron.log('onCreateUserCompleted ' + JSON.stringify(data))
-    this.props.navigation.navigate('EmailSentScreen')
+    const {type} = this.props.navigation.state.params
+    if(type === 'email') this.props.navigation.navigate('EmailSentScreen')
+    else this.props.navigation.navigate('LandingScreen')
   }
 
-  onCreawteUserError = error => {
-    console.tron.log('onCreawteUserError ' + JSON.stringify(error))
-    Alert.alert(authError.name, I18n.t('signUpFailed'), [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
+  onCreateUserError = error => {
+    console.tron.log(error)
+    Alert.alert(error.name, I18n.t('signUpFailed'), [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
   }
 
   nextButtonProps = (createUser) => ({
@@ -135,7 +162,7 @@ class AddProfileScreen extends Component {
   mutationProps = () => ({
     mutation:createUser,
     onCompleted:this.onCreateUserCompleted,
-    onError:this.onCreawteUserError,
+    onError:this.onCreateUserError,
   })
 
   nicknameInputProps = () => ({
