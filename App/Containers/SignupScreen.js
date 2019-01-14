@@ -51,7 +51,8 @@ class SignupScreen extends Component {
     if(signinError) return console.tron.log(signinError)
     
     const {email, name, photo} = userInfo.user
-    const {data} = await client.query({query: getUser,variables: {id: email}})
+    const {data} = await client.query({query: getUser,variables: {id: email}, fetchPolicy:'network-only'})
+    
     if(data && data.getUser) {
       this.googleSignup()
       return Alert.alert(I18n.t('Error'), I18n.t('theEmailAlredyInUsed'), [ { text: I18n.t('ok') } ])
@@ -62,7 +63,7 @@ class SignupScreen extends Component {
   
   onSignup = client => async () => {
     const {email, password} = this.state
-    const {data} = await client.query({query: getUser,variables: {id: email}})
+    const {data} = await client.query({query: getUser,variables: {id: email}, fetchPolicy:'network-only'})
     if(data && data.getUser) return this.setState({emailError: I18n.t('theEmailAlredyInUsed')})
     this.props.navigation.navigate('AddProfileScreen', {email, password, type:'email'})
   }
