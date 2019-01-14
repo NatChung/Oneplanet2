@@ -8,8 +8,9 @@ import SocailMediaButtons from "../Components/SocailMediaButtons"
 import RoundedButton from "../Components/RoundedButton"
 import RoundedTextInput from "../Components/RoundedTextInput"
 import { GoogleSignin } from 'react-native-google-signin'
-import { Auth } from 'aws-amplify'
 import to from 'await-to-js'
+import { ApolloConsumer } from 'react-apollo'
+import { getUser } from "../Graphql/Query";
 // Styles
 import styles from './Styles/SingupScreenStyle'
 
@@ -29,15 +30,19 @@ class SignupScreen extends Component {
     signupDisabled: true
   }
 
-  onFb = () => {}
-  onTwitter = () => {}
-
-  onWechat = async () => {
+  googleSignup = async () => {
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
   }
 
-  onGoogle= async () => {
+  onFb = () => {}
+  onTwitter = () => {}
+
+  onWechat = () => {
+    this.googleSignup()
+  }
+
+  onGoogle =  client => async () => {
 
     const service = await GoogleSignin.hasPlayServices()
     if(!service) return Alert.alert(I18n.t('Error'), I18n.t('googleSigninNotSupported'), [ { text: I18n.t('ok') } ]) 
@@ -46,20 +51,19 @@ class SignupScreen extends Component {
     if(signinError) return Alert.alert(I18n.t('Error'), I18n.t('googleSigninError'), [ { text: I18n.t('ok') } ]) 
     
     const {email, name, photo} = userInfo.user
-    const [err, data] = await to(Auth.confirmSignUp(email, '000000', {forceAliasCreation: false}))
-    if(err.code != 'UserNotFoundException') {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
+    const {data} = await client.query({query: getUser,variables: {id: email}})
+    if(data && data.getUser) {
+      this.googleSignup()
       return Alert.alert(I18n.t('Error'), I18n.t('theEmailAlredyInUsed'), [ { text: I18n.t('ok') } ])
-    }
+    } 
 
     this.props.navigation.navigate('AddProfileScreen', {email, nickname:name, avatarPath:photo, type:'google'})
   }
   
-  onSignup = async () => {
+  onSignup = client => async () => {
     const {email, password} = this.state
-    const [err, data] = await to(Auth.confirmSignUp(email, '000000', {forceAliasCreation: false}))
-    if(err.code != 'UserNotFoundException') return this.setState({emailError: I18n.t('theEmailAlredyInUsed')})
+    const {data} = await client.query({query: getUser,variables: {id: email}})
+    if(data && data.getUser) return this.setState({emailError: I18n.t('theEmailAlredyInUsed')})
     this.props.navigation.navigate('AddProfileScreen', {email, password, type:'email'})
   }
 
@@ -94,9 +98,9 @@ class SignupScreen extends Component {
     onBlur: this.onCheckPassowrd
   })
 
-  signupButtonProps = () => ({
+  signupButtonProps = client => ({
     text:I18n.t('signUp'),
-    onPress:this.onSignup,
+    onPress:this.onSignup(client),
     style: styles.signupButton,
     disabled: this.state.signupDisabled
   })
@@ -129,18 +133,22 @@ class SignupScreen extends Component {
       <View style={styles.container}>
         <Image source={Images.loginBackground} style={styles.backgroundImage} />
         <View style={styles.socailMediaContainer}>
-          <SocailMediaButtons 
-            onWechat={this.onWechat}
-            onTwitter={this.onTwitter}
-            onGoogle={this.onGoogle}
-            onFb={this.onFb} />
+          <ApolloConsumer>
+            {client => (<SocailMediaButtons 
+              onWechat={this.onWechat}
+              onTwitter={this.onTwitter}
+              onGoogle={this.onGoogle(client)}
+              onFb={this.onFb} />)}
+            </ApolloConsumer>
             <Text style={styles.quickTitle}>{I18n.t('quickRegisteration')}</Text>
         </View>
         <View style={styles.emailContainer}>
           <Text style={styles.text}>{I18n.t('orSignUpWithEmail')}</Text>
           <RoundedTextInput {...this.emailInputProps()}/>
           <RoundedTextInput {...this.passwordInputProps()}/>
-          <RoundedButton {...this.signupButtonProps()} />
+          <ApolloConsumer>
+            {client => <RoundedButton {...this.signupButtonProps(client)} />}
+          </ApolloConsumer>
         </View>
       </View>
     )
