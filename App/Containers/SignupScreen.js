@@ -4,6 +4,8 @@ import { Images } from '../Themes'
 import I18n from "../I18n"
 import validator from 'validator'
 import _ from 'lodash'
+import { ApolloConsumer } from 'react-apollo'
+import { getUser } from "../Qraphql/Query";
 import SocailMediaButtons from "../Components/SocailMediaButtons"
 import RoundedButton from "../Components/RoundedButton"
 import RoundedTextInput from "../Components/RoundedTextInput"
@@ -31,9 +33,14 @@ class SignupScreen extends Component {
   onGoogle= () => {}
   onWechat = () => {}
 
-  onSignup = async () => {
+  onSignup = async (client) => {
     const { password, email } = this.state
-    this.props.navigation.navigate('AddProfileScreen', {password, email})
+    const {data} = await client.query({
+      query: getUser,
+      variables: {id: email.toLowerCase()}
+    })
+    if(data.getUser) this.setState({emailError:I18n.t('existedEmail')})
+    else this.props.navigation.navigate('AddProfileScreen', {email, password})
   }
 
   onCheckEamil = () => {
@@ -67,9 +74,9 @@ class SignupScreen extends Component {
     onBlur: this.onCheckPassowrd
   })
 
-  signupButtonProps = () => ({
+  signupButtonProps = (client) => ({
     text:I18n.t('signUp'),
-    onPress:this.onSignup,
+    onPress:() => this.onSignup(client),
     style: styles.signupButton,
     disabled: this.state.signupDisabled
   })
@@ -109,7 +116,9 @@ class SignupScreen extends Component {
           <Text style={styles.text}>{I18n.t('orSignUpWithEmail')}</Text>
           <RoundedTextInput {...this.emailInputProps()}/>
           <RoundedTextInput {...this.passwordInputProps()}/>
-          <RoundedButton {...this.signupButtonProps()} />
+          <ApolloConsumer >
+            {client => <RoundedButton {...this.signupButtonProps(client)} />}
+          </ApolloConsumer>
         </View>
       </View>
     )

@@ -12,14 +12,20 @@ export default StyleSheet.create({
     color: Colors.snow,
     textAlign: 'center'
   },
-  imageButton: {
-    alignSelf:'center',
-  },
   nextButton: {
     marginTop: 30,
     backgroundColor:Colors.oneplanet.button
   },
   avatar:{
     marginVertical: 40,
+    width: 80,
+    height: 80,
+    alignSelf:'center',
   },
+  avatarOutline: {
+    backgroundColor: 'transparent',
+		borderWidth: 1,
+    borderColor: Colors.snow,
+    borderRadius: 40,
+  }
 })
