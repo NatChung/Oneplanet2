@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Image, Text, View, Alert } from 'react-native';
+import { Auth } from 'aws-amplify';
 import { Images } from '../Themes';
 import _ from 'lodash';
 import validator from 'validator';
@@ -51,21 +52,33 @@ class LoginScreen extends Component {
 	onGoogle = () => {};
 	onWechat = () => {};
 
-	onLogin = () => {
-		const { account } = this.state;
-		const incorrectMaps = {
-			account: {
-				title: I18n.t('incorrectEmail'),
-				message: I18n.t('theEmailYouEnteredDoesntAppearToBelongToAnAccountPleaseCheckYourEmailAndTryAgain')
-			},
-			password: {
-				title: I18n.t('incorrectPasswordForAccount', { account }),
-				message: I18n.t('thePasswordYouEnteredIsIncorrectPleaseTryAgain')
+	onLogin = async () => {
+		const { account, password } = this.state;
+
+		try {
+			const user = await Auth.signIn(account, password);
+			console.tron.log('user:', user);
+			Alert.alert('[DEV] Success', user.username);
+		} catch (error) {
+			const exceptionMaps = {
+				UserNotFoundException: {
+					title: I18n.t('incorrectEmail'),
+					message: I18n.t('theEmailYouEnteredDoesntAppearToBelongToAnAccountPleaseCheckYourEmailAndTryAgain')
+				},
+				NotAuthorizedException: {
+					title: I18n.t('incorrectPasswordForAccount', { account }),
+					message: I18n.t('thePasswordYouEnteredIsIncorrectPleaseTryAgain')
+				}
+			};
+			const { code, name, message } = error;
+			console.tron.log('error:', error);
+			if (_.has(exceptionMaps, code)) {
+				const { title, message } = exceptionMaps[code];
+				Alert.alert(title, message, [ { text: I18n.t('tryAgain') } ]);
+			} else {
+				Alert.alert(name, message);
 			}
-		};
-		const type = 'account';
-		const { title, message } = incorrectMaps[type];
-		Alert.alert(title, message, [ { text: I18n.t('tryAgain') } ]);
+		}
 	};
 
 	onResendEmail = async () => {
@@ -85,7 +98,7 @@ class LoginScreen extends Component {
 				{ cancelable: false }
 			);
 		});
-		if (isNeedResend && validator.isEmail(account)) {
+		if (isNeedResend) {
 			// Do something...
 		}
 	};
