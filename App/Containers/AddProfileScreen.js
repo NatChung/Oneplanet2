@@ -37,10 +37,10 @@ class AddProfileScreen extends Component {
 
     const email = this.props.navigation.getParam('email');
     const password = this.props.navigation.getParam('password')
-    if(!email || !password) return Alert.alert(I18n.t('Error'), 'the props of Email/Password is empty', [ { text: I18n.t('ok') } ]) 
+    if(!email || !password) return Alert.alert(I18n.t('error'), I18n.t('missingEmailOrPassword'), [ { text: I18n.t('ok') } ]) 
 
     const [dataError, imageData] = await to(RNFetchBlob.fs.readFile(this.state.avatarPath,'base64'))
-    if(dataError) return Alert.alert(I18n.t('Error'), 'Read selected image fomr local got error', [ { text: I18n.t('ok') } ])
+    if(dataError) return Alert.alert(I18n.t('error'), I18n.t('readSelectedImageError'), [ { text: I18n.t('ok') } ])
 
     const username = email.toLowerCase()
     const [authError, authData] = await to(Auth.signUp({
@@ -74,7 +74,7 @@ class AddProfileScreen extends Component {
     }}))
 
     if(err) {
-      Alert.alert(I18n.t('Error'), 'Create user profile failed', [ { text: I18n.t('ok') } ])
+      Alert.alert(I18n.t('error'), I18n.t('createUserProfileFailed'), [ { text: I18n.t('ok') } ])
       console.tron.log(err)
     }
   }
@@ -111,7 +111,7 @@ class AddProfileScreen extends Component {
 
   onCreawteUserError = error => {
     console.tron.log('onCreawteUserError ' + JSON.stringify(error))
-    Alert.alert(authError.name, 'Sign up failed', [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
+    Alert.alert(authError.name, I18n.t('signUpFailed'), [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
   }
 
   nextButtonProps = (createUser) => ({
