@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "apisauce": "^0.14.2",
+    "await-to-js": "^2.1.1",
     "aws-amplify": "^1.1.18",
     "aws-amplify-react-native": "^2.1.6",
     "aws-appsync": "^1.7.0",
@@ -46,6 +47,7 @@
     "react-native-config": "^0.10.0",
     "react-native-gesture-handler": "1.0.9",
     "react-native-i18n": "2.0.14",
+    "react-native-image-crop-picker": "^0.21.3",
     "react-native-iphone-x-helper": "^1.2.0",
     "react-native-pages": "^0.7.0",
     "react-native-splash-screen": "^3.1.1",

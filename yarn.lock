@@ -1396,6 +1396,11 @@ autoprefixer@^7.2.6:
     postcss "^6.0.17"
     postcss-value-parser "^3.2.3"
 
+await-to-js@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/await-to-js/-/await-to-js-2.1.1.tgz#c2093cd5a386f2bb945d79b292817bbc3f41b31b"
+  integrity sha512-CHBC6gQGCIzjZ09tJ+XmpQoZOn4GdWePB4qUweCaKNJ0D3f115YdhmYVTZ4rMVpiJ3cFzZcTYK1VMYEICV4YXw==
+
 aws-amplify-react-native@^2.1.6:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/aws-amplify-react-native/-/aws-amplify-react-native-2.1.6.tgz#0b7ae6f40beccbd72d33886b055488df986f7c7b"
@@ -8276,6 +8281,11 @@ react-native-i18n@2.0.14:
   resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-2.0.14.tgz#21503bd6cb21988d67aa6cfa39f495dede740325"
   dependencies:
     i18n-js "^3.0.11"
+
+react-native-image-crop-picker@^0.21.3:
+  version "0.21.3"
+  resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.21.3.tgz#04457a3f2a888949f51be4a670dcf2520b9994f8"
+  integrity sha512-qzY8aSYZxH4L9XYRk4V1n8x1gfq+ykNG0Kc0a9ne+JWwAQkf2P8aTKeNd4noNFZEOSJBiD4XXE/pbX55dQ5F3g==
 
 react-native-iphone-x-helper@^1.0.2, react-native-iphone-x-helper@^1.2.0:
   version "1.2.0"
