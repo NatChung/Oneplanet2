@@ -51,7 +51,7 @@ class LandingScreen extends Component {
 
 	onLater = () => {};
 
-	onTerms = () => {};
+	onTerms = () => this.props.navigation.navigate('TermsScreen');
 
 	toggleMute = () => {
 		const { muted } = this.state;
