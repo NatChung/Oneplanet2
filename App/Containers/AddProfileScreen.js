@@ -50,10 +50,10 @@ class AddProfileScreen extends Component {
     }))
 
     if(!authError) this.addUserPorfile(username, this.state.nickname, imageData, createUser, )
-    else Alert.alert(authError.name, authError.message, [ { text: I18n.t('ok'), onPress: this.backToLadingPage } ])
+    else Alert.alert(authError.name, authError.message, [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
   }
 
-  backToLadingPage = () => this.props.navigation.navigate('SignupScreen')
+  backToLandingScreen = () => this.props.navigation.navigate('LandingScreen')
 
   addUserPorfile = async (id, nickname, imageData, createUser) => {
   
@@ -111,7 +111,7 @@ class AddProfileScreen extends Component {
 
   onCreawteUserError = error => {
     console.tron.log('onCreawteUserError ' + JSON.stringify(error))
-    Alert.alert(authError.name, 'Sign up failed', [ { text: I18n.t('ok'), onPress: this.backToLadingPage } ])
+    Alert.alert(authError.name, 'Sign up failed', [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
   }
 
   nextButtonProps = (createUser) => ({

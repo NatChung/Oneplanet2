@@ -14,7 +14,7 @@ class EmailSentScreen extends Component {
   okButtonProps = () => ({
     style:styles.okButton,
     text:I18n.t('ok'),
-    onPress:() => this.props.navigation.navigate('LoginScreen')
+    onPress:() => this.props.navigation.navigate('LandingScreen')
   })
 
   emilSentInfo = () => I18n.t('theEmailHasBeenSentPleaseClickTheLinkInTheEmailToCompleteTheRegistrationProcess')
