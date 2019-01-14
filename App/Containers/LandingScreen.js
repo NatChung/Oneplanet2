@@ -19,6 +19,7 @@ const hls = 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8';
 class LandingScreen extends Component {
 	static navigationOptions = {
 		header: null,
+		headerTransparent: true,
 		headerBackTitle: null
 	};
 
