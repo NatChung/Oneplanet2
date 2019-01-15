@@ -10,7 +10,7 @@ import {
 
 class AccountChecker{
 
-    addEmail = (client, {email}, {avatarPath, nickname, subType}) => new Promise(resolve => {
+    addEmail = (client, {email}, {avatarPath, nickname, subType, id}) => new Promise(resolve => {
         client.query({
             query: getUser,
             variables: {id: email},
@@ -25,6 +25,7 @@ class AccountChecker{
                     avatarPath,
                     nickname,
                     subType,
+                    id,
                     type:'addEmail'
                 },
             })

@@ -8,7 +8,7 @@ import ImagePicker from 'react-native-image-crop-picker'
 import to from 'await-to-js'
 import validator from 'validator'
 import _ from 'lodash'
-import { createUser, createFbExtEmail } from "../../src/graphql/mutations"
+import { createUser, createFbExtEmail, createWechatExtEmail, createTwitterExtEmail } from "../../src/graphql/mutations"
 import { Mutation } from 'react-apollo'
 import { Auth } from 'aws-amplify'
 import { v4 as uuid } from "uuid"
@@ -28,14 +28,28 @@ const mapper = {
     <Mutation mutation={createFbExtEmail}>
       {(mutation, result) => render({ mutation, result })}
     </Mutation>
-  )
+  ),
+  wechatExtEmail: ({render}) => (
+    <Mutation mutation={createWechatExtEmail}>
+      {(mutation, result) => render({ mutation, result })}
+    </Mutation>
+  ),
+  twitterExtEmail: ({render}) => (
+    <Mutation mutation={createTwitterExtEmail}>
+      {(mutation, result) => render({ mutation, result })}
+    </Mutation>
+  ),
 }
 
-const mapProps = ({ user, fbExtEmail }) => ({
+const mapProps = ({ user, fbExtEmail, wechatExtEmail, twitterExtEmail}) => ({
   createUser: user.mutation,
   userResult: user.result,
   createFbExtEmail: fbExtEmail.mutation,
-  fbExtEmailResult: fbExtEmail.result
+  fbExtEmailResult: fbExtEmail.result,
+  createWechatExtEmail: wechatExtEmail.mutation,
+  wechatExtEmailResult: wechatExtEmail.result,
+  createTwitterExtEmail: twitterExtEmail.mutation,
+  twitterExtEmailResult: twitterExtEmail.result,
 })
 
 class AddProfileScreen extends Component {
@@ -60,8 +74,32 @@ class AddProfileScreen extends Component {
     }, this.validate)
   }
 
-  addEmailSignUp = async (imageBuffer, createUser) => {
-    console.tron.log(this.props.navigation.state.params)
+  addEmailSignUp = async (imageBuffer, createUser, extEmail) => {
+
+    const {email, id} = this.props.navigation.state.params
+    const password = uuid()
+    const [error, _] = await to(extEmail({
+      variables: {
+        input: {
+          id,
+          email,
+          sub: password
+        }
+      }
+    }))
+
+    if(error) return console.tron.log('error', error)
+
+    const [authError, __] = await to(Auth.signUp({
+      username: email,
+      password,
+      attributes: {email},
+    }))
+
+    console.tron.log('authError', authError)
+
+    if(!authError) this.addUserPorfile(email, this.state.nickname, imageBuffer, createUser )
+    else Alert.alert(authError.name, authError.message, [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
   }
   
   emailSignUp = async (imageBuffer, createUser) => {
@@ -81,9 +119,17 @@ class AddProfileScreen extends Component {
     this.addUserPorfile(email, this.state.nickname, imageBuffer, createUser )
   }
 
+  getExtEmailType(subType, props){
+    const {createFbExtEmail, createWechatExtEmail, createTwitterExtEmail} = props
+    switch (subType) {
+      case 'fb': return createFbExtEmail
+      case 'wechat': return createWechatExtEmail
+      case 'twitter': return createTwitterExtEmail
+      default: return createFbExtEmail
+    }
+  }
+
   onNextPress = props => async () => {
-    console.tron.log(props)
-    return {}
 
     let imageBuffer = null
     const isFile = (!/^(f|ht)tps?:\/\//i.test(this.state.avatarPath))
@@ -97,21 +143,21 @@ class AddProfileScreen extends Component {
       if(dataError) return Alert.alert(I18n.t('error'), I18n.t('readSelectedImageError'), [ { text: I18n.t('ok') } ])
       imageBuffer = new Buffer(imageData.data, 'base64')
     }
-    
-    const type = this.props.navigation.getParam('type')
+
+    const {createUser} = props
+    const {type, subType} = this.props.navigation.state.params
     switch(type){
       case 'fb':
       case 'google': return this.socialMediaSignUp(imageBuffer, createUser)
-      case 'addEmail': return this.addEmailSignUp(imageBuffer, createUser)
+      case 'addEmail': return this.addEmailSignUp(imageBuffer, createUser, this.getExtEmailType(subType, props))
       case 'email': return this.emailSignUp(imageBuffer, createUser)
-      default: this.onCreateUserError('Signup type error')
+      default: console.tron.log('Signup type error')
     }
   }
 
   backToLandingScreen = () => this.props.navigation.navigate('LandingScreen')
 
   addUserPorfile = async (id, nickname, imageBuffer, createUser) => {
-  
     const {identityId} = await Auth.currentCredentials()
     const key = `public/${identityId}/${uuid()}.jpg`;
     const [err, ret]  = await to(createUser({variables: {
@@ -131,6 +177,8 @@ class AddProfileScreen extends Component {
     if(err) {
       Alert.alert(I18n.t('error'), I18n.t('createUserProfileFailed'), [ { text: I18n.t('ok') } ])
       console.tron.log(err)
+    }else{
+      this.props.navigation.navigate('LandingScreen')
     }
   }
 
@@ -157,17 +205,6 @@ class AddProfileScreen extends Component {
 			return value && validate(value);
     });
 		this.setState({ nextDisabled: !isValid });
-  }
-
-  onCreateUserCompleted = data => {
-    const {type} = this.props.navigation.state.params
-    if(type === 'email' || type === 'addEmail') this.props.navigation.navigate('EmailSentScreen')
-    else this.props.navigation.navigate('LandingScreen')
-  }
-
-  onCreateUserError = error => {
-    console.tron.log(error)
-    Alert.alert(error.name, I18n.t('signUpFailed'), [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
   }
 
   nextButtonProps = (props) => ({
