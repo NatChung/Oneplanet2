@@ -7,10 +7,9 @@ import _ from 'lodash'
 import SocailMediaButtons from "../Components/SocailMediaButtons"
 import RoundedButton from "../Components/RoundedButton"
 import RoundedTextInput from "../Components/RoundedTextInput"
-import { GoogleSignin } from 'react-native-google-signin'
-import to from 'await-to-js'
 import { ApolloConsumer } from 'react-apollo'
-import { getUser } from "../Graphql/Query";
+import { LoginManager, GraphRequest, GraphRequestManager, AccessToken} from 'react-native-fbsdk'
+import {Signup} from "../Lib/Auth";
 // Styles
 import styles from './Styles/SingupScreenStyle'
 
@@ -30,42 +29,22 @@ class SignupScreen extends Component {
     signupDisabled: true
   }
 
-  googleSignup = async () => {
-    await GoogleSignin.revokeAccess();
-    await GoogleSignin.signOut();
-  }
-
   onFb = () => {}
   onTwitter = () => {}
+  onWechat = () => {}
+  
+  
 
-  onWechat = () => {
-    this.googleSignup()
-  }
 
   onGoogle =  client => async () => {
-
-    const service = await GoogleSignin.hasPlayServices()
-    if(!service) return Alert.alert(I18n.t('Error'), I18n.t('googleSigninNotSupported'), [ { text: I18n.t('ok') } ]) 
-
-    const [signinError, userInfo] = await to(GoogleSignin.signIn())
-    if(signinError) return console.tron.log(signinError)
-    
-    const {email, name, photo} = userInfo.user
-    const {data} = await client.query({query: getUser,variables: {id: email}, fetchPolicy:'network-only'})
-    
-    if(data && data.getUser) {
-      this.googleSignup()
-      return Alert.alert(I18n.t('Error'), I18n.t('theEmailAlredyInUsed'), [ { text: I18n.t('ok') } ])
-    } 
-
-    this.props.navigation.navigate('AddProfileScreen', {email, nickname:name, avatarPath:photo, type:'google'})
+    const result = await Signup.google(client)
+    if(!result.error) this.props.navigation.navigate('AddProfileScreen', result.params)
   }
   
   onSignup = client => async () => {
-    const {email, password} = this.state
-    const {data} = await client.query({query: getUser,variables: {id: email}, fetchPolicy:'network-only'})
-    if(data && data.getUser) return this.setState({emailError: I18n.t('theEmailAlredyInUsed')})
-    this.props.navigation.navigate('AddProfileScreen', {email, password, type:'email'})
+    const result = await Signup.email(client, this.state)
+    if(result.error) return this.setState({emailError: I18n.t(result.error.message)})
+    this.props.navigation.navigate('AddProfileScreen', result.params)
   }
 
   onCheckEamil = () => {
@@ -106,7 +85,7 @@ class SignupScreen extends Component {
     disabled: this.state.signupDisabled
   })
 
-  validations = {
+	validations = {
 		email: (value) => validator.isEmail(value),
 		password: (value) => !(validator.isLength(value, { max: 5 }))
 	}
