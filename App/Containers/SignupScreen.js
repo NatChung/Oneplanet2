@@ -34,7 +34,7 @@ class SignupScreen extends Component {
   onWechat = () => {}
 
   onWithoutEmail = client => async () => {
-    const result = await AccountChedck.withoutEmail()
+    const result = await AccountChecker.withoutEmail()
     if(!result.error) {
       if(result.email) this.props.navigation.navigate('AddProfileScreen', result.params)
       else this.props.navigation.navigate('AddEmailScreen', result.params)
