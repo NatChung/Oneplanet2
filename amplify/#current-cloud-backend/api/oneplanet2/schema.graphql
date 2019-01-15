@@ -15,6 +15,24 @@
 #   post: Post @connection(name: "PostComments")
 # }
 
+type FbExtEmail @model {
+    id: ID!
+    email: String!
+    sub: String!
+}
+
+type WechatExtEmail @model {
+    id: ID!
+    email: String!
+    sub: String!
+}
+
+type TwitterExtEmail @model {
+    id: ID!,
+    email: String!
+    sub: String!
+}
+
 type User @model {
   id: ID! #email
   nickname: String!

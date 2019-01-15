@@ -1,7 +1,7 @@
 {
     "AppSyncApiName": "oneplanet2",
-    "schemaGraphql": "s3://neplanet2-20190107150821-deployment/amplify-appsync-files/schema.graphql.1547462209299",
+    "schemaGraphql": "s3://neplanet2-20190107150821-deployment/amplify-appsync-files/schema.graphql.1547563429160",
     "ResolverBucket": "neplanet2-20190107150821-deployment",
     "ResolverRootKey": "amplify-appsync-files",
-    "DeploymentTimestamp": "1547462209299"
+    "DeploymentTimestamp": "1547563429160"
 }

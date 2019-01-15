@@ -19,7 +19,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/auth/cognito24d2ce1e-cloudformation-template.yml",
 				"logicalId": "authcognito24d2ce1e"
 			},
-			"lastPushTimeStamp": "2019-01-14T10:38:02.038Z",
+			"lastPushTimeStamp": "2019-01-15T14:45:29.795Z",
 			"output": {
 				"AppClientSecret": "1sns6ihs4c9lo68r2drmd62fmpkrdslhuump5krldbue8juubgsn",
 				"UserPoolId": "ap-northeast-1_TMTjvrae3",
@@ -47,8 +47,8 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"logicalId": "apioneplanet2"
 			},
-			"lastPushTimeStamp": "2019-01-14T10:38:02.584Z",
-			"lastPushDirHash": "W6BVSCFYNCQbdCBRX+PItEYTjyQ="
+			"lastPushTimeStamp": "2019-01-15T14:45:31.606Z",
+			"lastPushDirHash": "i4l1HqOs2og89W3lSHsVc4vugMc="
 		}
 	},
 	"storage": {
@@ -59,7 +59,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/neplanet2-20190107150821-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
 				"logicalId": "storages32eb41f05"
 			},
-			"lastPushTimeStamp": "2019-01-14T10:38:02.039Z",
+			"lastPushTimeStamp": "2019-01-15T14:45:29.797Z",
 			"output": {
 				"BucketName": "oneplanet2c6f70803f8f648fbabaf16d466ba1d74",
 				"Region": "ap-northeast-1"
