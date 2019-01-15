@@ -8,7 +8,6 @@ import SocailMediaButtons from "../Components/SocailMediaButtons"
 import RoundedButton from "../Components/RoundedButton"
 import RoundedTextInput from "../Components/RoundedTextInput"
 import { ApolloConsumer } from 'react-apollo'
-import { LoginManager, GraphRequest, GraphRequestManager, AccessToken} from 'react-native-fbsdk'
 import {Signup} from "../Lib/Auth";
 // Styles
 import styles from './Styles/SingupScreenStyle'
@@ -29,9 +28,18 @@ class SignupScreen extends Component {
     signupDisabled: true
   }
 
-  onFb = () => {}
+  
   onTwitter = () => {}
   onWechat = () => {}
+
+  onFb =  client => async () => {
+    const result = await Signup.fb(client)
+    if(!result.error) {
+      if(result.missEmail) this.props.navigation.navigate('AddProfileScreen', result.params)
+      else this.props.navigation.navigate('AddProfileScreen', result.params)
+    }
+    else if(result.error.message) Alert.alert(I18n.t('Error'), I18n.t(result.error.message), [ { text: I18n.t('ok') } ])
+  }
  
   onGoogle =  client => async () => {
     const result = await Signup.google(client)
@@ -41,8 +49,8 @@ class SignupScreen extends Component {
   
   onSignup = client => async () => {
     const result = await Signup.email(client, this.state)
-    if(result.error) return this.setState({emailError: I18n.t(result.error.message)})
-    this.props.navigation.navigate('AddProfileScreen', result.params)
+    if(!result.error) this.props.navigation.navigate('AddProfileScreen', result.params)
+    else if(result.error.message) this.setState({emailError: I18n.t(result.error.message)})
   }
 
   onCheckEamil = () => {
@@ -116,7 +124,7 @@ class SignupScreen extends Component {
               onWechat={this.onWechat}
               onTwitter={this.onTwitter}
               onGoogle={this.onGoogle(client)}
-              onFb={this.onFb} />)}
+              onFb={this.onFb(client)} />)}
             </ApolloConsumer>
             <Text style={styles.quickTitle}>{I18n.t('quickRegisteration')}</Text>
         </View>

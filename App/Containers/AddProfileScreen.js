@@ -51,7 +51,7 @@ class AddProfileScreen extends Component {
     else Alert.alert(authError.name, authError.message, [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
   }
 
-  googleSignUp = async (imageBuffer, createUser) => {
+  socialMediaSignUp = async (imageBuffer, createUser) => {
     const {email} = this.props.navigation.state.params
     this.addUserPorfile(email, this.state.nickname, imageBuffer, createUser )
   }
@@ -73,9 +73,10 @@ class AddProfileScreen extends Component {
     
     const type = this.props.navigation.getParam('type')
     switch(type){
-      case 'google': return this.googleSignUp(imageBuffer, createUser)
+      case 'fb':
+      case 'google': return this.socialMediaSignUp(imageBuffer, createUser)
       case 'email': return this.emailSignUp(imageBuffer, createUser)
-      default: this.onCreateUserError()
+      default: this.onCreateUserError('Signup type error')
     }
   }
 
