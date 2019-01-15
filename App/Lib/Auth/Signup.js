@@ -39,7 +39,7 @@ class Signup{
             .catch(err => {
                 // console.tron.log('got error = ',error)
                 resolve({
-                    error:{message: err.toString()}
+                    error:err.toString()
                 })
             })
 

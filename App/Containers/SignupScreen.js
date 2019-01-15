@@ -32,13 +32,11 @@ class SignupScreen extends Component {
   onFb = () => {}
   onTwitter = () => {}
   onWechat = () => {}
-  
-  
-
-
+ 
   onGoogle =  client => async () => {
     const result = await Signup.google(client)
     if(!result.error) this.props.navigation.navigate('AddProfileScreen', result.params)
+    else if(result.error.message) Alert.alert(I18n.t('Error'), I18n.t(result.error.message), [ { text: I18n.t('ok') } ])
   }
   
   onSignup = client => async () => {
