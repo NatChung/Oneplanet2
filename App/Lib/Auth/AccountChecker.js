@@ -1,6 +1,5 @@
 
-
-import { getUser } from "../../Graphql/Query"
+import { getUser } from '../../../src/graphql/queries'
 import { GoogleSignin } from 'react-native-google-signin'
 import { 
     LoginManager, 

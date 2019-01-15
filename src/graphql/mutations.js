@@ -1,7 +1,8 @@
 // eslint-disable
 // this is an auto generated file. This will be overwritten
+import gql from 'graphql-tag'
 
-export const createFbExtEmail = `mutation CreateFbExtEmail($input: CreateFbExtEmailInput!) {
+export const createFbExtEmail = gql`mutation CreateFbExtEmail($input: CreateFbExtEmailInput!) {
   createFbExtEmail(input: $input) {
     id
     email
@@ -9,7 +10,7 @@ export const createFbExtEmail = `mutation CreateFbExtEmail($input: CreateFbExtEm
   }
 }
 `;
-export const updateFbExtEmail = `mutation UpdateFbExtEmail($input: UpdateFbExtEmailInput!) {
+export const updateFbExtEmail = gql`mutation UpdateFbExtEmail($input: UpdateFbExtEmailInput!) {
   updateFbExtEmail(input: $input) {
     id
     email
@@ -17,7 +18,7 @@ export const updateFbExtEmail = `mutation UpdateFbExtEmail($input: UpdateFbExtEm
   }
 }
 `;
-export const deleteFbExtEmail = `mutation DeleteFbExtEmail($input: DeleteFbExtEmailInput!) {
+export const deleteFbExtEmail = gql`mutation DeleteFbExtEmail($input: DeleteFbExtEmailInput!) {
   deleteFbExtEmail(input: $input) {
     id
     email
@@ -25,7 +26,7 @@ export const deleteFbExtEmail = `mutation DeleteFbExtEmail($input: DeleteFbExtEm
   }
 }
 `;
-export const createWechatExtEmail = `mutation CreateWechatExtEmail($input: CreateWechatExtEmailInput!) {
+export const createWechatExtEmail = gql`mutation CreateWechatExtEmail($input: CreateWechatExtEmailInput!) {
   createWechatExtEmail(input: $input) {
     id
     email
@@ -33,7 +34,7 @@ export const createWechatExtEmail = `mutation CreateWechatExtEmail($input: Creat
   }
 }
 `;
-export const updateWechatExtEmail = `mutation UpdateWechatExtEmail($input: UpdateWechatExtEmailInput!) {
+export const updateWechatExtEmail = gql`mutation UpdateWechatExtEmail($input: UpdateWechatExtEmailInput!) {
   updateWechatExtEmail(input: $input) {
     id
     email
@@ -41,7 +42,7 @@ export const updateWechatExtEmail = `mutation UpdateWechatExtEmail($input: Updat
   }
 }
 `;
-export const deleteWechatExtEmail = `mutation DeleteWechatExtEmail($input: DeleteWechatExtEmailInput!) {
+export const deleteWechatExtEmail = gql`mutation DeleteWechatExtEmail($input: DeleteWechatExtEmailInput!) {
   deleteWechatExtEmail(input: $input) {
     id
     email
@@ -49,7 +50,7 @@ export const deleteWechatExtEmail = `mutation DeleteWechatExtEmail($input: Delet
   }
 }
 `;
-export const createTwitterExtEmail = `mutation CreateTwitterExtEmail($input: CreateTwitterExtEmailInput!) {
+export const createTwitterExtEmail = gql`mutation CreateTwitterExtEmail($input: CreateTwitterExtEmailInput!) {
   createTwitterExtEmail(input: $input) {
     id
     email
@@ -57,7 +58,7 @@ export const createTwitterExtEmail = `mutation CreateTwitterExtEmail($input: Cre
   }
 }
 `;
-export const updateTwitterExtEmail = `mutation UpdateTwitterExtEmail($input: UpdateTwitterExtEmailInput!) {
+export const updateTwitterExtEmail = gql`mutation UpdateTwitterExtEmail($input: UpdateTwitterExtEmailInput!) {
   updateTwitterExtEmail(input: $input) {
     id
     email
@@ -65,7 +66,7 @@ export const updateTwitterExtEmail = `mutation UpdateTwitterExtEmail($input: Upd
   }
 }
 `;
-export const deleteTwitterExtEmail = `mutation DeleteTwitterExtEmail($input: DeleteTwitterExtEmailInput!) {
+export const deleteTwitterExtEmail = gql`mutation DeleteTwitterExtEmail($input: DeleteTwitterExtEmailInput!) {
   deleteTwitterExtEmail(input: $input) {
     id
     email
@@ -73,7 +74,7 @@ export const deleteTwitterExtEmail = `mutation DeleteTwitterExtEmail($input: Del
   }
 }
 `;
-export const createUser = `mutation CreateUser($input: CreateUserInput!) {
+export const createUser = gql`mutation CreateUser($input: CreateUserInput!) {
   createUser(input: $input) {
     id
     nickname
@@ -85,7 +86,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
   }
 }
 `;
-export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
+export const updateUser = gql`mutation UpdateUser($input: UpdateUserInput!) {
   updateUser(input: $input) {
     id
     nickname
@@ -97,7 +98,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
   }
 }
 `;
-export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
+export const deleteUser = gql`mutation DeleteUser($input: DeleteUserInput!) {
   deleteUser(input: $input) {
     id
     nickname

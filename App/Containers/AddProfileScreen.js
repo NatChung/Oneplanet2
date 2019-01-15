@@ -8,14 +8,35 @@ import ImagePicker from 'react-native-image-crop-picker'
 import to from 'await-to-js'
 import validator from 'validator'
 import _ from 'lodash'
-import { createUser } from "../Graphql/Mutation"
+import { createUser, createFbExtEmail } from "../../src/graphql/mutations"
 import { Mutation } from 'react-apollo'
 import { Auth } from 'aws-amplify'
 import { v4 as uuid } from "uuid"
 import AwsConfig from '../aws-exports'
 import RNFetchBlob from 'rn-fetch-blob'
+import { Adopt } from "react-adopt";
 // Styles
 import styles from './Styles/AddProfileScreenStyle'
+
+const mapper = {
+  user: ({ render }) => (
+    <Mutation mutation={createUser}>
+      {(mutation, result) => render({ mutation, result })}
+    </Mutation>
+  ),
+  fbExtEmail: ({render}) => (
+    <Mutation mutation={createFbExtEmail}>
+      {(mutation, result) => render({ mutation, result })}
+    </Mutation>
+  )
+}
+
+const mapProps = ({ user, fbExtEmail }) => ({
+  createUser: user.mutation,
+  userResult: user.result,
+  createFbExtEmail: fbExtEmail.mutation,
+  fbExtEmailResult: fbExtEmail.result
+})
 
 class AddProfileScreen extends Component {
 
@@ -60,7 +81,9 @@ class AddProfileScreen extends Component {
     this.addUserPorfile(email, this.state.nickname, imageBuffer, createUser )
   }
 
-  onNextPress = async (createUser) => {
+  onNextPress = props => async () => {
+    console.tron.log(props)
+    return {}
 
     let imageBuffer = null
     const isFile = (!/^(f|ht)tps?:\/\//i.test(this.state.avatarPath))
@@ -147,10 +170,10 @@ class AddProfileScreen extends Component {
     Alert.alert(error.name, I18n.t('signUpFailed'), [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
   }
 
-  nextButtonProps = (createUser) => ({
+  nextButtonProps = (props) => ({
     style:styles.nextButton,
     text:I18n.t('next'),
-    onPress: () => this.onNextPress(createUser),
+    onPress: this.onNextPress(props),
     disabled: this.state.nextDisabled
   })
 
@@ -165,11 +188,6 @@ class AddProfileScreen extends Component {
     onPress:this.onAvatarPress
   })
 
-  mutationProps = () => ({
-    mutation:createUser,
-    onCompleted:this.onCreateUserCompleted,
-    onError:this.onCreateUserError,
-  })
 
   nicknameInputProps = () => ({
     placeholderTextColor:'grey',
@@ -189,9 +207,9 @@ class AddProfileScreen extends Component {
         <RoundedButton {...this.addPhotoProps()}/>
         <Text style={styles.text}>{I18n.t('addAProfilePhotoSoYourFriendsKnowItsYou')}</Text>
         
-        <Mutation {...this.mutationProps()}>
-          {(createUser) => <RoundedButton {...this.nextButtonProps(createUser)}/>}
-        </Mutation>
+        <Adopt mapper={mapper} mapProps={mapProps}>
+          {(props) => <RoundedButton {...this.nextButtonProps(props)}/>}
+        </Adopt>
       </View>
     )
   }
