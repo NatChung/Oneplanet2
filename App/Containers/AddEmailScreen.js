@@ -6,6 +6,7 @@ import RoundedTextInput from "../Components/RoundedTextInput"
 import { ApolloConsumer } from 'react-apollo'
 import validator from 'validator'
 import _ from 'lodash'
+import {Signup} from '../Lib/Auth'
 // Styles
 import styles from './Styles/AddEmailScreenStyle'
 
@@ -36,9 +37,9 @@ class AddEmailScreen extends Component {
   }
 
   onSignup = client => async () => {
-    // const result = await Signup.email(client, this.state)
-    // if(!result.error) this.props.navigation.navigate('AddProfileScreen', result.params)
-    // else if(result.error.message) this.setState({emailError: I18n.t(result.error.message)})
+    const result = await Signup.addEmail(client, this.state, this.props.navigation.state.params)
+    if(!result.error) this.props.navigation.navigate('AddProfileScreen', result.params)
+    else if(result.error.message) this.setState({emailError: I18n.t(result.error.message)})
   }
 
   onEmailChangeText = value => {

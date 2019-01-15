@@ -38,6 +38,10 @@ class AddProfileScreen extends Component {
       nicknameError: validator.isLength(value, { max: 14 }) ? null: I18n.t('incorrectNickanme')
     }, this.validate)
   }
+
+  addEmailSignUp = async (imageBuffer, createUser) => {
+    console.tron.log(this.props.navigation.state.params)
+  }
   
   emailSignUp = async (imageBuffer, createUser) => {
     const {email, password} = this.props.navigation.state.params
@@ -75,6 +79,7 @@ class AddProfileScreen extends Component {
     switch(type){
       case 'fb':
       case 'google': return this.socialMediaSignUp(imageBuffer, createUser)
+      case 'addEmail': return this.addEmailSignUp(imageBuffer, createUser)
       case 'email': return this.emailSignUp(imageBuffer, createUser)
       default: this.onCreateUserError('Signup type error')
     }
@@ -133,7 +138,7 @@ class AddProfileScreen extends Component {
 
   onCreateUserCompleted = data => {
     const {type} = this.props.navigation.state.params
-    if(type === 'email') this.props.navigation.navigate('EmailSentScreen')
+    if(type === 'email' || type === 'addEmail') this.props.navigation.navigate('EmailSentScreen')
     else this.props.navigation.navigate('LandingScreen')
   }
 

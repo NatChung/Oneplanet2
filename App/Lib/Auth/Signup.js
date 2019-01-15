@@ -11,6 +11,33 @@ import {
 
 class Signup{
 
+    addEmail = (client, {email}, {avatarPath, nickname, subType}) => new Promise(resolve => {
+        client.query({
+            query: getUser,
+            variables: {id: email},
+            fetchPolicy:'network-only'
+        })
+        .then(({data}) => {
+            // console.tron.log(data)
+            resolve({
+                error:(data && data.getUser) ? {message:'theEmailAlredyInUsed'} : null,
+                params:{
+                    email,
+                    avatarPath,
+                    nickname,
+                    subType,
+                    type:'addEmail'
+                },
+            })
+        })
+        .catch(err => {
+            // console.tron.log(err)
+            resolve({
+                error:{message: err.toString()}
+            })
+        })
+    })
+
     _fbGetInfoCallBack = (error, result, resolve, client) => {
         LoginManager.logOut()
         
@@ -24,8 +51,8 @@ class Signup{
             params: {
                 nickname: name,
                 avatarPath: picture.data.url,
-                fbid: id,
-                type:'fb'
+                id,
+                subType:'fb'
             }
         })
 
@@ -43,6 +70,7 @@ class Signup{
                     email,
                     nickname: name,
                     avatarPath: picture.data.url,
+                    id,
                     type:'fb'
                 },
             })
@@ -152,7 +180,8 @@ class Signup{
         resolve({
             params:{
                 nickname: 'no email',
-                type:'fb'
+                id:'999827',
+                subType:'fb'
             }
         })
     })
