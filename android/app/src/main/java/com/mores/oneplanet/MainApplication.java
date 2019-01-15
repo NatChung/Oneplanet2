@@ -1,9 +1,11 @@
-package com.oneplanet2;
+package com.mores.oneplanet;
 
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
+
+import com.mores.oneplanet.BuildConfig;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;

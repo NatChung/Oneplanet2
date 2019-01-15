@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "883353348649",
+    "firebase_url": "https://oneplanet-6d7af.firebaseio.com",
+    "project_id": "oneplanet-6d7af",
+    "storage_bucket": "oneplanet-6d7af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:883353348649:android:0ad8e526b4537f22",
+        "android_client_info": {
+          "package_name": "com.mores.oneplanet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "883353348649-atrqet7u5ck9t5ba7pmr527oikktbiiv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mores.oneplanet",
+            "certificate_hash": "4da1a32869d10103ec30771ebe2aceaacf2d0488"
+          }
+        },
+        {
+          "client_id": "883353348649-k5lqtthfc0e8brfe47ufi4rkkp99r7pm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl0t9gGzugUI1K9Padl8AQri1MbAZf2xE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "883353348649-k5lqtthfc0e8brfe47ufi4rkkp99r7pm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "883353348649-jbnu41msip3h4gue1nmikcpn43b7pirf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "tw.com.mores.theonecollection.Oneplanet",
+                "app_store_id": "1410049209"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

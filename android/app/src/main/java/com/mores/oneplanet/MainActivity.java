@@ -1,4 +1,4 @@
-package com.oneplanet2;
+package com.mores.oneplanet;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;
