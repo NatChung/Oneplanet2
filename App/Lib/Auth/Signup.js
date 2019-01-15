@@ -21,7 +21,6 @@ class Signup{
         const {email, name, picture, id} = result
 
         if(!result.email) return resolve({
-            missEmail: true,
             params: {
                 nickname: name,
                 avatarPath: picture.data.url,
@@ -146,6 +145,15 @@ class Signup{
             resolve({
                 error:{message: err.toString()}
             })
+        })
+    })
+
+    withoutEmail = client => new Promise(resolve => {
+        resolve({
+            params:{
+                nickname: 'no email',
+                type:'fb'
+            }
         })
     })
 }

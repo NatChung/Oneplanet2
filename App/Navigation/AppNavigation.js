@@ -1,5 +1,6 @@
 import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import AddEmailScreen from '../Containers/AddEmailScreen'
 import TermsScreen from '../Containers/TermsScreen'
 import EmailSentScreen from '../Containers/EmailSentScreen'
 import AddProfileScreen from '../Containers/AddProfileScreen'
@@ -13,6 +14,7 @@ import LoginScreen from '../Containers/LoginScreen';
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
+  	AddEmailScreen: { screen: AddEmailScreen },
 	TermsScreen: { screen: TermsScreen },
 	SignupScreen: { screen: SignupScreen },
 	LoginScreen: { screen: LoginScreen },

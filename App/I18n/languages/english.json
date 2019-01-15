@@ -40,5 +40,9 @@
 
 	"#": "EmailSentScree",
 	"theEmailHasBeenSentPleaseClickTheLinkInTheEmailToCompleteTheRegistrationProcess": "The email has been sent please click the link in the email to complete the registration process",
-	"ok": "OK"
+	"ok": "OK",
+
+	"#":"AddEmailScreen",
+	"addEmailInfo":"Your Facebook/Wechat is not filled in Email.  You need to provide Email as Oneplanet's login account when registering."
+
 }

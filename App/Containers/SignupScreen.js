@@ -14,11 +14,12 @@ import styles from './Styles/SingupScreenStyle'
 
 class SignupScreen extends Component {
 
-  static navigationOptions = ({navigation}) => ({
+  static navigationOptions = {
     title: I18n.t('signUp'),
     headerTransparent:true,
     headerTintColor:'white',
-  })
+    headerBackTitle: null,
+  }
 
   state = {
     email:null,
@@ -32,11 +33,20 @@ class SignupScreen extends Component {
   onTwitter = () => {}
   onWechat = () => {}
 
+  onWithoutEmail = client => async () => {
+    const result = await Signup.withoutEmail()
+    if(!result.error) {
+      if(result.email) this.props.navigation.navigate('AddProfileScreen', result.params)
+      else this.props.navigation.navigate('AddEmailScreen', result.params)
+    }
+    else if(result.error.message) Alert.alert(I18n.t('Error'), I18n.t(result.error.message), [ { text: I18n.t('ok') } ])
+  }
+
   onFb =  client => async () => {
     const result = await Signup.fb(client)
     if(!result.error) {
-      if(result.missEmail) this.props.navigation.navigate('AddProfileScreen', result.params)
-      else this.props.navigation.navigate('AddProfileScreen', result.params)
+      if(result.email) this.props.navigation.navigate('AddProfileScreen', result.params)
+      else this.props.navigation.navigate('AddEmailScreen', result.params)
     }
     else if(result.error.message) Alert.alert(I18n.t('Error'), I18n.t(result.error.message), [ { text: I18n.t('ok') } ])
   }
@@ -121,7 +131,7 @@ class SignupScreen extends Component {
         <View style={styles.socailMediaContainer}>
           <ApolloConsumer>
             {client => (<SocailMediaButtons 
-              onWechat={this.onWechat}
+              onWechat={this.onWithoutEmail(client)}
               onTwitter={this.onTwitter}
               onGoogle={this.onGoogle(client)}
               onFb={this.onFb(client)} />)}
