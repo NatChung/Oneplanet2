@@ -8,7 +8,7 @@ import SocailMediaButtons from "../Components/SocailMediaButtons"
 import RoundedButton from "../Components/RoundedButton"
 import RoundedTextInput from "../Components/RoundedTextInput"
 import { ApolloConsumer } from 'react-apollo'
-import {Signup} from "../Lib/Auth";
+import {AccountChecker} from "../Lib/Auth";
 // Styles
 import styles from './Styles/SingupScreenStyle'
 
@@ -34,7 +34,7 @@ class SignupScreen extends Component {
   onWechat = () => {}
 
   onWithoutEmail = client => async () => {
-    const result = await Signup.withoutEmail()
+    const result = await AccountChedck.withoutEmail()
     if(!result.error) {
       if(result.email) this.props.navigation.navigate('AddProfileScreen', result.params)
       else this.props.navigation.navigate('AddEmailScreen', result.params)
@@ -43,7 +43,7 @@ class SignupScreen extends Component {
   }
 
   onFb =  client => async () => {
-    const result = await Signup.fb(client)
+    const result = await AccountChecker.fb(client)
     if(!result.error) {
       if(result.email) this.props.navigation.navigate('AddProfileScreen', result.params)
       else this.props.navigation.navigate('AddEmailScreen', result.params)
@@ -52,13 +52,13 @@ class SignupScreen extends Component {
   }
  
   onGoogle =  client => async () => {
-    const result = await Signup.google(client)
+    const result = await AccountChecker.google(client)
     if(!result.error) this.props.navigation.navigate('AddProfileScreen', result.params)
     else if(result.error.message) Alert.alert(I18n.t('Error'), I18n.t(result.error.message), [ { text: I18n.t('ok') } ])
   }
   
   onSignup = client => async () => {
-    const result = await Signup.email(client, this.state)
+    const result = await AccountChecker.email(client, this.state)
     if(!result.error) this.props.navigation.navigate('AddProfileScreen', result.params)
     else if(result.error.message) this.setState({emailError: I18n.t(result.error.message)})
   }

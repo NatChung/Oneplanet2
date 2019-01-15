@@ -9,7 +9,7 @@ import {
     AccessToken
 } from 'react-native-fbsdk'
 
-class Signup{
+class AccountChecker{
 
     addEmail = (client, {email}, {avatarPath, nickname, subType}) => new Promise(resolve => {
         client.query({
@@ -187,5 +187,5 @@ class Signup{
     })
 }
 
-const instance = new Signup()
+const instance = new AccountChecker()
 export default instance

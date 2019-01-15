@@ -1,3 +1,3 @@
-import Signup from "./Signup"
+import AccountChecker from "./AccountChecker"
 
-export {Signup}
+export {AccountChecker}
