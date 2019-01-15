@@ -30,7 +30,41 @@
 				<string>com.googleusercontent.apps.883353348649-jbnu41msip3h4gue1nmikcpn43b7pirf</string>
 			</array>
 		</dict>
+    <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fb189187255076888</string>
+      </array>
+    </dict>
 	</array>
+  <key>FacebookAppID</key>
+  <string>189187255076888</string>
+  <key>FacebookDisplayName</key>
+  <string>Oneplanet</string>
+  <key>LSApplicationQueriesSchemes</key>
+  <array>
+    <string>fbapi</string>
+    <string>fbapi20130214</string>
+    <string>fbapi20130410</string>
+    <string>fbapi20130702</string>
+    <string>fbapi20131010</string>
+    <string>fbapi20131219</string>
+    <string>fbapi20140410</string>
+    <string>fbapi20140116</string>
+    <string>fbapi20150313</string>
+    <string>fbapi20150629</string>
+    <string>fbauth</string>
+    <string>fbauth2</string>
+    <string>fb</string>
+    <string>fb-messenger-api20140430</string>
+    <string>fb-messenger-platform-20150128</string>
+    <string>fb-messenger-platform-20150218</string>
+    <string>fb-messenger-platform-20150305</string>
+    <string>fb-messenger-api</string>
+    <string>fbshareextension</string>
+    <string>twitter</string>
+    <string>twitterauth</string>
+  </array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
