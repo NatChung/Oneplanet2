@@ -26,7 +26,8 @@
     "fixcode": "standard --fix",
     "git-hook": "npm run lint -s && npm run test -s",
     "ios": "react-native run-ios",
-    "android": "react-native run-android"
+    "android": "react-native run-android",
+    "postinstall": "cp ios/fixFBSDK.pbxproj node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj/project.pbxproj"
   },
   "dependencies": {
     "apisauce": "^0.14.2",
