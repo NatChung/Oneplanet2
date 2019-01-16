@@ -40,14 +40,10 @@ class AccountChecker{
 
     _fbGetInfoCallBack = (error, result, resolve, client) => {
         LoginManager.logOut()
-        
-        if(error) return resolve({
-            error: error.toString()
-        })
+        if(error) return resolve({error: error.toString()})
 
         const {email, name, picture, id} = result
-
-        if(!result.email) return resolve({
+        if(!email) return resolve({
             params: {
                 nickname: name,
                 avatarPath: picture.data.url,
@@ -56,7 +52,6 @@ class AccountChecker{
             }
         })
 
-        
         client.query({
             query: getUser,
             variables: {id: email}, 

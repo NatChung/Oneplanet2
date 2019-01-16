@@ -119,8 +119,7 @@ class AddProfileScreen extends Component {
     this.addUserPorfile(email, this.state.nickname, imageBuffer, createUser )
   }
 
-  getExtEmailType(subType, props){
-    const {createFbExtEmail, createWechatExtEmail, createTwitterExtEmail} = props
+  getExtEmailType(subType, {createFbExtEmail, createWechatExtEmail, createTwitterExtEmail}){
     switch (subType) {
       case 'fb': return createFbExtEmail
       case 'wechat': return createWechatExtEmail
