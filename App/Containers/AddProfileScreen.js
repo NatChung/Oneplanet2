@@ -100,7 +100,7 @@ class AddProfileScreen extends Component {
     if(!authError) this.addUserPorfile(imageBuffer, createUser )
     else {
       this.setState({loading:false})
-      Alert.alert(authError.name, authError.message, [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
+      Alert.alert(authError.name, authError.message)
     }
   }
   
@@ -115,7 +115,7 @@ class AddProfileScreen extends Component {
     if(!authError) this.addUserPorfile(imageBuffer, createUser )
     else {
       this.setState({loading:false})
-      Alert.alert(authError.name, authError.message, [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
+      Alert.alert(authError.name, authError.message)
     }
   }
 
@@ -139,11 +139,11 @@ class AddProfileScreen extends Component {
 
     if(isFile){
       const [dataError, imageData] = await to(RNFetchBlob.fs.readFile(this.state.avatarPath,'base64'))
-      if(dataError) return Alert.alert(I18n.t('error'), I18n.t('readSelectedImageError'), [ { text: I18n.t('ok') } ])
+      if(dataError) return Alert.alert(I18n.t('error'), I18n.t('readSelectedImageError'))
       imageBuffer = new Buffer(imageData, 'base64')
     }else {
       const [dataError, imageData] = await to(RNFetchBlob.fetch('GET', this.state.avatarPath))
-      if(dataError) return Alert.alert(I18n.t('error'), I18n.t('readSelectedImageError'), [ { text: I18n.t('ok') } ])
+      if(dataError) return Alert.alert(I18n.t('error'), I18n.t('readSelectedImageError'))
       imageBuffer = new Buffer(imageData.data, 'base64')
     }
 
@@ -159,8 +159,6 @@ class AddProfileScreen extends Component {
       default: console.tron.log('Signup type error')
     }
   }
-
-  backToLandingScreen = () => this.props.navigation.navigate('LandingScreen')
 
   addUserPorfile = async (imageBuffer, createUser) => {
 
@@ -184,7 +182,7 @@ class AddProfileScreen extends Component {
     }}))
     
 
-    if(err) Alert.alert(I18n.t('error'), I18n.t('createUserProfileFailed'), [ { text: I18n.t('ok') } ])
+    if(err) Alert.alert(I18n.t('error'), I18n.t('createUserProfileFailed'))
     else if(type === 'addEmail' || type === 'email') this.props.navigation.navigate('EmailSentScreen')
     else this.props.navigation.navigate('LandingScreen')
   }

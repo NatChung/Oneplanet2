@@ -47,7 +47,7 @@ class SignupScreen extends Component {
     }
     else if(result.error.message) {
       this.setState({loading:false})
-      Alert.alert(I18n.t('Error'), I18n.t(result.error.message), [ { text: I18n.t('ok') } ])
+      Alert.alert(I18n.t('Error'), I18n.t(result.error.message))
     }
   }
   
