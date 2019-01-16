@@ -27,7 +27,7 @@
     "git-hook": "npm run lint -s && npm run test -s",
     "ios": "react-native run-ios",
     "android": "react-native run-android",
-    "postinstall": "cp ios/fixFBSDK.pbxproj node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj/project.pbxproj && rm -rf node_modules/react-native-twitter-signin/node_modules/react-native"
+    "postinstall": "cp patch/rn-fbsdk.pbxproj node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj/project.pbxproj && rm -rf node_modules/react-native-twitter-signin/node_modules/react-native && cp patch/rn-twitter-signin-index.js node_modules/react-native-twitter-signin/index.js"
   },
   "dependencies": {
     "apisauce": "^0.14.2",

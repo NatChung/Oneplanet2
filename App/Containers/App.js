@@ -11,7 +11,9 @@ import AWSAppSyncClient from 'aws-appsync';
 import { ApolloProvider } from 'react-apollo';
 import { Rehydrated } from 'aws-appsync-react';
 import { GoogleSignin } from 'react-native-google-signin'
+import {RNTwitterSignIn} from 'react-native-twitter-signin'
 
+RNTwitterSignIn.init('pGvVuFgTun2H2yPeMICtD6j0E', 'iQQTaLzRwLmKYvKUz46uES0JBObeV3kjI4JBklDp4U5xX8pvdw')
 GoogleSignin.configure({
 	scopes: ['email', 'profile', 'openid' ], // what API you want to access on behalf of the user, default is email and profile
 	webClientId: '883353348649-k5lqtthfc0e8brfe47ufi4rkkp99r7pm.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -24,9 +26,6 @@ GoogleSignin.configure({
   })
 
 Amplify.configure(AppSyncConfig);
-// create our store
-const store = createStore();
-
 const client = new AWSAppSyncClient({
 	url: AppSyncConfig.aws_appsync_graphqlEndpoint,
 	region: AppSyncConfig.aws_project_region,
@@ -38,15 +37,7 @@ const client = new AWSAppSyncClient({
 	complexObjectsCredentials: () => Amplify.Auth.currentCredentials()
 });
 
-/**
- * Provides an entry point into our application.  Both index.ios.js and index.android.js
- * call this component first.
- *
- * We create our Redux store here, put it into a provider and then bring in our
- * RootContainer.
- *
- * We separate like this to play nice with React Native's hot reloading.
- */
+const store = createStore();
 class App extends Component {
 	componentDidMount() {
 		SplashScreen.hide();
