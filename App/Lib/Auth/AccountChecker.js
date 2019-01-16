@@ -1,14 +1,57 @@
 
 import { getUser } from '../../../src/graphql/queries'
 import { GoogleSignin } from 'react-native-google-signin'
+import { RNTwitterSignIn } from 'react-native-twitter-signin'
 import { 
     LoginManager, 
     GraphRequest, 
-    GraphRequestManager, 
-    AccessToken
+    GraphRequestManager
 } from 'react-native-fbsdk'
 
 class AccountChecker{
+
+    twitter = client => new Promise(resolve => {
+        let userData = null
+        RNTwitterSignIn.logOut()
+
+        RNTwitterSignIn.logIn()
+            .then(loginData => {
+                console.tron.log(loginData)
+                const {email, userName, userID} = loginData
+                if(!email) return resolve({
+                    params: {
+                        nickname: userName,
+                        id:userID,
+                        subType:'twitter',
+                        type:'addEmail'
+                    }
+                })
+
+                userData = loginData
+                return client.query({
+                    query: getUser,
+                    variables: {id: email}, 
+                    fetchPolicy:'network-only'
+                })
+            })
+            .then(({data}) => {
+                const {email, userName} = userData
+                resolve({
+                    error:(data && data.getUser) ? {message:'theEmailAlredyInUsed'} : null,
+                    params:{
+                        email,
+                        nickname:userName,
+                        type:'twitter'
+                    },
+                })
+            })
+            .catch(err => {
+                resolve({
+                    error:err.toString()
+                })
+            })
+
+    })
 
     addEmail = (client, {email}, {avatarPath, nickname, subType, id}) => new Promise(resolve => {
         client.query({
@@ -168,16 +211,6 @@ class AccountChecker{
             resolve({
                 error:{message: err.toString()}
             })
-        })
-    })
-
-    withoutEmail = client => new Promise(resolve => {
-        resolve({
-            params:{
-                nickname: 'no email',
-                id:'999827',
-                subType:'fb'
-            }
         })
     })
 }

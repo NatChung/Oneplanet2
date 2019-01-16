@@ -96,9 +96,7 @@ class AddProfileScreen extends Component {
       attributes: {email},
     }))
 
-    console.tron.log('authError', authError)
-
-    if(!authError) this.addUserPorfile(email, this.state.nickname, imageBuffer, createUser )
+    if(!authError) this.addUserPorfile(imageBuffer, createUser )
     else Alert.alert(authError.name, authError.message, [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
   }
   
@@ -110,13 +108,12 @@ class AddProfileScreen extends Component {
       attributes: {email},
     }))
 
-    if(!authError) this.addUserPorfile(username, this.state.nickname, imageBuffer, createUser )
+    if(!authError) this.addUserPorfile(imageBuffer, createUser )
     else Alert.alert(authError.name, authError.message, [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
   }
 
-  socialMediaSignUp = async (imageBuffer, createUser) => {
-    const {email} = this.props.navigation.state.params
-    this.addUserPorfile(email, this.state.nickname, imageBuffer, createUser )
+  socialMediaSignUp = (imageBuffer, createUser) => {
+    this.addUserPorfile(imageBuffer, createUser )
   }
 
   getExtEmailType(subType, {createFbExtEmail, createWechatExtEmail, createTwitterExtEmail}){
@@ -146,6 +143,7 @@ class AddProfileScreen extends Component {
     const {createUser} = props
     const {type, subType} = this.props.navigation.state.params
     switch(type){
+      case 'twitter':
       case 'fb':
       case 'google': return this.socialMediaSignUp(imageBuffer, createUser)
       case 'addEmail': return this.addEmailSignUp(imageBuffer, createUser, this.getExtEmailType(subType, props))
@@ -156,12 +154,16 @@ class AddProfileScreen extends Component {
 
   backToLandingScreen = () => this.props.navigation.navigate('LandingScreen')
 
-  addUserPorfile = async (id, nickname, imageBuffer, createUser) => {
+  addUserPorfile = async (imageBuffer, createUser) => {
+
+    const {nickname} = this.state
+    const {type, email} = this.props.navigation.state.params
+
     const {identityId} = await Auth.currentCredentials()
     const key = `public/${identityId}/${uuid()}.jpg`;
     const [err, ret]  = await to(createUser({variables: {
       input: {
-        id,
+        id:email,
         nickname,
         avatar: {
           bucket:AwsConfig.aws_user_files_s3_bucket,
@@ -172,13 +174,11 @@ class AddProfileScreen extends Component {
         }
       }
     }}))
+    
 
-    if(err) {
-      Alert.alert(I18n.t('error'), I18n.t('createUserProfileFailed'), [ { text: I18n.t('ok') } ])
-      console.tron.log(err)
-    }else{
-      this.props.navigation.navigate('LandingScreen')
-    }
+    if(err) Alert.alert(I18n.t('error'), I18n.t('createUserProfileFailed'), [ { text: I18n.t('ok') } ])
+    else if(type === 'addEmail' || type === 'email') this.props.navigation.navigate('EmailSentScreen')
+    else this.props.navigation.navigate('LandingScreen')
   }
 
   onAvatarPress = async () => {

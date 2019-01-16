@@ -29,40 +29,20 @@ class SignupScreen extends Component {
     signupDisabled: true
   }
 
-  
-  onTwitter = () => {}
   onWechat = () => {}
+  onTwitter = client => async () => this.checkSignInEmail(await AccountChecker.twitter(client))
+  onFb =  client => async () => this.checkSignInEmail(await AccountChecker.fb(client))
+  onGoogle =  client => async () => this.checkSignInEmail(await AccountChecker.google(client))
+  onSignup = client => async () => this.checkSignInEmail(await AccountChecker.email(client, this.state))
 
-  onWithoutEmail = client => async () => {
-    const result = await AccountChecker.withoutEmail()
+  checkSignInEmail = result => {
     if(!result.error) {
       if(result.params.email) this.props.navigation.navigate('AddProfileScreen', result.params)
       else this.props.navigation.navigate('AddEmailScreen', result.params)
     }
-    else if(result.error.message) Alert.alert(I18n.t('Error'), I18n.t(result.error.message), [ { text: I18n.t('ok') } ])
-  }
-
-  onFb =  client => async () => {
-    const result = await AccountChecker.fb(client)
-    if(!result.error) {
-      if(result.params.email) this.props.navigation.navigate('AddProfileScreen', result.params)
-      else this.props.navigation.navigate('AddEmailScreen', result.params)
-    }
-    else if(result.error.message) Alert.alert(I18n.t('Error'), I18n.t(result.error.message), [ { text: I18n.t('ok') } ])
-  }
- 
-  onGoogle =  client => async () => {
-    const result = await AccountChecker.google(client)
-    if(!result.error) this.props.navigation.navigate('AddProfileScreen', result.params)
     else if(result.error.message) Alert.alert(I18n.t('Error'), I18n.t(result.error.message), [ { text: I18n.t('ok') } ])
   }
   
-  onSignup = client => async () => {
-    const result = await AccountChecker.email(client, this.state)
-    if(!result.error) this.props.navigation.navigate('AddProfileScreen', result.params)
-    else if(result.error.message) this.setState({emailError: I18n.t(result.error.message)})
-  }
-
   onCheckEamil = () => {
     if(!this.state.email) return
     const emailError = validator.isEmail(this.state.email) ? null : I18n.t('incorrectEmail')
@@ -131,8 +111,8 @@ class SignupScreen extends Component {
         <View style={styles.socailMediaContainer}>
           <ApolloConsumer>
             {client => (<SocailMediaButtons 
-              onWechat={this.onWithoutEmail(client)}
-              onTwitter={this.onTwitter}
+              onWechat={this.onWechat}
+              onTwitter={this.onTwitter(client)}
               onGoogle={this.onGoogle(client)}
               onFb={this.onFb(client)} />)}
             </ApolloConsumer>
@@ -150,6 +130,5 @@ class SignupScreen extends Component {
     )
   }
 }
-
 
 export default SignupScreen
