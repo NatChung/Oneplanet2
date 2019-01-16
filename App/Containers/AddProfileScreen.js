@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, Image, Alert} from 'react-native'
+import { Text, View, Image, Alert, ActivityIndicator} from 'react-native'
 import { Images } from "../Themes"
 import RoundedButton from "../Components/RoundedButton"
 import RoundedTextInput from "../Components/RoundedTextInput"
@@ -58,7 +58,8 @@ class AddProfileScreen extends Component {
     nickname:null,
     nicknameError: null,
     avatarPath: null,
-    nextDisabled: true
+    nextDisabled: true,
+    loading: false,
   }
 
   componentDidMount = async () => {
@@ -97,7 +98,10 @@ class AddProfileScreen extends Component {
     }))
 
     if(!authError) this.addUserPorfile(imageBuffer, createUser )
-    else Alert.alert(authError.name, authError.message, [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
+    else {
+      this.setState({loading:false})
+      Alert.alert(authError.name, authError.message, [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
+    }
   }
   
   emailSignUp = async (imageBuffer, createUser) => {
@@ -109,7 +113,10 @@ class AddProfileScreen extends Component {
     }))
 
     if(!authError) this.addUserPorfile(imageBuffer, createUser )
-    else Alert.alert(authError.name, authError.message, [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
+    else {
+      this.setState({loading:false})
+      Alert.alert(authError.name, authError.message, [ { text: I18n.t('ok'), onPress: this.backToLandingScreen } ])
+    }
   }
 
   socialMediaSignUp = (imageBuffer, createUser) => {
@@ -140,6 +147,7 @@ class AddProfileScreen extends Component {
       imageBuffer = new Buffer(imageData.data, 'base64')
     }
 
+    this.setState({loading:true})
     const {createUser} = props
     const {type, subType} = this.props.navigation.state.params
     switch(type){
@@ -246,6 +254,7 @@ class AddProfileScreen extends Component {
         <Adopt mapper={mapper} mapProps={mapProps}>
           {(props) => <RoundedButton {...this.nextButtonProps(props)}/>}
         </Adopt>
+        {(this.state.loading) ? <ActivityIndicator style={styles.loading} size="large" color="white" />:null}
       </View>
     )
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text} from 'react-native'
+import { View, Text, ActivityIndicator} from 'react-native'
 import I18n from "../I18n"
 import RoundedButton from "../Components/RoundedButton"
 import RoundedTextInput from "../Components/RoundedTextInput"
@@ -23,7 +23,8 @@ class AddEmailScreen extends Component {
   state = {
     email: null,
     emailError:null,
-    signupDisabled: true
+    signupDisabled: true,
+    loading: false
   }
 
 	validate = () => {
@@ -37,9 +38,10 @@ class AddEmailScreen extends Component {
   }
 
   onSignup = client => async () => {
+    this.setState({loading:true})
     const result = await AccountChecker.addEmail(client, this.state, this.props.navigation.state.params)
     if(!result.error) this.props.navigation.navigate('AddProfileScreen', result.params)
-    else if(result.error.message) this.setState({emailError: I18n.t(result.error.message)})
+    else if(result.error.message) this.setState({emailError: I18n.t(result.error.message), loading: false})
   }
 
   onEmailChangeText = value => {
@@ -66,7 +68,9 @@ class AddEmailScreen extends Component {
     placeholder:I18n.t('emailAddress'),
     placeholderTextColor:'grey',
     error: this.state.emailError,
-    onBlur: this.onCheckEamil
+    onBlur: this.onCheckEamil,
+    autoCorrect: false,
+    autoCapitalize:'none'
   })
   
   
@@ -78,6 +82,7 @@ class AddEmailScreen extends Component {
         <ApolloConsumer>
           {client => <RoundedButton {...this.signupButtonProps(client)}/>}
         </ApolloConsumer>
+        {(this.state.loading) ? <ActivityIndicator style={styles.loading} size="large" color="white" />:null}
       </View>
     )
   }

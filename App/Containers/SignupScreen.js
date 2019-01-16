@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, Text, Alert} from 'react-native'
+import { View, Image, Text, Alert, ActivityIndicator} from 'react-native'
 import { Images } from '../Themes'
 import I18n from "../I18n"
 import validator from 'validator'
@@ -26,21 +26,29 @@ class SignupScreen extends Component {
     emailError: null,
     password: null,
     passwordError: null,
-    signupDisabled: true
+    signupDisabled: true,
+    loading:false
   }
 
   onWechat = () => {}
   onTwitter = client => async () => this.checkSignInEmail(await AccountChecker.twitter(client))
   onFb =  client => async () => this.checkSignInEmail(await AccountChecker.fb(client))
   onGoogle =  client => async () => this.checkSignInEmail(await AccountChecker.google(client))
-  onSignup = client => async () => this.checkSignInEmail(await AccountChecker.email(client, this.state))
+  onSignup = client => async () => {
+    this.setState({loading:true})
+    this.checkSignInEmail(await AccountChecker.email(client, this.state))
+
+  }
 
   checkSignInEmail = result => {
     if(!result.error) {
       if(result.params.email) this.props.navigation.navigate('AddProfileScreen', result.params)
       else this.props.navigation.navigate('AddEmailScreen', result.params)
     }
-    else if(result.error.message) Alert.alert(I18n.t('Error'), I18n.t(result.error.message), [ { text: I18n.t('ok') } ])
+    else if(result.error.message) {
+      this.setState({loading:false})
+      Alert.alert(I18n.t('Error'), I18n.t(result.error.message), [ { text: I18n.t('ok') } ])
+    }
   }
   
   onCheckEamil = () => {
@@ -61,7 +69,9 @@ class SignupScreen extends Component {
     placeholder:I18n.t('emailAddress'),
     placeholderTextColor:'grey',
     error: this.state.emailError,
-    onBlur: this.onCheckEamil
+    onBlur: this.onCheckEamil,
+    autoCorrect: false,
+    autoCapitalize:'none'
   })
 
   passwordInputProps = () => ({
@@ -126,6 +136,7 @@ class SignupScreen extends Component {
             {client => <RoundedButton {...this.signupButtonProps(client)} />}
           </ApolloConsumer>
         </View>
+        {(this.state.loading) ? <ActivityIndicator style={styles.loading} size="large" color="white" />:null}
       </View>
     )
   }

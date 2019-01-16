@@ -46,6 +46,14 @@ const ApplicationStyles = {
 			...Fonts.style.h2,
 			fontSize: 14,
 			color: Colors.text
+		},
+		loading:{
+			position:'absolute',
+			backgroundColor:'rgba(0,0,0, 0.5)',
+			width: Metrics.screenWidth,
+			height: Metrics.screenHeight,
+			top: 0,
+			left: 0,
 		}
 	},
 	darkLabelContainer: {
