@@ -19,11 +19,16 @@ const PrimaryNav = createStackNavigator({
 	SignupScreen: { screen: SignupScreen },
 	LoginScreen: { screen: LoginScreen },
 	LandingScreen: { screen: LandingScreen },
-	LaunchScreen: { screen: LaunchScreen }
 },{
 	// Default config for all screens
 	initialRouteName: 'LandingScreen',
 });
+
+const ContentNav = createStackNavigator({
+	LaunchScreen: { screen: LaunchScreen }
+},{
+	initialRouteName: 'LaunchScreen',
+})
 
 
 const PrimarySwitch = createSwitchNavigator({
@@ -32,7 +37,8 @@ const PrimarySwitch = createSwitchNavigator({
 	TutorialScreen: { screen: TutorialScreen },
 	TestAppSyncContainer: { screen: TestAppSyncContainer },
 	TestCognitoContainer: { screen: TestCognitoContainer },
-	PrimaryNav
+	PrimaryNav,
+	ContentNav
 },{
 	initialRouteName: 'TutorialScreen'
 })
