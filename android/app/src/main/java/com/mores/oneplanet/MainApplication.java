@@ -3,6 +3,7 @@ package com.mores.oneplanet;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.goldenowl.twittersignin.TwitterSigninPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import android.support.multidex.MultiDex;
@@ -45,6 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new TwitterSigninPackage(),
             new FBSDKPackage(mCallbackManager),
             new RNGoogleSigninPackage(),
             new PickerPackage(),

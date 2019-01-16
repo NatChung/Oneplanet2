@@ -22,6 +22,14 @@
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
+    <dict>
+      <key>CFBundleTypeRole</key>
+      <string>Editor</string>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>twitterkit-pGvVuFgTun2H2yPeMICtD6j0E</string>
+      </array>
+    </dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>

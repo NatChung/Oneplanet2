@@ -10,7 +10,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
-
+#import <TwitterKit/TWTRKit.h>
 
 @implementation AppDelegate
 
@@ -34,6 +34,9 @@
   [RNSplashScreen show];
   return YES;
 }
-
+  
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
+  return [[Twitter sharedInstance] application:app openURL:url options:options];
+}
 
 @end
