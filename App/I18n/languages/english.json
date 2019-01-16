@@ -43,6 +43,6 @@
 	"ok": "OK",
 
 	"#":"AddEmailScreen",
-	"addEmailInfo":"Your Facebook/Wechat is not filled in Email.  You need to provide Email as Oneplanet's login account when registering."
+	"addEmailInfo":"Your Facebook/Wechat/Twitter is not filled in Email.  You need to provide Email as Oneplanet's login account when registering."
 
 }
