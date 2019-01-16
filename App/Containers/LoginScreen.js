@@ -15,6 +15,8 @@ import SocailMediaButtons from '../Components/SocailMediaButtons';
 import RoundedButton from '../Components/RoundedButton';
 import RoundedTextInput from '../Components/RoundedTextInput';
 import RichI18n from '../Components/RichI18n';
+import { Signin } from "../Lib/Auth"
+import { ApolloConsumer } from 'react-apollo'
 
 class LoginScreen extends Component {
 	static navigationOptions = {
@@ -47,9 +49,23 @@ class LoginScreen extends Component {
 		this.setState({ isLoginDisabled: !isValid });
 	};
 
-	onFb = () => {};
-	onTwitter = () => {};
-	onGoogle = () => {};
+	onFb = client => async () => {
+		const {error, profile} = await Signin.fb(client)
+		if(error && error.message ) Alert.alert(I18n.t('Error'), error.message)
+		if(profile) this.props.navigation.navigate('LaunchScreen')
+	}
+
+	onTwitter = client => async () => {
+		const {error, profile} = await Signin.twitter(client)
+		if(error && !error.domain && error.message ) Alert.alert(I18n.t('Error'), error.message)
+		if(profile) this.props.navigation.navigate('LaunchScreen')
+	}
+	onGoogle = client => async () => {
+		const {error, profile} = await Signin.google(client)
+		if(error && !error.domain && error.message ) Alert.alert(I18n.t('Error'), error.message)
+		if(profile) this.props.navigation.navigate('LaunchScreen')
+	}
+
 	onWechat = () => {};
 
 	onLogin = async () => {
@@ -143,12 +159,14 @@ class LoginScreen extends Component {
 			<View style={styles.mainContainer}>
 				<Image source={Images.loginBackground} style={styles.backgroundImage} />
 				<View style={styles.socailMediaContainer}>
-					<SocailMediaButtons
-						onFb={this.onFb}
-						onTwitter={this.onTwitter}
-						onGoogle={this.onGoogle}
-						onWechat={this.onWechat}
-					/>
+					<ApolloConsumer>
+						{client => (<SocailMediaButtons
+							onFb={this.onFb(client)}
+							onTwitter={this.onTwitter(client)}
+							onGoogle={this.onGoogle(client)}
+							onWechat={this.onWechat}
+						/>)}
+					</ApolloConsumer>
 					<Text style={styles.text}>{I18n.t('or')}</Text>
 				</View>
 				<View style={styles.inputGroupContainer}>
