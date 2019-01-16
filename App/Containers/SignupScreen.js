@@ -36,7 +36,7 @@ class SignupScreen extends Component {
   onWithoutEmail = client => async () => {
     const result = await AccountChecker.withoutEmail()
     if(!result.error) {
-      if(result.email) this.props.navigation.navigate('AddProfileScreen', result.params)
+      if(result.params.email) this.props.navigation.navigate('AddProfileScreen', result.params)
       else this.props.navigation.navigate('AddEmailScreen', result.params)
     }
     else if(result.error.message) Alert.alert(I18n.t('Error'), I18n.t(result.error.message), [ { text: I18n.t('ok') } ])
@@ -45,7 +45,7 @@ class SignupScreen extends Component {
   onFb =  client => async () => {
     const result = await AccountChecker.fb(client)
     if(!result.error) {
-      if(result.email) this.props.navigation.navigate('AddProfileScreen', result.params)
+      if(result.params.email) this.props.navigation.navigate('AddProfileScreen', result.params)
       else this.props.navigation.navigate('AddEmailScreen', result.params)
     }
     else if(result.error.message) Alert.alert(I18n.t('Error'), I18n.t(result.error.message), [ { text: I18n.t('ok') } ])
