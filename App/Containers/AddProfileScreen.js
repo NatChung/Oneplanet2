@@ -183,8 +183,8 @@ class AddProfileScreen extends Component {
 
   onAvatarPress = async () => {
     const [error, image] = await to(ImagePicker.openPicker({
-      width: 100,
-      height: 100,
+      width: 500,
+      height: 500,
       cropping: true,
       cropperCircleOverlay: true,
       compressImageQuality: 0.1
