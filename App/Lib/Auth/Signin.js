@@ -101,7 +101,7 @@ class Signin{
     })
 
     emailForgetPassword = (client, account ) => new Promise(async(resolve) => {   
-        const {erro, type} = await this.getAccountType(account, client)
+        const {erro, type} = await this.getAccountType(client, account)
         if(erro || type != 'email') return resolve({error:{message:'theEamilUsedForThirdPartyLogin'}})
         const [error, result] = await to(Auth.forgotPassword(account))
         resolve({error, result})
