@@ -40,7 +40,6 @@ class Signin{
             fetchPolicy:'network-only'
         }))
         if(error) return resolve({error})
-        console.tron.log(data.getUser)
         resolve({type: data.getUser.type})
     })
     

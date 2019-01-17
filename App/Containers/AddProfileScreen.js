@@ -183,9 +183,6 @@ class AddProfileScreen extends Component {
         }
       }
     }}))
-
-    console.tron.log('err', err)
-    console.tron.log('ret', ret)
     
     this.setState({loading:false})
     if(err) Alert.alert(I18n.t('error'), I18n.t('createUserProfileFailed'))
