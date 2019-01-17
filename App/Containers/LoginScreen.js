@@ -125,11 +125,11 @@ class LoginScreen extends Component {
 		}
 	};
 
-	onForgotPassword = async () => {
+	onForgotPassword = client => async () => {
 		const { account } = this.state;
 		const isNeedResend = await this.checkAndConfirmAccount(account, I18n.t('forgetPassword'), I18n.t('theOldPasswordWillBeInvalidOk'))
 		if(isNeedResend){
-			const {error, _} = await Signin.emailForgetPassword(account)
+			const {error, _} = await Signin.emailForgetPassword(client, account)
 			if(error && error.message) return Alert.alert(I18n.t('Error'), error.message)
 			this.props.navigation.navigate('ForgetPasswordScreen', {account})
 		}
@@ -194,9 +194,12 @@ class LoginScreen extends Component {
 					</View>
 					<View style={styles.inputGroup}>
 						<RoundedTextInput {...this.passwordInputProps()} />
-						<Text style={styles.passwordTips} onPress={this.onForgotPassword}>
-							{I18n.t('forgotPassword')}
-						</Text>
+
+						<ApolloConsumer>
+							{client => (<Text style={styles.passwordTips} onPress={this.onForgotPassword(client)}>
+								{I18n.t('forgotPassword')}
+							</Text>)}
+						</ApolloConsumer>
 					</View>
 					<RoundedButton {...this.loginButtonProps()} />
 				</View>

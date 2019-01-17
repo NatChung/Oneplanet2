@@ -33,8 +33,15 @@ class Signin{
         fetchPolicy:'network-only'
     })
 
-    emailInCognito = email => new Promise(resolve => {
-
+    getAccountType = (client, account) => new Promise(async(resolve) => {
+        const [error, {data}] = await to(client.query({
+            query:getUser,
+            variables: {id: account}, 
+            fetchPolicy:'network-only'
+        }))
+        if(error) return resolve({error})
+        console.tron.log(data.getUser)
+        resolve({type: data.getUser.type})
     })
     
     fbGetInfoCallBack = async (error, {email, id}, resolve, client) => {
@@ -64,11 +71,9 @@ class Signin{
     })
 
     getSocailMediaSignUpProfile = async(client, email, resolve) => {
-        console.tron.log('getSocailMediaSignUpProfile')
         const [confirmError, _] = await to(Auth.confirmSignUp(email, '000000', {forceAliasCreation: false}))
-        console.tron.log('confirmError', confirmError)
         if(confirmError.code === 'UserNotFoundException') return this.getProfile(client, email, resolve)
-        return resolve({error:{message: 'notSignUp'}})
+        return resolve({error:{message: 'emailAlreadyInUsed'}})
     }
 
     twitter =  client => new Promise(async(resolve) => {
@@ -95,7 +100,9 @@ class Signin{
         this.getSocailMediaSignUpProfile(client, userInfo.user.email, resolve)
     })
 
-    emailForgetPassword = account => new Promise(async(resolve) => {
+    emailForgetPassword = (client, account ) => new Promise(async(resolve) => {   
+        const {erro, type} = await this.getAccountType(account, client)
+        if(erro || type != 'email') return resolve({error:{message:'theEamilUsedForThirdPartyLogin'}})
         const [error, result] = await to(Auth.forgotPassword(account))
         resolve({error, result})
     })
