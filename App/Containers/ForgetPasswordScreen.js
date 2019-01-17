@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TextInput, Text, View, Button, Alert } from 'react-native'
+import { TextInput, Text, View, Button, Alert, ActivityIndicator } from 'react-native'
 import I18n from "../I18n";
 import validator from 'validator'
 import _ from 'lodash'
@@ -34,12 +34,14 @@ class ForgetPasswordScreen extends Component {
   }
 
   onDonePress = async () => {
-    console.tron.log('onDonePress')
+  
     const {verifyCode, password, confirmPassword} = this.state
     const account = this.props.navigation.getParam('account')
     if(password != confirmPassword) return Alert.alert(I18n.t('error'), I18n.t('passwordIsDifferent'))
 
-    const {error, result} =  await Signin.emailForgotPasswordSubmit(account, verifyCode, password)
+    this.setState({loading:true})
+    const {error, _} =  await Signin.emailForgotPasswordSubmit(account, verifyCode, password)
+    this.setState({loading:false})
     if(error && error.message) return Alert.alert(I18n.t('error'), error.message)
     this.props.navigation.goBack()
   }
@@ -95,6 +97,7 @@ class ForgetPasswordScreen extends Component {
         <TitleInput {...this.codeProps()}/>
         <TitleInput {...this.passwordProps()}/>
         <TitleInput {...this.confirmProps()}/>
+        {(this.state.loading) ? <ActivityIndicator style={styles.loading} size="large" color="white" />:null}
       </View>
     )
   }
