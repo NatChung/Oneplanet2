@@ -77,7 +77,7 @@ class AddProfileScreen extends Component {
 
   addEmailSignUp = async (imageBuffer, createUser, extEmail) => {
 
-    const {email, id} = this.props.navigation.state.params
+    const {email, id, subType} = this.props.navigation.state.params
     const password = uuid()
     const [error, _] = await to(extEmail({
       variables: {
@@ -97,7 +97,7 @@ class AddProfileScreen extends Component {
       attributes: {email},
     }))
 
-    if(!authError) this.addUserPorfile(imageBuffer, createUser )
+    if(!authError) this.addUserPorfile(imageBuffer, createUser, subType )
     else {
       this.setState({loading:false})
       Alert.alert(authError.name, authError.message)
@@ -112,7 +112,7 @@ class AddProfileScreen extends Component {
       attributes: {email},
     }))
 
-    if(!authError) this.addUserPorfile(imageBuffer, createUser )
+    if(!authError) this.addUserPorfile(imageBuffer, createUser, 'email' )
     else {
       this.setState({loading:false})
       Alert.alert(authError.name, authError.message)
@@ -120,7 +120,8 @@ class AddProfileScreen extends Component {
   }
 
   socialMediaSignUp = (imageBuffer, createUser) => {
-    this.addUserPorfile(imageBuffer, createUser )
+    const {type} = this.props.navigation.state.params
+    this.addUserPorfile(imageBuffer, createUser, type )
   }
 
   getExtEmailType(subType, {createFbExtEmail, createWechatExtEmail, createTwitterExtEmail}){
@@ -160,17 +161,19 @@ class AddProfileScreen extends Component {
     }
   }
 
-  addUserPorfile = async (imageBuffer, createUser) => {
+  addUserPorfile = async (imageBuffer, createUser, type) => {
 
     const {nickname} = this.state
-    const {type, email} = this.props.navigation.state.params
+    const {email} = this.props.navigation.state.params
 
+    
     const {identityId} = await Auth.currentCredentials()
     const key = `public/${identityId}/${uuid()}.jpg`;
     const [err, ret]  = await to(createUser({variables: {
       input: {
         id:email,
         nickname,
+        type,
         avatar: {
           bucket:AwsConfig.aws_user_files_s3_bucket,
           key,
@@ -180,8 +183,11 @@ class AddProfileScreen extends Component {
         }
       }
     }}))
-    
 
+    console.tron.log('err', err)
+    console.tron.log('ret', ret)
+    
+    this.setState({loading:false})
     if(err) Alert.alert(I18n.t('error'), I18n.t('createUserProfileFailed'))
     else if(type === 'addEmail' || type === 'email') this.props.navigation.navigate('EmailSentScreen')
     else this.props.navigation.navigate('LandingScreen')

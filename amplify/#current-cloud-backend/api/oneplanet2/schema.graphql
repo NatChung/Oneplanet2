@@ -37,11 +37,7 @@ type User @model {
   id: ID! #email
   nickname: String!
   avatar: S3Object
-}
-
-enum Visibility {
-    public
-    private
+  type: UserType!
 }
 
 input S3ObjectInput {
@@ -57,4 +53,17 @@ type S3Object {
     bucket: String!
     region: String!
     key: String!
+}
+
+enum Visibility {
+    public
+    private
+}
+
+enum UserType {
+    email
+    fb
+    wechat
+    twitter
+    google
 }

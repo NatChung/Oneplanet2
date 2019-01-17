@@ -82,6 +82,7 @@ export const onCreateUser = `subscription OnCreateUser {
       region
       key
     }
+    type
   }
 }
 `;
@@ -94,6 +95,7 @@ export const onUpdateUser = `subscription OnUpdateUser {
       region
       key
     }
+    type
   }
 }
 `;
@@ -106,6 +108,7 @@ export const onDeleteUser = `subscription OnDeleteUser {
       region
       key
     }
+    type
   }
 }
 `;

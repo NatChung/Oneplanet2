@@ -1,8 +1,7 @@
 // eslint-disable
 // this is an auto generated file. This will be overwritten
-import gql from 'graphql-tag'
 
-export const getFbExtEmail = gql`query GetFbExtEmail($id: ID!) {
+export const getFbExtEmail = `query GetFbExtEmail($id: ID!) {
   getFbExtEmail(id: $id) {
     id
     email
@@ -10,7 +9,7 @@ export const getFbExtEmail = gql`query GetFbExtEmail($id: ID!) {
   }
 }
 `;
-export const listFbExtEmails = gql`query ListFbExtEmails(
+export const listFbExtEmails = `query ListFbExtEmails(
   $filter: ModelFbExtEmailFilterInput
   $limit: Int
   $nextToken: String
@@ -25,7 +24,7 @@ export const listFbExtEmails = gql`query ListFbExtEmails(
   }
 }
 `;
-export const getWechatExtEmail = gql`query GetWechatExtEmail($id: ID!) {
+export const getWechatExtEmail = `query GetWechatExtEmail($id: ID!) {
   getWechatExtEmail(id: $id) {
     id
     email
@@ -33,7 +32,7 @@ export const getWechatExtEmail = gql`query GetWechatExtEmail($id: ID!) {
   }
 }
 `;
-export const listWechatExtEmails = gql`query ListWechatExtEmails(
+export const listWechatExtEmails = `query ListWechatExtEmails(
   $filter: ModelWechatExtEmailFilterInput
   $limit: Int
   $nextToken: String
@@ -48,7 +47,7 @@ export const listWechatExtEmails = gql`query ListWechatExtEmails(
   }
 }
 `;
-export const getTwitterExtEmail = gql`query GetTwitterExtEmail($id: ID!) {
+export const getTwitterExtEmail = `query GetTwitterExtEmail($id: ID!) {
   getTwitterExtEmail(id: $id) {
     id
     email
@@ -56,7 +55,7 @@ export const getTwitterExtEmail = gql`query GetTwitterExtEmail($id: ID!) {
   }
 }
 `;
-export const listTwitterExtEmails = gql`query ListTwitterExtEmails(
+export const listTwitterExtEmails = `query ListTwitterExtEmails(
   $filter: ModelTwitterExtEmailFilterInput
   $limit: Int
   $nextToken: String
@@ -71,7 +70,7 @@ export const listTwitterExtEmails = gql`query ListTwitterExtEmails(
   }
 }
 `;
-export const getUser = gql`query GetUser($id: ID!) {
+export const getUser = `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
     nickname
@@ -80,10 +79,11 @@ export const getUser = gql`query GetUser($id: ID!) {
       region
       key
     }
+    type
   }
 }
 `;
-export const listUsers = gql`query ListUsers(
+export const listUsers = `query ListUsers(
   $filter: ModelUserFilterInput
   $limit: Int
   $nextToken: String
@@ -97,6 +97,7 @@ export const listUsers = gql`query ListUsers(
         region
         key
       }
+      type
     }
     nextToken
   }
