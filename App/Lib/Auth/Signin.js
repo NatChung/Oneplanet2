@@ -94,6 +94,16 @@ class Signin{
         if(loginError) return resolve({error: loginError})
         this.getSocailMediaSignUpProfile(client, userInfo.user.email, resolve)
     })
+
+    emailForgetPassword = account => new Promise(async(resolve) => {
+        const [error, result] = await to(Auth.forgotPassword(account))
+        resolve({error, result})
+    })
+
+    emailForgotPasswordSubmit = (account, code, password) => new Promise(async(resolve) => {
+        const [error, result] = await to(Auth.forgotPasswordSubmit(account, code, password))
+        resolve({error, result})
+    })
 }
 
 const instance = new Signin()

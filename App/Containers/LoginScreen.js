@@ -98,23 +98,26 @@ class LoginScreen extends Component {
 		}
 	};
 
+	checkAndConfirmAccount = (account, title, message) => new Promise((resolve) => {
+		if (!account) return resolve(false)
+
+		if (!validator.isEmail(account)) {
+			Alert.alert('Error', I18n.t('incorrectEmail'));
+			return resolve(false)
+		}
+
+		Alert.alert(title,message,
+			[
+				{ text: I18n.t('cancel'), onPress: () => resolve(false), style: 'cancel' },
+				{ text: I18n.t('ok'), onPress: () => resolve(true) }
+			],
+			{ cancelable: false }
+		);
+	})
+
 	onResendEmail = async () => {
 		const { account } = this.state;
-		if (!account) return;
-		if (!validator.isEmail(account)) {
-			return Alert.alert('Error', I18n.t('incorrectEmail'));
-		}
-		const isNeedResend = await new Promise((resolve, reject) => {
-			Alert.alert(
-				I18n.t('sendANewPassword'),
-				I18n.t('theOldPasswordWillBeInvalidOk'),
-				[
-					{ text: I18n.t('cancel'), onPress: () => resolve(false), style: 'cancel' },
-					{ text: I18n.t('ok'), onPress: () => resolve(true) }
-				],
-				{ cancelable: false }
-			);
-		});
+		const isNeedResend = await this.checkAndConfirmAccount(account, I18n.t('sendANewPassword'), I18n.t('theOldPasswordWillBeInvalidOk'))
 		if (isNeedResend) {
 			const {error, _} = await Signup.emailResend(account)
 			if(error && error.message) return Alert.alert(I18n.t('Error'), error.message)
@@ -122,7 +125,15 @@ class LoginScreen extends Component {
 		}
 	};
 
-	onForgotPassword = () => {};
+	onForgotPassword = async () => {
+		const { account } = this.state;
+		const isNeedResend = await this.checkAndConfirmAccount(account, I18n.t('forgetPassword'), I18n.t('theOldPasswordWillBeInvalidOk'))
+		if(isNeedResend){
+			const {error, _} = await Signin.emailForgetPassword(account)
+			if(error && error.message) return Alert.alert(I18n.t('Error'), error.message)
+			this.props.navigation.navigate('ForgetPasswordScreen', {account})
+		}
+	}
 
 	handleInputChange = (fieldName) => (value) => {
 		this.setState({ [fieldName]: validator.trim(value) }, this.validate);

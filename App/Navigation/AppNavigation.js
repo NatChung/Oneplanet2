@@ -1,5 +1,6 @@
 import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import ForgetPasswordScreen from '../Containers/ForgetPasswordScreen'
 import AddEmailScreen from '../Containers/AddEmailScreen'
 import TermsScreen from '../Containers/TermsScreen'
 import EmailSentScreen from '../Containers/EmailSentScreen'
@@ -14,6 +15,7 @@ import LoginScreen from '../Containers/LoginScreen';
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
+  	ForgetPasswordScreen: { screen: ForgetPasswordScreen },
   	AddEmailScreen: { screen: AddEmailScreen },
 	TermsScreen: { screen: TermsScreen },
 	SignupScreen: { screen: SignupScreen },
@@ -40,7 +42,7 @@ const PrimarySwitch = createSwitchNavigator({
 	PrimaryNav,
 	ContentNav
 },{
-	initialRouteName: 'TutorialScreen'
+	initialRouteName: 'PrimaryNav'
 })
 
 export default createAppContainer(PrimarySwitch);
