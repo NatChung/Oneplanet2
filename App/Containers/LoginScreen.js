@@ -15,8 +15,9 @@ import SocailMediaButtons from '../Components/SocailMediaButtons';
 import RoundedButton from '../Components/RoundedButton';
 import RoundedTextInput from '../Components/RoundedTextInput';
 import RichI18n from '../Components/RichI18n';
-import { Signin } from "../Lib/Auth"
+import { Signin, Signup } from "../Lib/Auth"
 import { ApolloConsumer } from 'react-apollo'
+import Toast from 'react-native-easy-toast'
 
 class LoginScreen extends Component {
 	static navigationOptions = {
@@ -115,7 +116,9 @@ class LoginScreen extends Component {
 			);
 		});
 		if (isNeedResend) {
-			// Do something...
+			const {error, _} = await Signup.emailResend(account)
+			if(error && error.message) return Alert.alert(I18n.t('Error'), error.message)
+			this.toast.show(I18n.t('resendSuccess'))
 		}
 	};
 
@@ -186,6 +189,7 @@ class LoginScreen extends Component {
 					</View>
 					<RoundedButton {...this.loginButtonProps()} />
 				</View>
+				<Toast ref={ref => this.toast = ref} position='center'/>
 			</View>
 		);
 	}
