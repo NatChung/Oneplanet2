@@ -42,7 +42,7 @@ const PrimarySwitch = createSwitchNavigator({
 	PrimaryNav,
 	ContentNav
 },{
-	initialRouteName: 'PrimaryNav'
+	initialRouteName: 'TutorialScreen'
 })
 
 export default createAppContainer(PrimarySwitch);
