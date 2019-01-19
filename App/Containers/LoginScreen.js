@@ -15,9 +15,9 @@ import SocailMediaButtons from '../Components/SocailMediaButtons';
 import RoundedButton from '../Components/RoundedButton';
 import RoundedTextInput from '../Components/RoundedTextInput';
 import RichI18n from '../Components/RichI18n';
-import { Signin, Signup } from "../Lib/Auth"
-import { ApolloConsumer } from 'react-apollo'
-import Toast from 'react-native-easy-toast'
+import { Signin, Signup } from '../Lib/Auth';
+import { ApolloConsumer } from 'react-apollo';
+import Toast from 'react-native-easy-toast';
 
 class LoginScreen extends Component {
 	static navigationOptions = {
@@ -50,32 +50,33 @@ class LoginScreen extends Component {
 		this.setState({ isLoginDisabled: !isValid });
 	};
 
-	onFb = client => async () => {
-		const {error, profile} = await Signin.fb(client)
-		if(error && error.message ) Alert.alert(I18n.t('Error'), error.message)
-		if(profile) this.props.navigation.navigate('LaunchScreen')
-	}
+	onFb = (client) => async () => {
+		const { error, profile } = await Signin.fb(client);
+		if (error && error.message) Alert.alert(I18n.t('Error'), error.message);
+		if (profile) this.props.navigation.navigate('ContentTabs');
+	};
 
-	onTwitter = client => async () => {
-		const {error, profile} = await Signin.twitter(client)
-		if(error && !error.domain && error.message ) Alert.alert(I18n.t('Error'), error.message)
-		if(profile) this.props.navigation.navigate('LaunchScreen')
-	}
-	onGoogle = client => async () => {
-		const {error, profile} = await Signin.google(client)
-		if(error && !error.domain && error.message ) Alert.alert(I18n.t('Error'), error.message)
-		if(profile) this.props.navigation.navigate('LaunchScreen')
-	}
+	onTwitter = (client) => async () => {
+		const { error, profile } = await Signin.twitter(client);
+		if (error && !error.domain && error.message) Alert.alert(I18n.t('Error'), error.message);
+		if (profile) this.props.navigation.navigate('ContentTabs');
+	};
+	onGoogle = (client) => async () => {
+		const { error, profile } = await Signin.google(client);
+		if (error && !error.domain && error.message) Alert.alert(I18n.t('Error'), error.message);
+		if (profile) this.props.navigation.navigate('ContentTabs');
+	};
 
 	onWechat = () => {};
 
 	onLogin = async () => {
+		const { navigation } = this.props;
 		const { account, password } = this.state;
 
 		try {
-			const user = await Auth.signIn(account, password);
-			console.tron.log('user:', user);
-			Alert.alert('[DEV] Success', user.username);
+			const profile = await Auth.signIn(account, password);
+			console.tron.log('profile:', profile);
+			navigation.navigate('ContentTabs');
 		} catch (error) {
 			const exceptionMaps = {
 				UserNotFoundException: {
@@ -98,42 +99,53 @@ class LoginScreen extends Component {
 		}
 	};
 
-	checkAndConfirmAccount = (account, title, message) => new Promise((resolve) => {
-		if (!account) return resolve(false)
+	checkAndConfirmAccount = (account, title, message) =>
+		new Promise((resolve) => {
+			if (!account) return resolve(false);
 
-		if (!validator.isEmail(account)) {
-			Alert.alert('Error', I18n.t('incorrectEmail'));
-			return resolve(false)
-		}
+			if (!validator.isEmail(account)) {
+				Alert.alert('Error', I18n.t('incorrectEmail'));
+				return resolve(false);
+			}
 
-		Alert.alert(title,message,
-			[
-				{ text: I18n.t('cancel'), onPress: () => resolve(false), style: 'cancel' },
-				{ text: I18n.t('ok'), onPress: () => resolve(true) }
-			],
-			{ cancelable: false }
-		);
-	})
+			Alert.alert(
+				title,
+				message,
+				[
+					{ text: I18n.t('cancel'), onPress: () => resolve(false), style: 'cancel' },
+					{ text: I18n.t('ok'), onPress: () => resolve(true) }
+				],
+				{ cancelable: false }
+			);
+		});
 
 	onResendEmail = async () => {
 		const { account } = this.state;
-		const isNeedResend = await this.checkAndConfirmAccount(account, I18n.t('sendANewPassword'), I18n.t('theOldPasswordWillBeInvalidOk'))
+		const isNeedResend = await this.checkAndConfirmAccount(
+			account,
+			I18n.t('sendANewPassword'),
+			I18n.t('theOldPasswordWillBeInvalidOk')
+		);
 		if (isNeedResend) {
-			const {error, _} = await Signup.emailResend(account)
-			if(error && error.message) return Alert.alert(I18n.t('Error'), error.message)
-			this.toast.show(I18n.t('resendSuccess'))
+			const { error, _ } = await Signup.emailResend(account);
+			if (error && error.message) return Alert.alert(I18n.t('Error'), error.message);
+			this.toast.show(I18n.t('resendSuccess'));
 		}
 	};
 
-	onForgotPassword = client => async () => {
+	onForgotPassword = (client) => async () => {
 		const { account } = this.state;
-		const isNeedResend = await this.checkAndConfirmAccount(account, I18n.t('forgetPassword'), I18n.t('theOldPasswordWillBeInvalidOk'))
-		if(isNeedResend){
-			const {error, _} = await Signin.emailForgetPassword(client, account)
-			if(error && error.message) return Alert.alert(I18n.t('Error'), error.message)
-			this.props.navigation.navigate('ForgetPasswordScreen', {account})
+		const isNeedResend = await this.checkAndConfirmAccount(
+			account,
+			I18n.t('forgetPassword'),
+			I18n.t('theOldPasswordWillBeInvalidOk')
+		);
+		if (isNeedResend) {
+			const { error, _ } = await Signin.emailForgetPassword(client, account);
+			if (error && error.message) return Alert.alert(I18n.t('Error'), error.message);
+			this.props.navigation.navigate('ForgetPasswordScreen', { account });
 		}
-	}
+	};
 
 	handleInputChange = (fieldName) => (value) => {
 		this.setState({ [fieldName]: validator.trim(value) }, this.validate);
@@ -174,12 +186,14 @@ class LoginScreen extends Component {
 				<Image source={Images.loginBackground} style={styles.backgroundImage} />
 				<View style={styles.socailMediaContainer}>
 					<ApolloConsumer>
-						{client => (<SocailMediaButtons
-							onFb={this.onFb(client)}
-							onTwitter={this.onTwitter(client)}
-							onGoogle={this.onGoogle(client)}
-							onWechat={this.onWechat}
-						/>)}
+						{(client) => (
+							<SocailMediaButtons
+								onFb={this.onFb(client)}
+								onTwitter={this.onTwitter(client)}
+								onGoogle={this.onGoogle(client)}
+								onWechat={this.onWechat}
+							/>
+						)}
 					</ApolloConsumer>
 					<Text style={styles.text}>{I18n.t('or')}</Text>
 				</View>
@@ -196,14 +210,16 @@ class LoginScreen extends Component {
 						<RoundedTextInput {...this.passwordInputProps()} />
 
 						<ApolloConsumer>
-							{client => (<Text style={styles.passwordTips} onPress={this.onForgotPassword(client)}>
-								{I18n.t('forgotPassword')}
-							</Text>)}
+							{(client) => (
+								<Text style={styles.passwordTips} onPress={this.onForgotPassword(client)}>
+									{I18n.t('forgotPassword')}
+								</Text>
+							)}
 						</ApolloConsumer>
 					</View>
 					<RoundedButton {...this.loginButtonProps()} />
 				</View>
-				<Toast ref={ref => this.toast = ref} position='center'/>
+				<Toast ref={(ref) => (this.toast = ref)} position="center" />
 			</View>
 		);
 	}

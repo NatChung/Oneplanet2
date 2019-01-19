@@ -93,7 +93,7 @@ const PrimarySwitch = createSwitchNavigator(
 		ContentTabs
 	},
 	{
-		initialRouteName: 'ContentTabs'
+		initialRouteName: 'PrimaryNav'
 	}
 );
 
