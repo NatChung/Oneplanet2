@@ -1,5 +1,6 @@
 import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+
 import ForgetPasswordScreen from '../Containers/ForgetPasswordScreen';
 import AddEmailScreen from '../Containers/AddEmailScreen';
 import TermsScreen from '../Containers/TermsScreen';
@@ -12,6 +13,21 @@ import LaunchScreen from '../Containers/LaunchScreen';
 import TutorialScreen from '../Containers/TutorialScreen';
 import LandingScreen from '../Containers/LandingScreen';
 import LoginScreen from '../Containers/LoginScreen';
+
+import createTabNavigator from './Navigators/createTabNavigator';
+import TabBar from '../Components/TabBar';
+import {
+	OfficialScreen,
+	PartyScreen,
+	HotScreen,
+	AlienScreen,
+	RankingScreen,
+	LiveScreen,
+	LuckyScreen,
+	MyScreen
+} from '../Containers/Tabs';
+
+import { Images } from '../Themes';
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator(
@@ -37,6 +53,34 @@ const ContentNav = createStackNavigator(
 	}
 );
 
+const ContentTabs = createTabNavigator(
+	{
+		OfficialScreen: { screen: OfficialScreen },
+		PartyScreen: { screen: PartyScreen },
+		HotScreen: { screen: HotScreen },
+		AlienScreen: { screen: AlienScreen },
+		RankingScreen: { screen: RankingScreen },
+		LiveScreen: { screen: LiveScreen },
+		LuckyScreen: { screen: LuckyScreen },
+		MyScreen: { screen: MyScreen }
+	},
+	{
+		initialRouteName: 'HotScreen',
+		tabBarComponent: TabBar,
+		tabBarOptions: { showLabel: false },
+		customOptions: {
+			top: {
+				acceptRoutes: [ 'OfficialScreen', 'PartyScreen', 'HotScreen', 'AlienScreen', 'RankingScreen' ],
+				style: { backgroundColor: '#191919', height: 60 }
+			},
+			bottom: {
+				acceptRoutes: [ 'LiveScreen', 'LuckyScreen', 'MyScreen' ],
+				backgroundImage: Images.tabBarBackgroundImage
+			}
+		}
+	}
+);
+
 const PrimarySwitch = createSwitchNavigator(
 	{
 		EmailSentScreen: { screen: EmailSentScreen },
@@ -45,10 +89,11 @@ const PrimarySwitch = createSwitchNavigator(
 		TestAppSyncContainer: { screen: TestAppSyncContainer },
 		TestCognitoContainer: { screen: TestCognitoContainer },
 		PrimaryNav,
-		ContentNav
+		ContentNav,
+		ContentTabs
 	},
 	{
-		initialRouteName: 'PrimaryNav'
+		initialRouteName: 'ContentTabs'
 	}
 );
 
@@ -63,7 +108,5 @@ const RootStack = createStackNavigator(
 		headerMode: 'none'
 	}
 );
-
-// ignite g component TabNavigationView
 
 export default createAppContainer(RootStack);

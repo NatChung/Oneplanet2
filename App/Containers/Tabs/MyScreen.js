@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, KeyboardAvoidingView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import { bottomTabBarIcon } from '../../Components/TabBar';
 
 // Styles
@@ -12,10 +12,8 @@ class MyScreen extends Component {
 
 	render() {
 		return (
-			<ScrollView style={styles.container}>
-				<KeyboardAvoidingView behavior="position">
-					<Text>MyScreen</Text>
-				</KeyboardAvoidingView>
+			<ScrollView style={styles.mainContainer}>
+				<Text>MyScreen</Text>
 			</ScrollView>
 		);
 	}
