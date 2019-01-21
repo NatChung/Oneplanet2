@@ -1,5 +1,6 @@
 import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import ProductDetailScreen from '../Containers/ProductDetailScreen'
 
 import ForgetPasswordScreen from '../Containers/ForgetPasswordScreen';
 import AddEmailScreen from '../Containers/AddEmailScreen';
@@ -30,8 +31,7 @@ import {
 import { Images } from '../Themes';
 
 // Manifest of possible screens
-const PrimaryNav = createStackNavigator(
-	{
+const PrimaryNav = createStackNavigator({
 		ForgetPasswordScreen: { screen: ForgetPasswordScreen },
 		AddEmailScreen: { screen: AddEmailScreen },
 		SignupScreen: { screen: SignupScreen },
@@ -41,15 +41,6 @@ const PrimaryNav = createStackNavigator(
 	{
 		// Default config for all screens
 		initialRouteName: 'LandingScreen'
-	}
-);
-
-const ContentNav = createStackNavigator(
-	{
-		LaunchScreen: { screen: LaunchScreen }
-	},
-	{
-		initialRouteName: 'LaunchScreen'
 	}
 );
 
@@ -81,26 +72,31 @@ const ContentTabs = createTabNavigator(
 	}
 );
 
+const ContentNav = createStackNavigator({
+	ContentTabs,
+	ProductDetailScreen: { screen: ProductDetailScreen },
+},{
+	initialRouteName: 'ContentTabs',
+	headerMode:'none'
+})
+
 const PrimarySwitch = createSwitchNavigator(
 	{
 		EmailSentScreen: { screen: EmailSentScreen },
 		AddProfileScreen: { screen: AddProfileScreen },
 		TutorialScreen: { screen: TutorialScreen },
-		TestAppSyncContainer: { screen: TestAppSyncContainer },
-		TestCognitoContainer: { screen: TestCognitoContainer },
-		PrimaryNav,
-		ContentNav,
-		ContentTabs
+		PrimaryNav,//Loing & signup
+		ContentNav
 	},
 	{
-		initialRouteName: 'ContentTabs'
+		initialRouteName: 'TutorialScreen'
 	}
 );
 
 const RootStack = createStackNavigator(
 	{
 		PrimarySwitch: { screen: PrimarySwitch },
-		TermsScreen: { screen: TermsScreen }
+		TermsScreen: { screen: TermsScreen },
 	},
 	{
 		initialRouteName: 'PrimarySwitch',

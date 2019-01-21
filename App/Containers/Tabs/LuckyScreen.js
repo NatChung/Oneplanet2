@@ -39,7 +39,7 @@ class LuckyScreen extends Component {
 				<FlatList style={styles.listContaner}
 					data={this.state.data}
 					keyExtractor={(_,index) => index.toString()}
-					renderItem={({item}) => <BiddingCell item={item}/>}
+					renderItem={({item}) => <BiddingCell item={item} onPress={() => this.props.navigation.navigate('ProductDetailScreen')}/>}
 					ListHeaderComponent={this.renderHeader}
 					stickyHeaderIndices={[0]}
 					/>
