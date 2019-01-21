@@ -9,14 +9,12 @@ export default function withHeader(WrappedComponent) {
 	class EnhancedComponent extends Component {
 		static displayName = `withHeader(${WrappedComponent.displayName})`;
 
-		state = {};
-
 		render() {
 			const { navigation } = this.props;
 			const { navigationOptions } = WrappedComponent;
-      const options = typeof navigationOptions === 'function' 
-        ? navigationOptions(navigation) 
-        : navigationOptions;
+			const options = typeof navigationOptions === 'function' 
+				? navigationOptions(navigation) 
+				: navigationOptions;
 			const scene = {
 				key: navigation.state.key,
 				index: 1,
@@ -33,7 +31,7 @@ export default function withHeader(WrappedComponent) {
 			return (
 				<View style={{ flex: 1 }}>
 					<Header {...props} />
-					<WrappedComponent {...this.props} {...this.state} />
+					<WrappedComponent {...this.props} />
 				</View>
 			);
 		}

@@ -56,6 +56,7 @@ class TabNavigationView extends PureComponent {
 			<TabBarComponent
 				{...tabBarOptions}
 				{...customOptions[type]}
+				type={type}
 				jumpTo={this._jumpTo}
 				navigation={navigation}
 				screenProps={screenProps}

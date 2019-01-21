@@ -22,6 +22,33 @@ class TabBar extends Component {
 		// safeAreaInset: { bottom: 'never', top: 'never' }
 	};
 
+	state = {
+		offset: new Animated.Value(0),
+		opacity: new Animated.Value(1)
+	};
+
+	componentWillReceiveProps(nextProps) {
+		const { offset, opacity, viewHeight } = this.state;
+
+		const prevState = this.props.navigation.state;
+		const prevRoute = prevState.routes[prevState.index];
+		const prevParams = prevRoute.params;
+		const wasVisible = !prevParams || prevParams.bottomTabBarVisible;
+
+		const nextState = nextProps.navigation.state;
+		const nextRoute = nextState.routes[nextState.index];
+		const nextParams = nextRoute.params;
+		const isVisible = !nextParams || nextParams.bottomTabBarVisible;
+
+		if (wasVisible && !isVisible) {
+			Animated.timing(offset, { toValue: -viewHeight, duration: 200 }).start();
+			Animated.timing(opacity, { toValue: 0, duration: 200 }).start();
+		} else if (isVisible && !wasVisible) {
+			Animated.timing(offset, { toValue: 0, duration: 200 }).start();
+			Animated.timing(opacity, { toValue: 1, duration: 20 }).start();
+		}
+	}
+
 	_renderLabel = ({ route, focused }) => {
 		const { activeTintColor, inactiveTintColor, labelStyle, showLabel, showIcon, allowFontScaling } = this.props;
 
@@ -71,7 +98,8 @@ class TabBar extends Component {
 		const style = [
 			styles.iconWithExplicitHeight,
 			showLabel === false && !horizontal && styles.iconWithoutLabel,
-			showLabel !== false && !horizontal && styles.iconWithLabel
+			showLabel !== false && !horizontal && styles.iconWithLabel,
+			{ backgroundColor: 'skyblue' }
 		];
 
 		return (
@@ -123,6 +151,10 @@ class TabBar extends Component {
 		}
 	};
 
+	_onLayout = ({ nativeEvent: { layout } }) => {
+		this.setState({ viewHeight: layout.height });
+	};
+
 	render() {
 		const {
 			navigation,
@@ -133,6 +165,7 @@ class TabBar extends Component {
 			safeAreaInset,
 			style,
 			tabStyle,
+			type,
 			acceptRoutes,
 			backgroundImage
 		} = this.props;
@@ -140,49 +173,54 @@ class TabBar extends Component {
 		const { routes } = navigation.state;
 
 		const tabBarStyle = [
+			type === 'bottom' ? { marginBottom: this.state.offset, opacity: this.state.opacity } : undefined,
 			styles.tabBar,
 			this._shouldUseHorizontalLabels() && !Platform.isPad ? styles.tabBarCompact : styles.tabBarRegular,
 			style
 		];
 
 		return (
-			<SafeAreaView style={tabBarStyle} forceInset={safeAreaInset}>
-				{backgroundImage && <Image source={backgroundImage} style={styles.backgroundImage} />}
-				{routes.map((route, index) => {
-					if (acceptRoutes && !acceptRoutes.includes(route.key)) return null;
+			<View onLayout={this._onLayout}>
+				<SafeAreaView style={tabBarStyle} forceInset={safeAreaInset}>
+					{backgroundImage && <Image source={backgroundImage} style={styles.backgroundImage} />}
+					{routes.map((route, index) => {
+						if (acceptRoutes && !acceptRoutes.includes(route.key)) return null;
 
-					const focused = index === navigation.state.index;
-					const scene = { route, focused };
-					const accessibilityLabel = this.props.getAccessibilityLabel({ route });
-					const testID = this.props.getTestID({ route });
+						const focused = index === navigation.state.index;
+						const scene = { route, focused };
+						const accessibilityLabel = this.props.getAccessibilityLabel({ route });
+						const testID = this.props.getTestID({ route });
 
-					const backgroundColor = focused ? activeBackgroundColor : inactiveBackgroundColor;
+						const backgroundColor = focused ? activeBackgroundColor : inactiveBackgroundColor;
 
-					const ButtonComponent = this.props.getButtonComponent({ route }) || TouchableBounce;
+						const ButtonComponent = this.props.getButtonComponent({ route }) || TouchableBounce;
 
-					return (
-						<ButtonComponent
-							key={route.key}
-							onPress={() => onTabPress({ route })}
-							onLongPress={() => onTabLongPress({ route })}
-							testID={testID}
-							accessibilityLabel={accessibilityLabel}
-							style={[
-								styles.tab,
-								{ backgroundColor },
-								this._shouldUseHorizontalLabels() ? styles.tabLandscape : styles.tabPortrait,
-								tabStyle
-							]}
-						>
-							{this._renderIcon(scene)}
-							{this._renderLabel(scene)}
-						</ButtonComponent>
-					);
-				})}
-			</SafeAreaView>
+						return (
+							<ButtonComponent
+								key={route.key}
+								onPress={() => onTabPress({ route })}
+								onLongPress={() => onTabLongPress({ route })}
+								testID={testID}
+								accessibilityLabel={accessibilityLabel}
+								style={[
+									styles.tab,
+									{ backgroundColor },
+									this._shouldUseHorizontalLabels() ? styles.tabLandscape : styles.tabPortrait,
+									tabStyle
+								]}
+							>
+								{this._renderIcon(scene)}
+								{this._renderLabel(scene)}
+							</ButtonComponent>
+						);
+					})}
+				</SafeAreaView>
+			</View>
 		);
 	}
 }
+
+export default withDimensions(TabBar);
 
 const topTabBarIcon = (key) => ({ focused }) => (
 	<View style={styles.topTab}>
@@ -197,5 +235,3 @@ const bottomTabBarIcon = (key) => ({ focused }) => (
 );
 
 export { topTabBarIcon, bottomTabBarIcon };
-
-export default withDimensions(TabBar);
