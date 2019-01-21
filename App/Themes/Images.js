@@ -72,7 +72,19 @@ const images = {
 	},
 	ranking: {
 		normal: require('../Images/tabBarTop/ic_ranking_nor.png')
-	}
+	},
+	digiNumber:[
+		require('../Images/lucky/0.png'),
+		require('../Images/lucky/1.png'),
+		require('../Images/lucky/2.png'),
+		require('../Images/lucky/3.png'),
+		require('../Images/lucky/4.png'),
+		require('../Images/lucky/5.png'),
+		require('../Images/lucky/6.png'),
+		require('../Images/lucky/7.png'),
+		require('../Images/lucky/8.png'),
+		require('../Images/lucky/9.png'),
+	  ],
 };
 
 export default images;

@@ -65,7 +65,7 @@ const ContentTabs = createTabNavigator(
 		MyScreen: { screen: MyScreen }
 	},
 	{
-		initialRouteName: 'HotScreen',
+		initialRouteName: 'LuckyScreen',
 		tabBarComponent: TabBar,
 		tabBarOptions: { showLabel: false },
 		customOptions: {
@@ -93,7 +93,7 @@ const PrimarySwitch = createSwitchNavigator(
 		ContentTabs
 	},
 	{
-		initialRouteName: 'PrimaryNav'
+		initialRouteName: 'ContentTabs'
 	}
 );
 

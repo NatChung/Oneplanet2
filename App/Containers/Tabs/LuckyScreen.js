@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { View, Image } from 'react-native';
 import { bottomTabBarIcon } from '../../Components/TabBar';
-
+import CountDownClock from '../../Components/CountDownClock'
+import { Images } from "../../Themes";
 // Styles
 import styles from './Styles/LuckyScreenStyle';
 
@@ -12,9 +13,10 @@ class LuckyScreen extends Component {
 
 	render() {
 		return (
-			<ScrollView style={styles.mainContainer}>
-				<Text>LuckyScreen</Text>
-			</ScrollView>
+			<View style={styles.mainContainer}>
+				<Image source={Images.loginBackground} style={styles.backgroundImage} />
+				<CountDownClock seconds={this.props.countdown} />
+			</View>
 		);
 	}
 }
