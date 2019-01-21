@@ -38,12 +38,41 @@ const images = {
 		fb: require('../Images/socailmedias/ic_facebook_nor.png'),
 		google: require('../Images/socailmedias/ic_google_nor.png'),
 		twitter: require('../Images/socailmedias/ic_twitter_nor.png'),
-		wechat: require('../Images/socailmedias/ic_wechat_nor.png'),
+		wechat: require('../Images/socailmedias/ic_wechat_nor.png')
 	},
 	addProfile: {
 		avatar: require('../Images/addProfile/ic_addmypic_nor.png')
-	}
+	},
 
+	tabBarBackgroundImage: require('../Images/ic_-05.png'),
+	tabSelect: require('../Images/ui_tabselect.png'),
+	live: {
+		normal: require('../Images/tabBarBottom/ic_live_nor.png'),
+		focused: require('../Images/tabBarBottom/ic_live_select.png')
+	},
+	lucky: {
+		normal: require('../Images/tabBarBottom/ic_lucky_nor.png'),
+		focused: require('../Images/tabBarBottom/ic_lucky_select.png')
+	},
+	my: {
+		normal: require('../Images/tabBarBottom/ic_my_nor.png'),
+		focused: require('../Images/tabBarBottom/ic_my_select.png')
+	},
+	official: {
+		normal: require('../Images/tabBarTop/ic_official_nor.png')
+	},
+	party: {
+		normal: require('../Images/tabBarTop/ic_party_nor.png')
+	},
+	hot: {
+		normal: require('../Images/tabBarTop/ic_hot_nor.png')
+	},
+	alien: {
+		normal: require('../Images/tabBarTop/ic_alien_nor.png')
+	},
+	ranking: {
+		normal: require('../Images/tabBarTop/ic_ranking_nor.png')
+	}
 };
 
 export default images;

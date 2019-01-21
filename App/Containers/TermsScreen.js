@@ -7,14 +7,21 @@ import { TouchableOpacity } from 'react-native';
 // Styles
 import styles from './Styles/TermsScreenStyle';
 import I18n from '../I18n';
+import withHeader from '../Utils/withHeader';
+
+const renderHeaderLeft = ({ navigation }) => (
+	<TouchableOpacity onPress={() => navigation.goBack()}>
+		<Text style={styles.headerLeft}>{I18n.t('cancel')}</Text>
+	</TouchableOpacity>
+);
 
 class TermsScreen extends Component {
-	static navigationOptions = {
+	static navigationOptions = (navigation) => ({
 		title: I18n.t('terms'),
 		headerStyle: styles.header,
 		headerTitleStyle: styles.headerTitle,
-		headerBackTitle: I18n.t('cancel')
-	};
+		headerLeft: renderHeaderLeft({ navigation })
+	});
 
 	render() {
 		return (
@@ -25,4 +32,4 @@ class TermsScreen extends Component {
 	}
 }
 
-export default TermsScreen;
+export default withHeader(TermsScreen);
