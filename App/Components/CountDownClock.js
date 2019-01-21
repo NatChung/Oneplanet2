@@ -52,15 +52,15 @@ export default class CountDownClock extends Component {
     let time = converter(this.props.seconds)
     return (
       <View style={[styles.container, this.props.style]}>
-        <Image style={styles.imageBG} resizeMode='stretch' source={Images.countdownBG} />
+        <Image style={styles.imageBG} resizeMode='stretch' source={Images.lucky.countdownBG} />
         <View style={styles.clockBackground} >
 
         <View style={styles.space} />
 
           <View style={styles.segmentBG}>
             <View style={styles.numbrerBG}>
-              <Image style={styles.digiNumber} resizeMode='contain' source={Images.digiNumber[this._getTensOfDay(time)]} />
-              <Image style={styles.digiNumber} resizeMode='contain' source={Images.digiNumber[this._getOnesOfDay(time)]} />
+              <Image style={styles.digiNumber} resizeMode='contain' source={Images.lucky.digiNumber[this._getTensOfDay(time)]} />
+              <Image style={styles.digiNumber} resizeMode='contain' source={Images.lucky.digiNumber[this._getOnesOfDay(time)]} />
             </View>
             <Text style={styles.timeTitle}>DAYS</Text>
           </View>
@@ -69,8 +69,8 @@ export default class CountDownClock extends Component {
 
           <View style={styles.segmentBG}>
             <View style={styles.numbrerBG}>
-              <Image style={styles.digiNumber} resizeMode='contain' source={Images.digiNumber[this._getTensOfHour(time)]} />
-              <Image style={styles.digiNumber} resizeMode='contain' source={Images.digiNumber[this._getOnesOfHour(time)]} />
+              <Image style={styles.digiNumber} resizeMode='contain' source={Images.lucky.digiNumber[this._getTensOfHour(time)]} />
+              <Image style={styles.digiNumber} resizeMode='contain' source={Images.lucky.digiNumber[this._getOnesOfHour(time)]} />
             </View>
             <Text style={styles.timeTitle}>HRS</Text>
           </View>
@@ -79,8 +79,8 @@ export default class CountDownClock extends Component {
 
           <View style={styles.segmentBG}>
             <View style={styles.numbrerBG}>
-              <Image style={styles.digiNumber} resizeMode='contain' source={Images.digiNumber[this._getTensOfMinute(time)]} />
-              <Image style={styles.digiNumber} resizeMode='contain' source={Images.digiNumber[this._getOnesOfMinute(time)]} />
+              <Image style={styles.digiNumber} resizeMode='contain' source={Images.lucky.digiNumber[this._getTensOfMinute(time)]} />
+              <Image style={styles.digiNumber} resizeMode='contain' source={Images.lucky.digiNumber[this._getOnesOfMinute(time)]} />
 
             </View>
             <Text style={styles.timeTitle}>MINS</Text>
@@ -91,8 +91,8 @@ export default class CountDownClock extends Component {
 
           <View style={styles.segmentBG}>
             <View style={styles.numbrerBG}>
-              <Image style={styles.digiNumber} resizeMode='contain' source={Images.digiNumber[this._getTensOfSecond(time)]} />
-              <Image style={styles.digiNumber} resizeMode='contain' source={Images.digiNumber[this._getOnesOfSecond(time)]} />
+              <Image style={styles.digiNumber} resizeMode='contain' source={Images.lucky.digiNumber[this._getTensOfSecond(time)]} />
+              <Image style={styles.digiNumber} resizeMode='contain' source={Images.lucky.digiNumber[this._getOnesOfSecond(time)]} />
             </View>
 
             <Text style={styles.timeTitle}>SECS</Text>

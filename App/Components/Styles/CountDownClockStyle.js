@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { Metrics, Fonts } from '../../Themes';
 
-const ClockBGWidth = Metrics.screenWidth * 0.5
+const ClockBGWidth = Metrics.screenWidth * 0.5 -10
 const ClockBGHeith = ClockBGWidth * 0.25
 
 export default StyleSheet.create({
@@ -18,13 +18,10 @@ export default StyleSheet.create({
   },
   clockBackground:{
     flexDirection: 'row',
-    marginTop: 0,
-    width: ClockBGWidth,
+    width: ClockBGWidth ,
     height: ClockBGHeith,
-    borderRadius: 8,
     flexWrap: 'wrap'
   },
-
 
   digiNumber:{
     height: ClockBGHeith * 0.45,
@@ -42,7 +39,6 @@ export default StyleSheet.create({
     flexDirection:'row'
   },
   timeTitle:{
-    marginLeft: -2,
     fontSize: 8,
     fontFamily: Fonts.type.emphasis,
     flex: 0.5,
