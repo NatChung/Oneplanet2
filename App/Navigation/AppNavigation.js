@@ -89,7 +89,7 @@ const PrimarySwitch = createSwitchNavigator(
 		ContentNav
 	},
 	{
-		initialRouteName: 'TutorialScreen'
+		initialRouteName: 'ContentNav'
 	}
 );
 
