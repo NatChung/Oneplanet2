@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { ScrollView, Text } from 'react-native';
-import { topTabBarIcon } from '../../Components/TabBar';
 
 // Styles
 import styles from './Styles/OfficialScreenStyle';
 
 class OfficialScreen extends Component {
-	static navigationOptions = {
-		tabBarIcon: topTabBarIcon('official')
-	};
+	static navigationOptions = {};
 
 	render() {
 		return (
