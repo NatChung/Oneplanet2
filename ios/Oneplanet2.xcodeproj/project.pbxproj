@@ -63,6 +63,7 @@
 		41BB0E3021EECF54008D31EE /* TwitterShareExtensionUIResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41BB0E2E21EECF54008D31EE /* TwitterShareExtensionUIResources.bundle */; };
 		41BB0E3121EECF54008D31EE /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41BB0E2F21EECF54008D31EE /* TwitterKitResources.bundle */; };
 		41BB0E3321EECF95008D31EE /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41BB0E3221EECF95008D31EE /* Twitter.framework */; };
+		41C9DED921F1A28E00B2F911 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 41C9DED821F1A28E00B2F911 /* assets */; };
 		4299545C35874F19A31D1580 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA1F32E149C1487A99D2E685 /* libRCTVideo.a */; };
 		5C522917F3854F50B2960ED6 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48E76B8032BF4D98ADC3DABB /* Zocial.ttf */; };
 		66E0A5B465F84D68B05F25F3 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB041957474F46AFA5C4B037 /* Entypo.ttf */; };
@@ -524,6 +525,7 @@
 		41BB0E2E21EECF54008D31EE /* TwitterShareExtensionUIResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TwitterShareExtensionUIResources.bundle; sourceTree = "<group>"; };
 		41BB0E2F21EECF54008D31EE /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TwitterKitResources.bundle; sourceTree = "<group>"; };
 		41BB0E3221EECF95008D31EE /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		41C9DED821F1A28E00B2F911 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = Oneplanet2/assets; sourceTree = "<group>"; };
 		48E76B8032BF4D98ADC3DABB /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		4C1D20F4030543CC9D230E6F /* RNAWSCognito.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNAWSCognito.xcodeproj; path = "../node_modules/amazon-cognito-identity-js/ios/RNAWSCognito.xcodeproj"; sourceTree = "<group>"; };
 		507B818F8D3B407790C70E73 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
@@ -748,6 +750,7 @@
 		13B07FAE1A68108700A75B9A /* Oneplanet2 */ = {
 			isa = PBXGroup;
 			children = (
+				41C9DED821F1A28E00B2F911 /* assets */,
 				41BB0E2F21EECF54008D31EE /* TwitterKitResources.bundle */,
 				41BB0E2E21EECF54008D31EE /* TwitterShareExtensionUIResources.bundle */,
 				414DEBC121EC866D000DC1EB /* GoogleService-Info.plist */,
@@ -1623,6 +1626,7 @@
 				A733AA04194142A193B0B34D /* SimpleLineIcons.ttf in Resources */,
 				5C522917F3854F50B2960ED6 /* Zocial.ttf in Resources */,
 				41BB0E3021EECF54008D31EE /* TwitterShareExtensionUIResources.bundle in Resources */,
+				41C9DED921F1A28E00B2F911 /* assets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
