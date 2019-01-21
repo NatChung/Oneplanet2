@@ -20,7 +20,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginTop: 0,
     width: ClockBGWidth,
-    backgroundColor: 'black',
     height: ClockBGHeith,
     borderRadius: 8,
     flexWrap: 'wrap'
@@ -28,8 +27,8 @@ export default StyleSheet.create({
 
 
   digiNumber:{
-    height: ClockBGHeith * 0.4,
-    width: ClockBGHeith * 0.4,
+    height: ClockBGHeith * 0.45,
+    width: ClockBGHeith * 0.45,
     marginTop: 10,
   },
   space:{
@@ -43,13 +42,16 @@ export default StyleSheet.create({
     flexDirection:'row'
   },
   timeTitle:{
-    flex:1,
-    marginTop: 2,
     marginLeft: -2,
-    fontSize: 10,
+    fontSize: 8,
     fontFamily: Fonts.type.emphasis,
     flex: 0.5,
     alignSelf:'center',
     color:'red'
+  },
+  imageBG: {
+    position:'absolute',
+    height: ClockBGHeith ,
+    width: ClockBGWidth  ,
   }
 })

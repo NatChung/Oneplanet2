@@ -85,6 +85,7 @@ const images = {
 		require('../Images/lucky/8.png'),
 		require('../Images/lucky/9.png'),
 	  ],
+	  countdownBG: require('../Images/lucky/countdown_bg.png')
 };
 
 export default images;

@@ -52,6 +52,7 @@ export default class CountDownClock extends Component {
     let time = converter(this.props.seconds)
     return (
       <View style={[styles.container, this.props.style]}>
+        <Image style={styles.imageBG} resizeMode='stretch' source={Images.countdownBG} />
         <View style={styles.clockBackground} >
 
         <View style={styles.space} />
@@ -101,8 +102,10 @@ export default class CountDownClock extends Component {
 
           <View style={styles.space} />
 
-
+          
         </View>
+
+        
 
       </View>
     )
