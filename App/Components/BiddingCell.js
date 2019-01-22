@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import styles from './Styles/BiddingCellStyle'
-import { Images } from "../Themes";
+import { Images } from "../Themes"
+import LockerButton from "./LockerButton"
 
 export default class BiddingCell extends Component {
   // // Prop type warnings
@@ -21,11 +22,7 @@ export default class BiddingCell extends Component {
       <TouchableOpacity style={styles.container} onPress={this.props.onPress}>
         <Image style={styles.productImage} source={{uri:'https://via.placeholder.com/60'}} />
         <Text style={styles.contenxtText}>Bidding kkkkkk sljfkajdskfjalskfjas; lksjdf;a lsfjkasd;fjds;</Text>
-        <View style={styles.lockerContainer}>
-          <Image style={styles.lockerImage} source={Images.lucky.lock.on} />
-          <Text style={styles.lockerTitle}>Locker</Text>
-        </View>
-        
+        <LockerButton style={styles.lockerContainer}/>
       </TouchableOpacity>
     )
   }

@@ -15,12 +15,9 @@ export default StyleSheet.create({
     position:'absolute',
     left:10,
     bottom: -20,
-    
     alignItems:'center'
   },
-  lockerTitle: {
-    color:'red',
-  },
+  
   contentContainer: {
     marginTop: 40,
     marginHorizontal: 10,
