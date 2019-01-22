@@ -43,7 +43,7 @@ export default function withCollapsible(WrappedComponent) {
 					onScrollBeginDrag: this.onScrollBeginDrag,
 					onScrollEndDrag: this.onScrollEndDrag,
 					onScroll: this.onScroll,
-					// scrollEventThrottle: 14
+					scrollEventThrottle: 14
 				}
 			};
 
