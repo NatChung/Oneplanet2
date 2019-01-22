@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { ApplicationStyles , Metrics} from '../../../Themes'
+import { ApplicationStyles , Fonts} from '../../../Themes'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -12,7 +12,17 @@ export default StyleSheet.create({
     paddingHorizontal:10,
   },
   filterHeader: {
-    height: 20,
-    backgroundColor:'red'
+    height: 30,
+    flexDirection:'row'
+  },
+  filterTouchable: {
+    flexDirection:'row',
+  },
+  filterTitle: {
+    ...Fonts.style.normal,
+    color:'white',
+  },
+  filterIcon: {
+    paddingHorizontal:10
   }
 })

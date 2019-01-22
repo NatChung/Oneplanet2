@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection:'row',
     height: 60,
-    marginTop: 10,
+    marginBottom: 10,
     backgroundColor:'white',
     borderRadius:2,
     overflow: 'hidden',
