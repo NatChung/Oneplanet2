@@ -23,31 +23,48 @@ class TabBar extends Component {
 	};
 
 	state = {
-		offset: new Animated.Value(0),
-		opacity: new Animated.Value(1)
+		top: {
+			tabBarVisible: true
+		},
+		bottom: {
+			tabBarVisible: true,
+			offset: new Animated.Value(0),
+			opacity: new Animated.Value(1)
+		}
 	};
 
-	componentWillReceiveProps(nextProps) {
-		const { offset, opacity, viewHeight } = this.state;
+	componentWillReceiveProps(props) {
+		const { type, navigation } = props;
+		const { viewHeight, [type]: typeState } = this.state;
 
-		const prevState = this.props.navigation.state;
-		const prevRoute = prevState.routes[prevState.index];
-		const prevParams = prevRoute.params;
-		const wasVisible = !prevParams || prevParams.bottomTabBarVisible;
+		const route = this._getActiveRoute(navigation.state);
+		const params = route.params;
 
-		const nextState = nextProps.navigation.state;
-		const nextRoute = nextState.routes[nextState.index];
-		const nextParams = nextRoute.params;
-		const isVisible = !nextParams || nextParams.bottomTabBarVisible;
+		const { [type]: typeParams } = params || {};
 
-		if (wasVisible && !isVisible) {
-			Animated.timing(offset, { toValue: -viewHeight, duration: 200 }).start();
-			Animated.timing(opacity, { toValue: 0, duration: 200 }).start();
-		} else if (isVisible && !wasVisible) {
-			Animated.timing(offset, { toValue: 0, duration: 200 }).start();
-			Animated.timing(opacity, { toValue: 1, duration: 20 }).start();
+		if (typeParams) {
+			const wasVisible = typeState.tabBarVisible;
+			const isVisible = typeParams.tabBarVisible;
+
+			if (type === 'bottom') {
+				const { offset, opacity } = typeState;
+				if (wasVisible && !isVisible) {
+					Animated.timing(offset, { toValue: -viewHeight, duration: 200 }).start();
+					Animated.timing(opacity, { toValue: 0, duration: 200 }).start();
+					this.setState({ [type]: { ...typeState, tabBarVisible: false } });
+				} else if (isVisible && !wasVisible) {
+					Animated.timing(offset, { toValue: 0, duration: 200 }).start();
+					Animated.timing(opacity, { toValue: 1, duration: 20 }).start();
+					this.setState({ [type]: { ...typeState, tabBarVisible: true } });
+				}
+			}
 		}
 	}
+
+	_getActiveRoute = (navigationState) => {
+		const { routes, index } = navigationState;
+		return routes ? this._getActiveRoute(routes[index]) : navigationState;
+	};
 
 	_renderLabel = ({ route, focused }) => {
 		const { activeTintColor, inactiveTintColor, labelStyle, showLabel, showIcon, allowFontScaling } = this.props;
@@ -170,17 +187,19 @@ class TabBar extends Component {
 			backgroundImage
 		} = this.props;
 
+		const { [type]: { tabBarVisible, offset, opacity } } = this.state;
 		const { routes } = navigation.state;
 
+		const pointerEvents = tabBarVisible ? 'auto' : 'none';
 		const tabBarStyle = [
-			type === 'bottom' ? { marginBottom: this.state.offset, opacity: this.state.opacity } : undefined,
+			type === 'bottom' ? { marginBottom: offset, opacity } : undefined,
 			styles.tabBar,
 			this._shouldUseHorizontalLabels() && !Platform.isPad ? styles.tabBarCompact : styles.tabBarRegular,
 			style
 		];
 
 		return (
-			<View onLayout={this._onLayout}>
+			<View pointerEvents={pointerEvents} onLayout={this._onLayout}>
 				<SafeAreaView style={tabBarStyle} forceInset={safeAreaInset}>
 					{backgroundImage && <Image source={backgroundImage} style={styles.backgroundImage} />}
 					{routes.map((route, index) => {

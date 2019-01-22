@@ -6,6 +6,7 @@ import { Images } from '../../Themes';
 import { v4 as uuid } from 'uuid';
 // Styles
 import styles from './Styles/LuckyScreenStyle';
+import withCollapsible from '../../Utils/withCollapsible';
 
 class LuckyScreen extends Component {
 	static navigationOptions = {
@@ -13,7 +14,7 @@ class LuckyScreen extends Component {
 	};
 
 	state = {
-		data: [ 3, 3, 3, 3, 3, 3, 3 ]
+		data: [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ]
 	};
 
 	renderHeader = () => <View style={styles.filterHeader} />;
@@ -30,6 +31,8 @@ class LuckyScreen extends Component {
 	);
 
 	render() {
+		const { collapsible } = this.props;
+
 		return (
 			<View style={styles.mainContainer}>
 				<Image source={Images.loginBackground} style={styles.backgroundImage} />
@@ -46,10 +49,11 @@ class LuckyScreen extends Component {
 					)}
 					ListHeaderComponent={this.renderHeader}
 					stickyHeaderIndices={[ 0 ]}
+					{...collapsible}
 				/>
 			</View>
 		);
 	}
 }
 
-export default LuckyScreen;
+export default withCollapsible(LuckyScreen);
