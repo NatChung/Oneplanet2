@@ -1,5 +1,6 @@
 import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import ProductFilterScreen from '../Containers/ProductFilterScreen'
 import ProductDetailScreen from '../Containers/ProductDetailScreen'
 
 import ForgetPasswordScreen from '../Containers/ForgetPasswordScreen';
@@ -97,6 +98,7 @@ const RootStack = createStackNavigator(
 	{
 		PrimarySwitch: { screen: PrimarySwitch },
 		TermsScreen: { screen: TermsScreen },
+		ProductFilterScreen: { screen: ProductFilterScreen },
 	},
 	{
 		initialRouteName: 'PrimarySwitch',

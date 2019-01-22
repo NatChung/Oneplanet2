@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Image, FlatList, Text} from 'react-native';
+import { View, Image, FlatList, Text, TouchableOpacity} from 'react-native';
 import { bottomTabBarIcon } from '../../Components/TabBar';
 import CountDownClock from '../../Components/CountDownClock'
 import BiddingCell from "../../Components/BiddingCell";
 import { Images } from "../../Themes"
-import { v4 as uuid } from "uuid"
+import Icon from 'react-native-vector-icons/FontAwesome'
 // Styles
 import styles from './Styles/LuckyScreenStyle';
 
@@ -17,18 +17,14 @@ class LuckyScreen extends Component {
 		data: [3,3,3,3,3,3,3]
 	}
 
-	
+	onFilter = () => this.props.navigation.navigate('ProductFilterScreen')
 
-	renderHeader = () => (<View style={styles.filterHeader}/>)
-
-	renderItem = ({item}) => (
-	<View>
-		<Image />
-		<Text>Content text</Text>
-		<View>
-			<Image />
-			<Text>Lock</Text> 
-		</View>
+	renderHeader = () => (
+	<View style={styles.filterHeader}>
+		<TouchableOpacity onPress={this.onFilter} style={styles.filterTouchable}>
+			<Text style={styles.filterTitle}>All</Text>
+			<Icon style={styles.filterIcon} name='angle-down' size={20} color='white'/>
+		</TouchableOpacity>
 	</View>)
 
 	render() {
