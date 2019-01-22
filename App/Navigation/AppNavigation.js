@@ -17,7 +17,7 @@ import LandingScreen from '../Containers/LandingScreen';
 import LoginScreen from '../Containers/LoginScreen';
 
 import createTabNavigator from './Navigators/createTabNavigator';
-import TabBar from '../Components/TabBar';
+import TabBar, { topTabBarIcon, bottomTabBarIcon } from '../Components/TabBar';
 import {
 	OfficialScreen,
 	PartyScreen,
@@ -32,7 +32,8 @@ import {
 import { Images } from '../Themes';
 
 // Manifest of possible screens
-const PrimaryNav = createStackNavigator({
+const PrimaryNav = createStackNavigator(
+	{
 		ForgetPasswordScreen: { screen: ForgetPasswordScreen },
 		AddEmailScreen: { screen: AddEmailScreen },
 		SignupScreen: { screen: SignupScreen },
@@ -45,19 +46,31 @@ const PrimaryNav = createStackNavigator({
 	}
 );
 
-const ContentTabs = createTabNavigator(
+const LuckyStack = createStackNavigator(
 	{
-		OfficialScreen: { screen: OfficialScreen },
-		PartyScreen: { screen: PartyScreen },
-		HotScreen: { screen: HotScreen },
-		AlienScreen: { screen: AlienScreen },
-		RankingScreen: { screen: RankingScreen },
-		LiveScreen: { screen: LiveScreen },
 		LuckyScreen: { screen: LuckyScreen },
-		MyScreen: { screen: MyScreen }
+		ProductDetailScreen: { screen: ProductDetailScreen }
 	},
 	{
-		initialRouteName: 'LuckyScreen',
+		navigationOptions: ({ navigation }) => ({
+			tabBarVisible: !navigation.state.index > 0
+		})
+	}
+);
+
+const ContentTabs = createTabNavigator(
+	{
+		OfficialScreen: { screen: OfficialScreen, navigationOptions: { tabBarIcon: topTabBarIcon('official') } },
+		PartyScreen: { screen: PartyScreen, navigationOptions: { tabBarIcon: topTabBarIcon('party') } },
+		HotScreen: { screen: HotScreen, navigationOptions: { tabBarIcon: topTabBarIcon('hot') } },
+		AlienScreen: { screen: AlienScreen, navigationOptions: { tabBarIcon: topTabBarIcon('alien') } },
+		RankingScreen: { screen: RankingScreen, navigationOptions: { tabBarIcon: topTabBarIcon('ranking') } },
+		LiveScreen: { screen: LiveScreen, navigationOptions: { tabBarIcon: bottomTabBarIcon('live') } },
+		LuckyStack: { screen: LuckyStack, navigationOptions: { tabBarIcon: bottomTabBarIcon('lucky') } },
+		MyScreen: { screen: MyScreen, navigationOptions: { tabBarIcon: bottomTabBarIcon('my') } }
+	},
+	{
+		initialRouteName: 'HotScreen',
 		tabBarComponent: TabBar,
 		tabBarOptions: { showLabel: false },
 		customOptions: {
@@ -66,31 +79,34 @@ const ContentTabs = createTabNavigator(
 				style: { backgroundColor: '#191919', height: 60 }
 			},
 			bottom: {
-				acceptRoutes: [ 'LiveScreen', 'LuckyScreen', 'MyScreen' ],
+				acceptRoutes: [ 'LiveScreen', 'LuckyStack', 'MyScreen' ],
 				backgroundImage: Images.tabBarBackgroundImage
 			}
 		}
 	}
 );
 
-const ContentNav = createStackNavigator({
-	ContentTabs,
-	ProductDetailScreen: { screen: ProductDetailScreen },
-},{
-	initialRouteName: 'ContentTabs',
-	headerMode:'none'
-})
+// const ContentNav = createStackNavigator(
+// 	{
+// 		ContentTabs
+// 	},
+// 	{
+// 		initialRouteName: 'ContentTabs',
+// 		headerMode: 'none'
+// 	}
+// );
 
 const PrimarySwitch = createSwitchNavigator(
 	{
 		EmailSentScreen: { screen: EmailSentScreen },
 		AddProfileScreen: { screen: AddProfileScreen },
 		TutorialScreen: { screen: TutorialScreen },
-		PrimaryNav,//Loing & signup
-		ContentNav
+		PrimaryNav, //Loing & signup
+		// ContentNav,
+		ContentTabs
 	},
 	{
-		initialRouteName: 'ContentNav'
+		initialRouteName: 'ContentTabs'
 	}
 );
 
@@ -98,7 +114,7 @@ const RootStack = createStackNavigator(
 	{
 		PrimarySwitch: { screen: PrimarySwitch },
 		TermsScreen: { screen: TermsScreen },
-		ProductFilterScreen: { screen: ProductFilterScreen },
+		ProductFilterScreen: {screen: ProductFilterScreen}
 	},
 	{
 		initialRouteName: 'PrimarySwitch',

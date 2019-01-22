@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { polyfill } from 'react-lifecycles-compat';
 import { ScreenContainer } from 'react-native-screens';
-import { BottomTabBar } from 'react-navigation';
+import { SafeAreaView, BottomTabBar } from 'react-navigation';
 import { createTabNavigator } from 'react-navigation-tabs';
 import ResourceSavingScene from 'react-navigation-tabs/src/views/ResourceSavingScene';
 
@@ -56,6 +56,7 @@ class TabNavigationView extends PureComponent {
 			<TabBarComponent
 				{...tabBarOptions}
 				{...customOptions[type]}
+				type={type}
 				jumpTo={this._jumpTo}
 				navigation={navigation}
 				screenProps={screenProps}
@@ -67,6 +68,14 @@ class TabNavigationView extends PureComponent {
 				getTestID={getTestID}
 				renderIcon={renderIcon}
 			/>
+		);
+	};
+
+	_renderGemBar = () => {
+		return (
+			<SafeAreaView style={{ height: 28, backgroundColor: '#191919' }} forceInset={null}>
+				<View style={{ flex: 1, backgroundColor: 'skyblue' }} />
+			</SafeAreaView>
 		);
 	};
 
@@ -85,6 +94,7 @@ class TabNavigationView extends PureComponent {
 
 		return (
 			<View style={styles.container}>
+				{this._renderGemBar()}
 				{this._renderTabBar('top')}
 				<ScreenContainer style={styles.pages}>
 					{routes.map((route, index) => {

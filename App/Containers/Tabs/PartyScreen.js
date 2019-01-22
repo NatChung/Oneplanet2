@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { ScrollView, Text } from 'react-native';
-import { topTabBarIcon } from '../../Components/TabBar';
 
 // Styles
 import styles from './Styles/PartyScreenStyle';
 
 class PartyScreen extends Component {
-	static navigationOptions = {
-		tabBarIcon: topTabBarIcon('party')
-	};
+	static navigationOptions = {};
 
 	render() {
 		return (

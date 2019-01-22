@@ -10,12 +10,12 @@ import styles from './Styles/LuckyScreenStyle';
 
 class LuckyScreen extends Component {
 	static navigationOptions = {
-		tabBarIcon: bottomTabBarIcon('lucky')
-	}
+		header: null
+	};
 
 	state = {
-		data: [3,3,3,3,3,3,3]
-	}
+		data: [ 3, 3, 3, 3, 3, 3, 3 ]
+	};
 
 	onFilter = () => this.props.navigation.navigate('ProductFilterScreen')
 
@@ -32,13 +32,19 @@ class LuckyScreen extends Component {
 			<View style={styles.mainContainer}>
 				<Image source={Images.loginBackground} style={styles.backgroundImage} />
 				<CountDownClock seconds={this.props.countdown} />
-				<FlatList style={styles.listContaner}
+				<FlatList
+					style={styles.listContaner}
 					data={this.state.data}
-					keyExtractor={(_,index) => index.toString()}
-					renderItem={({item}) => <BiddingCell item={item} onPress={() => this.props.navigation.navigate('ProductDetailScreen')}/>}
+					keyExtractor={(_, index) => index.toString()}
+					renderItem={({ item }) => (
+						<BiddingCell
+							item={item}
+							onPress={() => this.props.navigation.navigate('ProductDetailScreen')}
+						/>
+					)}
 					ListHeaderComponent={this.renderHeader}
-					stickyHeaderIndices={[0]}
-					/>
+					stickyHeaderIndices={[ 0 ]}
+				/>
 			</View>
 		);
 	}

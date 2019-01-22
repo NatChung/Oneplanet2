@@ -4,9 +4,13 @@ import { Pages } from 'react-native-pages'
 import { Images } from "../Themes";
 
 // Styles
-import styles from './Styles/ProductDetailScreenStyle'
+import styles from './Styles/ProductDetailScreenStyle';
 
 class ProductDetailScreen extends Component {
+  static navigationOptions = {
+		headerForceInset: { top: 'never' }
+  };
+  
   render () {
     return (
       <View style={styles.mainContainer}>
@@ -32,4 +36,4 @@ class ProductDetailScreen extends Component {
   }
 }
 
-export default ProductDetailScreen
+export default ProductDetailScreen;
