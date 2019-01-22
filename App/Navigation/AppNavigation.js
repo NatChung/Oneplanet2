@@ -1,7 +1,7 @@
 import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import ProductFilterScreen from '../Containers/ProductFilterScreen'
-import ProductDetailScreen from '../Containers/ProductDetailScreen'
+import ProductFilterScreen from '../Containers/ProductFilterScreen';
+import ProductDetailScreen from '../Containers/ProductDetailScreen';
 
 import ForgetPasswordScreen from '../Containers/ForgetPasswordScreen';
 import AddEmailScreen from '../Containers/AddEmailScreen';
@@ -86,16 +86,6 @@ const ContentTabs = createTabNavigator(
 	}
 );
 
-// const ContentNav = createStackNavigator(
-// 	{
-// 		ContentTabs
-// 	},
-// 	{
-// 		initialRouteName: 'ContentTabs',
-// 		headerMode: 'none'
-// 	}
-// );
-
 const PrimarySwitch = createSwitchNavigator(
 	{
 		EmailSentScreen: { screen: EmailSentScreen },
@@ -114,12 +104,12 @@ const RootStack = createStackNavigator(
 	{
 		PrimarySwitch: { screen: PrimarySwitch },
 		TermsScreen: { screen: TermsScreen },
-		ProductFilterScreen: {screen: ProductFilterScreen}
+		ProductFilterScreen: { screen: ProductFilterScreen }
 	},
 	{
 		initialRouteName: 'PrimarySwitch',
 		mode: 'modal',
-		headerMode: 'none'
+		defaultNavigationOptions: { header: null }
 	}
 );
 
