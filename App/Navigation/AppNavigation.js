@@ -2,7 +2,6 @@ import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import TreasureConfirmScreen from '../Containers/TreasureConfirmScreen';
 
-import OverlayScreen from '../Containers/OverlayScreen';
 import ProductFilterScreen from '../Containers/ProductFilterScreen';
 import ProductDetailScreen from '../Containers/ProductDetailScreen';
 import ForgetPasswordScreen from '../Containers/ForgetPasswordScreen';
