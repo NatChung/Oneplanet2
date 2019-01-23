@@ -6,9 +6,16 @@ import styles from './Styles/TreasureConfirmScreenStyle';
 import I18n from '../I18n';
 import { Images } from '../Themes';
 import RoundedButton from '../Components/RoundedButton';
+import RichI18n from '../Components/RichI18n';
 import withOverlay from '../Utils/withOverlay';
 
 class TreasureConfirmScreen extends Component {
+	state = {
+		action: this.props.navigation.getParam('action'),
+		type: this.props.navigation.getParam('type'),
+		product: this.props.navigation.getParam('product')
+	};
+
 	okButtonStyle = {
 		style: styles.okButton,
 		text: I18n.t('ok')
@@ -21,20 +28,47 @@ class TreasureConfirmScreen extends Component {
 		outline: true
 	};
 
+	get richI18nMaps() {
+		const { type, product } = this.state;
+		return {
+			product: <Text style={[ styles.titleText, styles.treasureText ]}>{product}</Text>,
+			treasure: I18n.t(type),
+			price: 1.99
+		};
+	}
+
+	get title() {
+		const { action } = this.state;
+		return {
+			unlock: 'unlockTreasure',
+			bid: 'bidTreasureOnce'
+		}[action];
+	}
+
+	get description() {
+		const { type } = this.state;
+		switch (type) {
+			case 'gem':
+				return I18n.t('areYouSureToUseOneTreasureAndServiceFee', this.richI18nMaps);
+			default:
+				return I18n.t('areYouSureToUseOneTreasure', this.richI18nMaps);
+		}
+	}
+
 	onConfirm = () => this.props.close();
 
 	onCancel = () => this.props.close();
 
 	render() {
+		const { type } = this.state;
+
 		return (
 			<View style={styles.mainContainer}>
 				<View style={styles.header}>
-					<Image source={Images.treasure.gem} style={styles.treasureImage} />
+					<Image source={Images.treasure[type]} style={styles.treasureImage} />
 				</View>
-				<Text style={styles.titleText}>
-					Unlock <Text style={[ styles.titleText, styles.treasureText ]}>ProductName</Text> ?
-				</Text>
-				<Text style={styles.descriptionText}>確定使用一顆解鎖寶？</Text>
+				<RichI18n id={this.title} style={styles.titleText} values={this.richI18nMaps} />
+				<Text style={styles.descriptionText}>{this.description}</Text>
 				<View style={styles.footer}>
 					<RoundedButton {...this.okButtonStyle} onPress={this.onConfirm} />
 					<RoundedButton {...this.cancelButtonStyle} onPress={this.onCancel} />

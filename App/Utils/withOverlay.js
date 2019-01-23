@@ -17,7 +17,9 @@ export default function withOverlay(WrappedComponent) {
 		}
 
 		animate = (value, config) => {
-			return new Promise((resolve) => Animated.timing(value, config).start(resolve));
+			return new Promise((resolve) => {
+				Animated.timing(value, { useNativeDriver: true, ...config }).start(resolve);
+			});
 		};
 
 		close = () => {

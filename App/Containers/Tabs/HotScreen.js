@@ -14,10 +14,10 @@ class HotScreen extends Component {
 
 	state = {};
 
-	onTest = () => {
+	onTest = (action, type) => () => {
 		const { navigation } = this.props;
 
-		navigation.navigate('TreasureConfirmScreen');
+		navigation.navigate('TreasureConfirmScreen', { action, type, product: 'PRODUCT' });
 	};
 
 	render() {
@@ -26,7 +26,11 @@ class HotScreen extends Component {
 		return (
 			<ScrollView style={styles.mainContainer} contentContainerStyle={styles.content} {...collapsible}>
 				<View style={{ width: '100%' }}>
-					<RoundedButton text="Test" onPress={this.onTest} />
+					<RoundedButton text="Test unlock gem" onPress={this.onTest('unlock', 'gem')} />
+					<RoundedButton text="Test unlock coin" onPress={this.onTest('unlock', 'coin')} />
+					<RoundedButton text="Test unlock key" onPress={this.onTest('unlock', 'key')} />
+					<RoundedButton text="Test bid gem" onPress={this.onTest('bid', 'gem')} />
+					<RoundedButton text="Test bid coin" onPress={this.onTest('bid', 'coin')} />
 				</View>
 				{PHOTOS.map((uri) => (
 					<View key={uri} style={styles.item}>
