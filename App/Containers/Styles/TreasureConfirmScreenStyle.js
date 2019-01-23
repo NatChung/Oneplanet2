@@ -4,14 +4,6 @@ import { Colors, ApplicationStyles } from '../../Themes/';
 export default StyleSheet.create({
 	...ApplicationStyles.screen,
 	mainContainer: {
-		flex: 1,
-		backgroundColor: 'rgba(0,0,0,0.5)'
-	},
-	container: {
-		flex: 1,
-		justifyContent: 'center'
-	},
-	wrapper: {
 		overflow: 'hidden',
 		opacity: 0.95,
 		borderRadius: 8,

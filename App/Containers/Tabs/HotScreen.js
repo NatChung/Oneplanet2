@@ -17,7 +17,7 @@ class HotScreen extends Component {
 	onTest = () => {
 		const { navigation } = this.props;
 
-		navigation.navigate('OverlayScreen', { transition: 'overlay' });
+		navigation.navigate('TreasureConfirmScreen');
 	};
 
 	render() {

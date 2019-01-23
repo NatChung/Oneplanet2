@@ -91,7 +91,7 @@ const images = {
 		normal: require('../Images/tabBarTop/ic_ranking_nor.png')
 	},
 
-	product: {
+	treasure: {
 		gem: require('../Images/ic_gem_nor.png'),
 		coin: require('../Images/ic_coin_nor.png'),
 		key: require('../Images/ic_key_nor.png')

@@ -1,5 +1,6 @@
 import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import TreasureConfirmScreen from '../Containers/TreasureConfirmScreen';
 
 import OverlayScreen from '../Containers/OverlayScreen';
 import ProductFilterScreen from '../Containers/ProductFilterScreen';
@@ -106,7 +107,7 @@ const RootStack = createStackNavigator(
 		PrimarySwitch: { screen: PrimarySwitch },
 		TermsScreen: { screen: TermsScreen },
 		ProductFilterScreen: { screen: ProductFilterScreen },
-		OverlayScreen: { screen: OverlayScreen }
+		TreasureConfirmScreen: { screen: TreasureConfirmScreen, params: { transition: 'overlay' } }
 	},
 	{
 		initialRouteName: 'PrimarySwitch',

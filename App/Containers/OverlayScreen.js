@@ -35,10 +35,10 @@ class OverlayScreen extends Component {
 				<Animated.View style={[ styles.container, { transform: [ { translateY } ] } ]}>
 					<View style={styles.wrapper}>
 						<View style={styles.header}>
-							<Image source={Images.product.gem} style={styles.productImage} />
+							<Image source={Images.treasure.gem} style={styles.treasureImage} />
 						</View>
 						<Text style={styles.titleText}>
-							Unlock <Text style={[ styles.titleText, styles.productText ]}>ProductName</Text> ?
+							Unlock <Text style={[ styles.titleText, styles.treasureText ]}>ProductName</Text> ?
 						</Text>
 						<Text style={styles.descriptionText}>確定使用一顆解鎖寶？</Text>
 						<View style={styles.footer}>
