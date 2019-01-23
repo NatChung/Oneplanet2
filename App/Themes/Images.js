@@ -53,7 +53,7 @@ const images = {
 	lucky: {
 		normal: require('../Images/tabBarBottom/ic_lucky_nor.png'),
 		focused: require('../Images/tabBarBottom/ic_lucky_select.png'),
-		digiNumber:[
+		digiNumber: [
 			require('../Images/lucky/0.png'),
 			require('../Images/lucky/1.png'),
 			require('../Images/lucky/2.png'),
@@ -63,13 +63,13 @@ const images = {
 			require('../Images/lucky/6.png'),
 			require('../Images/lucky/7.png'),
 			require('../Images/lucky/8.png'),
-			require('../Images/lucky/9.png'),
-		  ],
-		  countdownBG: require('../Images/lucky/countdown_bg.png'),
-		  lock: {
-			  on: require('../Images/lucky/ic_lockon_nor.png'),
-			  off: require('../Images/lucky/ic_lockoff_nor.png')
-		  }
+			require('../Images/lucky/9.png')
+		],
+		countdownBG: require('../Images/lucky/countdown_bg.png'),
+		lock: {
+			on: require('../Images/lucky/ic_lockon_nor.png'),
+			off: require('../Images/lucky/ic_lockoff_nor.png')
+		}
 	},
 	my: {
 		normal: require('../Images/tabBarBottom/ic_my_nor.png'),
@@ -90,6 +90,12 @@ const images = {
 	ranking: {
 		normal: require('../Images/tabBarTop/ic_ranking_nor.png')
 	},
+
+	product: {
+		gem: require('../Images/ic_gem_nor.png'),
+		coin: require('../Images/ic_coin_nor.png'),
+		key: require('../Images/ic_key_nor.png')
+	}
 };
 
 export default images;

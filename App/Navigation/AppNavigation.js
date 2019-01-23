@@ -1,8 +1,9 @@
 import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+
+import OverlayScreen from '../Containers/OverlayScreen';
 import ProductFilterScreen from '../Containers/ProductFilterScreen';
 import ProductDetailScreen from '../Containers/ProductDetailScreen';
-
 import ForgetPasswordScreen from '../Containers/ForgetPasswordScreen';
 import AddEmailScreen from '../Containers/AddEmailScreen';
 import TermsScreen from '../Containers/TermsScreen';
@@ -28,7 +29,7 @@ import {
 	LuckyScreen,
 	MyScreen
 } from '../Containers/Tabs';
-
+import TransitionConfigs from '../Utils/TransitionConfigs';
 import { Images } from '../Themes';
 
 // Manifest of possible screens
@@ -104,12 +105,16 @@ const RootStack = createStackNavigator(
 	{
 		PrimarySwitch: { screen: PrimarySwitch },
 		TermsScreen: { screen: TermsScreen },
-		ProductFilterScreen: { screen: ProductFilterScreen }
+		ProductFilterScreen: { screen: ProductFilterScreen },
+		OverlayScreen: { screen: OverlayScreen }
 	},
 	{
 		initialRouteName: 'PrimarySwitch',
 		mode: 'modal',
-		defaultNavigationOptions: { header: null }
+		defaultNavigationOptions: { header: null },
+
+		transparentCard: true,
+		transitionConfig: TransitionConfigs.getTransitionConfig
 	}
 );
 
