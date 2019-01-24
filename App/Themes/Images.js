@@ -32,7 +32,8 @@ const images = {
 	logoText: require('../Images/ui_logotext.png'),
 	icons: {
 		mute: require('../Images/Icons/mute.png'),
-		unmute: require('../Images/Icons/unmute.png')
+		unmute: require('../Images/Icons/unmute.png'),
+		cancelBlack: require('../Images/Icons/ic_cancelblack_nor.png')
 	},
 	socailmedia: {
 		fb: require('../Images/socailmedias/ic_facebook_nor.png'),
@@ -92,6 +93,8 @@ const images = {
 	},
 
 	treasure: {
+		coinSmall: require('../Images/ic_coin_small.png'),
+
 		gem: require('../Images/ic_gem_nor.png'),
 		coin: require('../Images/ic_coin_nor.png'),
 		key: require('../Images/ic_key_nor.png')
