@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { Text, WebView } from 'react-native';
 import { TouchableOpacity } from 'react-native';
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
 
 // Styles
 import styles from './Styles/TermsScreenStyle';
@@ -23,11 +21,12 @@ class TermsScreen extends Component {
 		headerLeft: renderHeaderLeft({ navigation })
 	});
 
+
 	render() {
 		return (
-			<View style={styles.mainContainer}>
-				<Text style={styles.termsText}>TermsScreen</Text>
-			</View>
+			<WebView style={styles.mainContainer}
+  				source={require('../Policy.html')}
+  				style={{flex: 1}}/>
 		);
 	}
 }
