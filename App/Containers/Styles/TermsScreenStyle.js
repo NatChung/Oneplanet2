@@ -9,6 +9,11 @@ export default StyleSheet.create({
 	headerTitle: {
 		color: Colors.snow
 	},
+	headerLeft: {
+		color: 'white',
+		fontSize: 17,
+		marginLeft: 15
+	},
 	mainContainer: {
 		flex: 1,
 		backgroundColor: '#000000'

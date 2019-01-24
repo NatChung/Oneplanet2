@@ -64,6 +64,7 @@
 		41BB0E3121EECF54008D31EE /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41BB0E2F21EECF54008D31EE /* TwitterKitResources.bundle */; };
 		41BB0E3321EECF95008D31EE /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41BB0E3221EECF95008D31EE /* Twitter.framework */; };
 		41C9DED921F1A28E00B2F911 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 41C9DED821F1A28E00B2F911 /* assets */; };
+		41E9B47021F9CCFC00FD94F1 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		4299545C35874F19A31D1580 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA1F32E149C1487A99D2E685 /* libRCTVideo.a */; };
 		5C522917F3854F50B2960ED6 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48E76B8032BF4D98ADC3DABB /* Zocial.ttf */; };
 		66E0A5B465F84D68B05F25F3 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB041957474F46AFA5C4B037 /* Entypo.ttf */; };
@@ -1605,6 +1606,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41E9B47021F9CCFC00FD94F1 /* main.jsbundle in Resources */,
 				414DEBCD21EC908B000DC1EB /* GoogleService-Info.plist in Resources */,
 				41BB0E3121EECF54008D31EE /* TwitterKitResources.bundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
@@ -1660,7 +1662,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
