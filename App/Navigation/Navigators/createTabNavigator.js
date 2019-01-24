@@ -6,8 +6,6 @@ import { SafeAreaView, BottomTabBar } from 'react-navigation';
 import { createTabNavigator } from 'react-navigation-tabs';
 import ResourceSavingScene from 'react-navigation-tabs/src/views/ResourceSavingScene';
 
-import styles from './Styles/TabNavigationStyle';
-
 class TabNavigationView extends PureComponent {
 	static defaultProps = {
 		lazy: true
@@ -121,3 +119,13 @@ class TabNavigationView extends PureComponent {
 polyfill(TabNavigationView);
 
 export default createTabNavigator(TabNavigationView);
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		overflow: 'hidden'
+	},
+	pages: {
+		flex: 1
+	}
+});

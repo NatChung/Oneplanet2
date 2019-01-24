@@ -7,6 +7,7 @@ import { Images } from "../../Themes"
 import Icon from 'react-native-vector-icons/FontAwesome'
 // Styles
 import styles from './Styles/LuckyScreenStyle';
+import withCollapsible from '../../Utils/withCollapsible';
 
 class LuckyScreen extends Component {
 	static navigationOptions = {
@@ -14,7 +15,7 @@ class LuckyScreen extends Component {
 	};
 
 	state = {
-		data: [ 3, 3, 3, 3, 3, 3, 3 ]
+		data: [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ]
 	};
 
 	onFilter = () => this.props.navigation.navigate('ProductFilterScreen')
@@ -28,6 +29,8 @@ class LuckyScreen extends Component {
 	</View>)
 
 	render() {
+		const { collapsible } = this.props;
+
 		return (
 			<View style={styles.mainContainer}>
 				<Image source={Images.loginBackground} style={styles.backgroundImage} />
@@ -44,10 +47,11 @@ class LuckyScreen extends Component {
 					)}
 					ListHeaderComponent={this.renderHeader}
 					stickyHeaderIndices={[ 0 ]}
+					{...collapsible}
 				/>
 			</View>
 		);
 	}
 }
 
-export default LuckyScreen;
+export default withCollapsible(LuckyScreen);

@@ -42,7 +42,15 @@
 	"theEmailHasBeenSentPleaseClickTheLinkInTheEmailToCompleteTheRegistrationProcess": "The email has been sent please click the link in the email to complete the registration process",
 	"ok": "OK",
 
-	"#":"AddEmailScreen",
-	"addEmailInfo":"Your Facebook/Wechat/Twitter is not filled in Email.  You need to provide Email as Oneplanet's login account when registering."
+	"#": "AddEmailScreen",
+	"addEmailInfo": "Your Facebook/Wechat/Twitter is not filled in Email.  You need to provide Email as Oneplanet's login account when registering.",
 
+	"#": "TreasureConfirmScreen",
+	"unlockTreasure": "Unlock {{product}} ?",
+	"bidTreasureOnce": "Bid {{product}} once",
+	"gem": "GEM",
+	"coin": "COIN",
+	"key": "KEY",
+	"areYouSureToUseOneTreasure": "Are you sure to use one {{treasure}}?",
+	"areYouSureToUseOneTreasureAndServiceFee": "確定使用一顆 {{treasure}} + {{price}} 美金服務費？"
 }

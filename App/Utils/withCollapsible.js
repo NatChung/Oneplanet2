@@ -9,7 +9,7 @@ export default function withCollapsible(WrappedComponent) {
 
 		state = {
 			scrollY: 0,
-			bottomTabBarVisible: true,
+			bottom: { tabBarVisible: true },
 			dragging: false
 		};
 
@@ -18,14 +18,13 @@ export default function withCollapsible(WrappedComponent) {
 			const { dragging, scrollY } = this.state;
 			const scrollOffsetY = contentOffset.y;
 
-			const threshold = 0;
+			const threshold = 20;
 			const delta = scrollOffsetY - scrollY;
 			const shouldShowTabBar = delta < 0;
 
 			if (dragging && Math.abs(delta) > threshold) {
-				navigation.setParams({ bottomTabBarVisible: shouldShowTabBar });
-
-				this.setState({ bottomTabBarVisible: shouldShowTabBar });
+				navigation.setParams({ bottom: { tabBarVisible: shouldShowTabBar } });
+				this.setState({ bottom: { tabBarVisible: shouldShowTabBar } });
 			}
 
 			scrollOffsetY >= 0 && this.setState({ scrollY: scrollOffsetY });
@@ -36,8 +35,8 @@ export default function withCollapsible(WrappedComponent) {
 		onScrollEndDrag = () => this.setState({ dragging: false });
 
 		render() {
-			const { bottomTabBarVisible } = this.state;
-			const forceInset = { bottom: bottomTabBarVisible ? 'never' : 'always' };
+			const { bottom: { tabBarVisible } } = this.state;
+			const forceInset = { bottom: tabBarVisible ? 'never' : 'always' };
 			const props = {
 				...this.props,
 				collapsible: {
