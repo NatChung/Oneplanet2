@@ -1,6 +1,9 @@
 import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import TreasureConfirmScreen from '../Containers/TreasureConfirmScreen';
+import CoinIntroScreen from '../Containers/Overlays/CoinIntroScreen';
+import KeyIntroScreen from '../Containers/Overlays/KeyIntroScreen';
+import GemIntroScreen from '../Containers/Overlays/GemIntroScreen';
+import TreasureConfirmScreen from '../Containers/Overlays/TreasureConfirmScreen';
 
 import ProductFilterScreen from '../Containers/ProductFilterScreen';
 import ProductDetailScreen from '../Containers/ProductDetailScreen';
@@ -106,7 +109,10 @@ const RootStack = createStackNavigator(
 		PrimarySwitch: { screen: PrimarySwitch },
 		TermsScreen: { screen: TermsScreen },
 		ProductFilterScreen: { screen: ProductFilterScreen },
-		TreasureConfirmScreen: { screen: TreasureConfirmScreen, params: { transition: 'overlay' } }
+		TreasureConfirmScreen: { screen: TreasureConfirmScreen, params: { transition: 'overlay' } },
+		CoinIntroScreen: { screen: CoinIntroScreen, params: { transition: 'overlay' } },
+		KeyIntroScreen: { screen: KeyIntroScreen, params: { transition: 'overlay' } },
+		GemIntroScreen: { screen: GemIntroScreen, params: { transition: 'overlay' } }
 	},
 	{
 		initialRouteName: 'PrimarySwitch',

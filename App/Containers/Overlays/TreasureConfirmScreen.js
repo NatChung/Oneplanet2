@@ -3,11 +3,11 @@ import { View, Image, Text } from 'react-native';
 
 // Styles
 import styles from './Styles/TreasureConfirmScreenStyle';
-import I18n from '../I18n';
-import { Images } from '../Themes';
-import RoundedButton from '../Components/RoundedButton';
-import RichI18n from '../Components/RichI18n';
-import withOverlay from '../Utils/withOverlay';
+import I18n from '../../I18n';
+import { Images } from '../../Themes';
+import RoundedButton from '../../Components/RoundedButton';
+import RichI18n from '../../Components/RichI18n';
+import withOverlay from '../../Utils/withOverlay';
 
 class TreasureConfirmScreen extends Component {
 	state = {
@@ -31,7 +31,7 @@ class TreasureConfirmScreen extends Component {
 	get richI18nMaps() {
 		const { type, product } = this.state;
 		return {
-			product: <Text style={[ styles.titleText, styles.treasureText ]}>{product}</Text>,
+			product: <Text style={[ styles.titleText, styles.boldText ]}>{product}</Text>,
 			treasure: I18n.t(type),
 			price: 1.99
 		};
@@ -65,7 +65,7 @@ class TreasureConfirmScreen extends Component {
 		return (
 			<View style={styles.mainContainer}>
 				<View style={styles.header}>
-					<Image source={Images.treasure[type]} style={styles.treasureImage} />
+					<Image style={styles.treasureImage} source={Images.treasure[type]} />
 				</View>
 				<RichI18n id={this.title} style={styles.titleText} values={this.richI18nMaps} />
 				<Text style={styles.descriptionText}>{this.description}</Text>
