@@ -34,9 +34,12 @@ export default StyleSheet.create({
 		top: -0.5,
 		left: 1
 	},
-	treasureRow: {
+	row: {
 		flexDirection: 'row',
 		alignItems: 'center'
+	},
+	gemWrapper: {
+		marginLeft: -14
 	},
 	gemText: {
 		...BaseStyles.treasureText,
