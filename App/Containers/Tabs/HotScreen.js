@@ -21,21 +21,12 @@ class HotScreen extends Component {
 		navigation.navigate('TreasureConfirmScreen', { action, type, product: 'PRODUCT' });
 	};
 
-	onIntro = (type) => () => {
-		const { navigation } = this.props;
-
-		navigation.navigate(`${_.upperFirst(type)}IntroScreen`);
-	};
-
 	render() {
 		const { collapsible } = this.props;
 
 		return (
 			<ScrollView style={styles.mainContainer} contentContainerStyle={styles.content} {...collapsible}>
 				<View style={{ width: '100%' }}>
-					<RoundedButton text="Test Gem Intro" onPress={this.onIntro('gem')} />
-					<RoundedButton text="Test Key Intro" onPress={this.onIntro('key')} />
-					<RoundedButton text="Test Coin Intro" onPress={this.onIntro('coin')} />
 					<RoundedButton text="Test Unlock Gem" onPress={this.onTest('unlock', 'gem')} />
 					<RoundedButton text="Test Unlock Coin" onPress={this.onTest('unlock', 'coin')} />
 					<RoundedButton text="Test Unlock Key" onPress={this.onTest('unlock', 'key')} />

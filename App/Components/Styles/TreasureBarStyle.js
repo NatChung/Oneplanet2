@@ -23,17 +23,16 @@ export default StyleSheet.create({
 		shadowOpacity: 1,
 		shadowColor: '#5FD2CE',
 		shadowRadius: 4,
-		shadowOffset: { width: 0, height: 0 },
+		shadowOffset: { width: 0, height: 0 }
 	},
 	scoreBackgroundImage: {
 		width: 143
 	},
 	scoreImage: {
 		...StyleSheet.absoluteFillObject,
-		resizeMode: 'contain',
+		resizeMode: 'stretch',
 		top: -0.5,
-		left: 1,
-		width: 100
+		left: 1
 	},
 	treasureRow: {
 		flexDirection: 'row',

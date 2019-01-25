@@ -1,37 +1,90 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, Animated, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { Images } from '../Themes';
 import styles from './Styles/TreasureBarStyle';
 
 export default class TreasureBar extends Component {
+	state = {
+		animator: {
+			score: new Animated.Value(0),
+			gem: new Animated.Value(0),
+			coin: new Animated.Value(0),
+			key: new Animated.Value(0)
+		}
+	};
+
+	treasureStyles = {
+		gem: { shadow: styles.gemShadow, text: styles.gemText },
+		coin: { shadow: styles.coinShadow, text: styles.coinText },
+		key: { shadow: styles.keyShadow, text: styles.keyText }
+	};
+
+	animate = (value, config) => {
+		return new Promise((resolve) => {
+			Animated.timing(value, { ...config }).start(resolve);
+		});
+	};
+
+	onScore = async () => {
+		const { animator } = this.state;
+		// const currValue = scoreWidth._value;
+
+		animator.score.setValue(0);
+		await this.animate(animator.score, { duration: 1000, toValue: 1 });
+
+		animator.gem.setValue(0);
+		await this.animate(animator.gem, { duration: 1000, toValue: 1 });
+
+		animator.coin.setValue(0);
+		await this.animate(animator.coin, { duration: 1000, toValue: 1 });
+
+		animator.key.setValue(0);
+		await this.animate(animator.key, { duration: 1000, toValue: 1 });
+	};
+
+	onGem = () => this.props.navigation.navigate('GemIntroScreen');
+
+	onCoin = () => this.props.navigation.navigate('CoinIntroScreen');
+
+	onKey = () => this.props.navigation.navigate('KeyIntroScreen');
+
+	renderTreasure = ({ type, onPress }) => {
+		const { animator } = this.state;
+
+		const opacity = animator[type].interpolate({ inputRange: [ 0, 0.9, 0.95, 1 ], outputRange: [ 1, 0, 0, 1 ] });
+		const scale = animator[type].interpolate({ inputRange: [ 0, 0.9, 0.95, 1 ], outputRange: [ 1, 50, 0, 1 ] });
+		const treasureImageStyles = { opacity, transform: [ { scaleX: scale }, { scaleY: scale } ] };
+
+		return (
+			<TouchableOpacity style={styles.treasureRow} onPress={onPress}>
+				<View style={this.treasureStyles[type].shadow}>
+					<Animated.Image style={treasureImageStyles} source={Images.treasure[type]} />
+				</View>
+				<Text style={this.treasureStyles[type].text}>000</Text>
+			</TouchableOpacity>
+		);
+	};
+
 	render() {
+		const { animator } = this.state;
+
+		const scoreWidth = animator.score.interpolate({ inputRange: [ 0, 1 ], outputRange: [ '0%', '100%' ] });
+		const scoreStyle = [ styles.scoreImage, { width: scoreWidth } ];
+
+		const Treasure = this.renderTreasure;
+
 		return (
 			<SafeAreaView style={styles.container}>
-				<View style={styles.score}>
+				<TouchableOpacity style={styles.score} onPress={this.onScore}>
 					<Image style={styles.scoreBackgroundImage} source={Images.scoreBackground} />
-					<Image style={styles.scoreImage} source={Images.score} />
-				</View>
+					<Animated.Image style={scoreStyle} source={Images.score} />
+				</TouchableOpacity>
 				<View style={{ flexDirection: 'row', marginLeft: -14 }}>
-					<View style={styles.treasureRow}>
-						<View style={styles.gemShadow}>
-							<Image source={Images.treasure.gem} />
-						</View>
-						<Text style={styles.gemText}>000</Text>
-					</View>
-					<View style={styles.treasureRow}>
-						<View style={styles.coinShadow}>
-							<Image source={Images.treasure.coin} />
-						</View>
-						<Text style={styles.coinText}>000</Text>
-					</View>
-					<View style={styles.treasureRow}>
-						<View style={styles.keyShadow}>
-							<Image source={Images.treasure.key} />
-						</View>
-						<Text style={styles.keyText}>000</Text>
-					</View>
+					<Treasure type="gem" onPress={this.onGem} />
+					<Treasure type="coin" onPress={this.onCoin} />
+					<Treasure type="key" onPress={this.onKey} />
 				</View>
 			</SafeAreaView>
 		);
