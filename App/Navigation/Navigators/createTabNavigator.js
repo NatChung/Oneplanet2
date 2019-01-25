@@ -2,9 +2,11 @@ import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { polyfill } from 'react-lifecycles-compat';
 import { ScreenContainer } from 'react-native-screens';
-import { SafeAreaView, BottomTabBar } from 'react-navigation';
+import { BottomTabBar } from 'react-navigation';
 import { createTabNavigator } from 'react-navigation-tabs';
 import ResourceSavingScene from 'react-navigation-tabs/src/views/ResourceSavingScene';
+
+import TreasureBar from '../../Components/TreasureBar';
 
 class TabNavigationView extends PureComponent {
 	static defaultProps = {
@@ -69,12 +71,8 @@ class TabNavigationView extends PureComponent {
 		);
 	};
 
-	_renderGemBar = () => {
-		return (
-			<SafeAreaView style={{ height: 28, backgroundColor: '#191919' }} forceInset={null}>
-				<View style={{ flex: 1, backgroundColor: 'skyblue' }} />
-			</SafeAreaView>
-		);
+	_renderTreasureBar = () => {
+		return <TreasureBar {...this.props} />;
 	};
 
 	_jumpTo = (key) => {
@@ -92,8 +90,10 @@ class TabNavigationView extends PureComponent {
 
 		return (
 			<View style={styles.container}>
-				{this._renderGemBar()}
-				{this._renderTabBar('top')}
+				<View style={styles.header}>
+					{this._renderTabBar('top')}
+					{this._renderTreasureBar()}
+				</View>
 				<ScreenContainer style={styles.pages}>
 					{routes.map((route, index) => {
 						if (lazy && !loaded.includes(index)) {
@@ -124,6 +124,9 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		overflow: 'hidden'
+	},
+	header: {
+		flexDirection: 'column-reverse'
 	},
 	pages: {
 		flex: 1

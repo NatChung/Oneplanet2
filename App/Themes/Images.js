@@ -98,7 +98,10 @@ const images = {
 		gem: require('../Images/ic_gem_nor.png'),
 		coin: require('../Images/ic_coin_nor.png'),
 		key: require('../Images/ic_key_nor.png')
-	}
+	},
+
+	scoreBackground: require('../Images/ui_scorebg.png'),
+	score: require('../Images/ui_score.png')
 };
 
 export default images;
