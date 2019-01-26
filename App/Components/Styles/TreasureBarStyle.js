@@ -31,11 +31,15 @@ export default StyleSheet.create({
 	scoreBackgroundImage: {
 		width: 143
 	},
-	scoreImage: {
+	scoreAnimation: {
 		...StyleSheet.absoluteFillObject,
-		resizeMode: 'stretch',
-		top: -0.5,
-		left: 1
+		left: 2,
+		borderRadius: 5,
+		overflow: 'hidden'
+	},
+	scoreImage: {
+		resizeMode: 'contain',
+		height: '100%'
 	},
 	row: {
 		flexDirection: 'row',

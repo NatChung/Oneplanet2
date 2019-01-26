@@ -42,7 +42,7 @@ export default class TreasureBar extends Component {
 		// const currValue = scoreWidth._value;
 
 		animator.score.setValue(0);
-		await this.animate(animator.score, { duration: 500, toValue: 1 });
+		await this.animate(animator.score, { duration: 1000, toValue: 1 });
 
 		await this.animateTreasure('gem');
 		await this.animateTreasure('coin');
@@ -60,12 +60,12 @@ export default class TreasureBar extends Component {
 
 		const opacity = animator[type].interpolate({ inputRange: [ 0, 0.9, 0.95, 1 ], outputRange: [ 1, 0, 0, 1 ] });
 		const scale = animator[type].interpolate({ inputRange: [ 0, 0.9, 0.95, 1 ], outputRange: [ 1, 50, 0, 1 ] });
-		const treasureImageStyles = [ { opacity, transform: [ { scaleX: scale }, { scaleY: scale } ] } ];
+		const treasureImageStyle = [ { opacity, transform: [ { scaleX: scale }, { scaleY: scale } ] } ];
 
 		return (
 			<View style={styles.row}>
 				<View style={this.treasureStyles[type].shadow}>
-					<Animated.Image style={treasureImageStyles} source={Images.treasure[type]} />
+					<Animated.Image style={treasureImageStyle} source={Images.treasure[type]} />
 				</View>
 				<Text style={this.treasureStyles[type].text}>0000</Text>
 			</View>
@@ -76,8 +76,8 @@ export default class TreasureBar extends Component {
 		const { animator, activeTreasure } = this.state;
 
 		const activeTreasureStyle = (type) => (activeTreasure === type ? styles.activeTreasure : null);
-		const scoreWidth = animator.score.interpolate({ inputRange: [ 0, 1 ], outputRange: [ '0%', '100%' ] });
-		const scoreStyle = [ styles.scoreImage, { width: scoreWidth } ];
+		const scoreAnimationWidth = animator.score.interpolate({ inputRange: [ 0, 1 ], outputRange: [ '0%', '100%' ] });
+		const scoreAnimationStyle = [ styles.scoreAnimation, { width: scoreAnimationWidth } ];
 
 		return (
 			<SafeAreaView style={[ this.props.style, styles.container ]}>
@@ -85,7 +85,9 @@ export default class TreasureBar extends Component {
 					<View style={styles.row}>
 						<View style={styles.score}>
 							<Image style={styles.scoreBackgroundImage} source={Images.scoreBackground} />
-							<Animated.Image style={scoreStyle} source={Images.score} />
+							<Animated.View style={scoreAnimationStyle}>
+								<Image style={styles.scoreImage} source={Images.score} />
+							</Animated.View>
 						</View>
 						<View style={styles.gemWrapper}>{this.renderTreasure('gem')}</View>
 					</View>
