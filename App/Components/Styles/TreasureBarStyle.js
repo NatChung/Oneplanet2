@@ -2,12 +2,15 @@ import { StyleSheet } from 'react-native';
 
 const BaseStyles = StyleSheet.create({
 	treasureText: {
-		width: 31,
+		width: 32,
 		textAlign: 'center',
 		marginLeft: 6,
-		marginRight: 13,
-		fontSize: 16,
+		marginRight: 12,
+		fontSize: 12,
 		fontWeight: 'bold'
+	},
+	treasureShadow: {
+		zIndex: 1
 	}
 });
 
@@ -46,6 +49,7 @@ export default StyleSheet.create({
 		color: '#009BDC'
 	},
 	gemShadow: {
+		...BaseStyles.treasureShadow,
 		shadowOpacity: 1,
 		shadowColor: '#009BDC',
 		shadowRadius: 15,
@@ -56,6 +60,7 @@ export default StyleSheet.create({
 		color: '#BD10E0'
 	},
 	coinShadow: {
+		...BaseStyles.treasureShadow,
 		shadowOpacity: 1,
 		shadowColor: '#BD10E0',
 		shadowRadius: 15,
@@ -66,9 +71,13 @@ export default StyleSheet.create({
 		color: '#7ED321'
 	},
 	keyShadow: {
+		...BaseStyles.treasureShadow,
 		shadowOpacity: 1,
 		shadowColor: '#7ED321',
 		shadowRadius: 15,
 		shadowOffset: { width: 0, height: 0 }
+	},
+	activeTreasure: {
+		zIndex: 2
 	}
 });

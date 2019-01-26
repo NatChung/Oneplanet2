@@ -72,7 +72,7 @@ class TabNavigationView extends PureComponent {
 	};
 
 	_renderTreasureBar = () => {
-		return <TreasureBar {...this.props} />;
+		return <TreasureBar style={styles.treasureBar} {...this.props} />;
 	};
 
 	_jumpTo = (key) => {
@@ -90,31 +90,25 @@ class TabNavigationView extends PureComponent {
 
 		return (
 			<View style={[ styles.container, styles.reverse ]}>
-				<View style={styles.container}>
-					{this._renderTabBar('top')}
-					<ScreenContainer style={styles.pages}>
-						{routes.map((route, index) => {
-							if (lazy && !loaded.includes(index)) {
-								// Don't render a screen if we've never navigated to it
-								return null;
-							}
-
-							const isFocused = navigation.state.index === index;
-
-							return (
-								<ResourceSavingScene
-									key={route.key}
-									style={StyleSheet.absoluteFill}
-									isVisible={isFocused}
-								>
-									{renderScene({ route })}
-								</ResourceSavingScene>
-							);
-						})}
-					</ScreenContainer>
-					{this._renderTabBar('bottom')}
-				</View>
 				{this._renderTreasureBar()}
+				{this._renderTabBar('top')}
+				<ScreenContainer style={styles.pages}>
+					{routes.map((route, index) => {
+						if (lazy && !loaded.includes(index)) {
+							// Don't render a screen if we've never navigated to it
+							return null;
+						}
+
+						const isFocused = navigation.state.index === index;
+
+						return (
+							<ResourceSavingScene key={route.key} style={StyleSheet.absoluteFill} isVisible={isFocused}>
+								{renderScene({ route })}
+							</ResourceSavingScene>
+						);
+					})}
+				</ScreenContainer>
+				{this._renderTabBar('bottom')}
 			</View>
 		);
 	}
@@ -129,8 +123,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		overflow: 'hidden'
 	},
-	reverse: {
-		flexDirection: 'column-reverse'
+	treasureBar: {
+		zIndex: 3
 	},
 	pages: {
 		flex: 1
