@@ -1,44 +1,70 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Image } from 'react-native';
+import { FlatList, View, Image } from 'react-native';
+import { Pages } from 'react-native-pages';
 import _ from 'lodash';
 
 // Styles
 import styles from './Styles/HotScreenStyle';
+import { Images } from '../../Themes';
 import withCollapsible from '../../Utils/withCollapsible';
-import RoundedButton from '../../Components/RoundedButton';
 
-const URL = 'https://unsplash.it/300/300/';
-const PHOTOS = Array.from({ length: 24 }).map((_, i) => `${URL}?random&__id=${+new Date()}${i}`);
+const URL = 'https://unsplash.it';
+const PRODUCTS = Array.from({ length: 24 }).map((_, i) => `${URL}/300/300?random&__id=${'product'}${i}`);
+const BANNERS = Array.from({ length: 10 }).map((_, i) => `${URL}/363/161?random&__id=${'banners'}${i}`);
 
 class HotScreen extends Component {
 	static navigationOptions = {};
 
 	state = {};
 
-	onTest = (action, type) => () => {
-		const { navigation } = this.props;
+	renderBannerItem = (banner, i) => {
+		const { imgUrl: uri } = banner;
+		return <Image key={i} style={styles.bannerImage} source={{ uri }} />;
+	};
 
-		navigation.navigate('TreasureConfirmScreen', { action, type, product: 'PRODUCT' });
+	renderBanners = () => {
+		const banners = BANNERS.map((uri) => ({ imgUrl: uri }));
+
+		return (
+			<View style={styles.banners}>
+				<Pages>{banners.map(this.renderBannerItem)}</Pages>
+			</View>
+		);
+	};
+
+	renderProductItem = ({ item: product }) => {
+		const { imgUrl: uri } = product;
+		return (
+			<View style={styles.product}>
+				<Image source={{ uri }} style={styles.productImage} />
+			</View>
+		);
+	};
+
+	renderProducts = () => {
+		const { collapsible } = this.props;
+
+		const products = PRODUCTS.map((uri) => ({ imgUrl: uri }));
+
+		return (
+			<FlatList
+				data={products}
+				contentContainerStyle={styles.products}
+				{...collapsible}
+				renderItem={this.renderProductItem}
+				numColumns={2}
+				keyExtractor={(_, index) => index}
+			/>
+		);
 	};
 
 	render() {
-		const { collapsible } = this.props;
-
 		return (
-			<ScrollView style={styles.mainContainer} contentContainerStyle={styles.content} {...collapsible}>
-				<View style={{ width: '100%' }}>
-					<RoundedButton text="Test Unlock Gem" onPress={this.onTest('unlock', 'gem')} />
-					<RoundedButton text="Test Unlock Coin" onPress={this.onTest('unlock', 'coin')} />
-					<RoundedButton text="Test Unlock Key" onPress={this.onTest('unlock', 'key')} />
-					<RoundedButton text="Test Bid Gem" onPress={this.onTest('bid', 'gem')} />
-					<RoundedButton text="Test Bid Coin" onPress={this.onTest('bid', 'coin')} />
-				</View>
-				{PHOTOS.map((uri) => (
-					<View key={uri} style={styles.item}>
-						<Image source={{ uri }} style={styles.photo} />
-					</View>
-				))}
-			</ScrollView>
+			<View style={styles.mainContainer}>
+				<Image source={Images.loginBackground} style={styles.backgroundImage} />
+				{this.renderBanners()}
+				{this.renderProducts()}
+			</View>
 		);
 	}
 }

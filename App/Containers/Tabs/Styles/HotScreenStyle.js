@@ -3,18 +3,24 @@ import { ApplicationStyles } from '../../../Themes';
 
 export default StyleSheet.create({
 	...ApplicationStyles.screen,
-	content: {
-		flexDirection: 'row',
-		flexWrap: 'wrap',
-		padding: 4
+	products: {
+		paddingHorizontal: 3.5
 	},
-	item: {
-		height: Dimensions.get('window').width / 2,
-		width: '50%',
-		padding: 4
-	},
-	photo: {
+	product: {
 		flex: 1,
-		resizeMode: 'cover'
+		height: Dimensions.get('window').width / 2 - 8.5,
+		marginHorizontal: 2.5,
+		marginBottom: 6
+	},
+	productImage: {
+		flex: 1
+	},
+	banners: {
+		height: 161,
+		marginVertical: 6,
+		paddingHorizontal: 6
+	},
+	bannerImage: {
+		flex: 1
 	}
 });

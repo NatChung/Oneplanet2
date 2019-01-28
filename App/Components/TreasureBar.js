@@ -32,8 +32,8 @@ export default class TreasureBar extends Component {
 		const { animator } = this.state;
 
 		this.setState({ activeTreasure: type });
-		animator[type].setValue(0);
 		await this.animate(animator[type], { duration: 1000, toValue: 1 });
+		animator[type].setValue(0);
 		this.setState({ activeTreasure: undefined });
 	};
 
@@ -58,8 +58,8 @@ export default class TreasureBar extends Component {
 	renderTreasure = (type) => {
 		const { animator } = this.state;
 
-		const opacity = animator[type].interpolate({ inputRange: [ 0, 0.9, 0.95, 1 ], outputRange: [ 1, 0, 0, 1 ] });
-		const scale = animator[type].interpolate({ inputRange: [ 0, 0.9, 0.95, 1 ], outputRange: [ 1, 50, 0, 1 ] });
+		const opacity = animator[type].interpolate({ inputRange: [ 0, 1 ], outputRange: [ 1, 0 ] });
+		const scale = animator[type].interpolate({ inputRange: [ 0, 1 ], outputRange: [ 1, 50 ] });
 		const treasureImageStyle = [ { opacity, transform: [ { scaleX: scale }, { scaleY: scale } ] } ];
 
 		return (
