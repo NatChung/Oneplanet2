@@ -52,5 +52,9 @@
 	"coin": "COIN",
 	"key": "KEY",
 	"areYouSureToUseOneTreasure": "Are you sure to use one {{treasure}}?",
-	"areYouSureToUseOneTreasureAndServiceFee": "確定使用一顆 {{treasure}} + {{price}} 美金服務費？"
+	"areYouSureToUseOneTreasureAndServiceFee": "確定使用一顆 {{treasure}} + {{price}} 美金服務費？",
+
+	"#":"LuckyScreen",
+	"products":"Products",
+	"unlocked":"Unlocked"
 }

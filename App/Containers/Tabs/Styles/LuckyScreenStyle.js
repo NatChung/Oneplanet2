@@ -24,5 +24,8 @@ export default StyleSheet.create({
   },
   filterIcon: {
     paddingHorizontal:10
+  },
+  header: {
+    flexDirection: 'row'
   }
 })

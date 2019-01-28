@@ -7,9 +7,9 @@ const ClockBGHeith = ClockBGWidth * 0.25
 export default StyleSheet.create({
   container: {
     alignItems: 'center',
-    width: Metrics.screenWidth / 2,
     marginTop: 10,
-    marginHorizontal: 3,
+    marginLeft: 8,
+    marginRight:2,
   },
   tip:{
     fontSize: Fonts.size.input,
