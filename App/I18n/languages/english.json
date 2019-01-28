@@ -56,5 +56,6 @@
 
 	"#":"LuckyScreen",
 	"products":"Products",
-	"unlocked":"Unlocked"
+	"unlocked":"Unlocked",
+	"countdownToBidding": "COUNTDOWN TO BIDDING..."
 }

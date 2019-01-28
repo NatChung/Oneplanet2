@@ -5,6 +5,7 @@ import BiddingCell from "../../Components/BiddingCell";
 import { Images } from "../../Themes"
 import Icon from 'react-native-vector-icons/FontAwesome'
 import LockGroupButton from "../../Components/LockGroupButton"
+import I18n from "../../I18n"
 // Styles
 import styles from './Styles/LuckyScreenStyle';
 import withCollapsible from '../../Utils/withCollapsible';
@@ -36,10 +37,11 @@ class LuckyScreen extends Component {
 			<View style={styles.mainContainer}>
 				<Image source={Images.loginBackground} style={styles.backgroundImage} />
 				<View style={styles.header}>
-					<CountDownClock seconds={this.props.countdown} />
+					<CountDownClock seconds={this.props.countdown} bottomTitle={I18n.t('countdownToBidding')} />
 					<LockGroupButton selected={this.state.selected} onPress={type => this.setState({selected:type})} />
 				</View>
 				
+				{this.renderHeader()}
 				<FlatList
 					style={styles.listContaner}
 					data={this.state.data}
@@ -50,8 +52,6 @@ class LuckyScreen extends Component {
 							onPress={() => this.props.navigation.navigate('ProductDetailScreen')}
 						/>
 					)}
-					ListHeaderComponent={this.renderHeader}
-					stickyHeaderIndices={[ 0 ]}
 					{...collapsible}
 				/>
 			</View>

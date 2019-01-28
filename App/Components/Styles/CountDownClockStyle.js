@@ -49,5 +49,12 @@ export default StyleSheet.create({
     position:'absolute',
     height: ClockBGHeith ,
     width: ClockBGWidth  ,
+  },
+  bottomTitle: {
+    color:'grey',
+    position:'absolute',
+    top:ClockBGHeith,
+    fontSize: Fonts.size.tiny,
+    fontFamily: Fonts.type.bold,
   }
 })
