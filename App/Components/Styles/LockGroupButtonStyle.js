@@ -12,7 +12,7 @@ export default StyleSheet.create({
     marginRight:10,
     borderWidth: 1,
     borderColor:'#5FD2CE',
-    borderRadius: 10,
+    borderRadius: 8,
     flexDirection:'row',
     overflow:'hidden',
     
