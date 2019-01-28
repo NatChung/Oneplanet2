@@ -105,7 +105,7 @@ export default class CountDownClock extends Component {
           
         </View>
 
-        
+        <Text style={styles.bottomTitle}>{this.props.bottomTitle}</Text>
 
       </View>
     )

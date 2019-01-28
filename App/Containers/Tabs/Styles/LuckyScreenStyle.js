@@ -8,10 +8,11 @@ export default StyleSheet.create({
     
   },
   listContaner: {
-    marginTop: 20,
     paddingHorizontal:10,
   },
   filterHeader: {
+    marginTop: 20,
+    marginLeft: 10,
     height: 30,
     flexDirection:'row'
   },
@@ -24,5 +25,8 @@ export default StyleSheet.create({
   },
   filterIcon: {
     paddingHorizontal:10
+  },
+  header: {
+    flexDirection: 'row'
   }
 })
