@@ -46,7 +46,7 @@ export default function withPopup(WrappedComponent) {
 const styles = StyleSheet.create({
 	mainContainer: {
 		flex: 1,
-		backgroundColor: 'rgba(0,0,0,0.5)'
+		backgroundColor: 'rgba(0,0,0,0.6)'
 	},
 	container: {
 		flex: 1,

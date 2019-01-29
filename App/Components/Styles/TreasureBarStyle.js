@@ -10,7 +10,10 @@ const BaseStyles = StyleSheet.create({
 		fontWeight: 'bold'
 	},
 	treasureShadow: {
-		zIndex: 1
+		zIndex: 1,
+		shadowOpacity: 1,
+		shadowRadius: 7.5,
+		shadowOffset: { width: 0, height: 0 }
 	}
 });
 
@@ -54,10 +57,7 @@ export default StyleSheet.create({
 	},
 	gemShadow: {
 		...BaseStyles.treasureShadow,
-		shadowOpacity: 1,
-		shadowColor: '#009BDC',
-		shadowRadius: 15,
-		shadowOffset: { width: 0, height: 0 }
+		shadowColor: '#009BDC'
 	},
 	coinText: {
 		...BaseStyles.treasureText,
@@ -65,10 +65,7 @@ export default StyleSheet.create({
 	},
 	coinShadow: {
 		...BaseStyles.treasureShadow,
-		shadowOpacity: 1,
-		shadowColor: '#BD10E0',
-		shadowRadius: 15,
-		shadowOffset: { width: 0, height: 0 }
+		shadowColor: '#BD10E0'
 	},
 	keyText: {
 		...BaseStyles.treasureText,
@@ -76,10 +73,7 @@ export default StyleSheet.create({
 	},
 	keyShadow: {
 		...BaseStyles.treasureShadow,
-		shadowOpacity: 1,
-		shadowColor: '#7ED321',
-		shadowRadius: 15,
-		shadowOffset: { width: 0, height: 0 }
+		shadowColor: '#7ED321'
 	},
 	activeTreasure: {
 		zIndex: 2
