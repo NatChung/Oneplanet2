@@ -33,7 +33,8 @@ const images = {
 	icons: {
 		mute: require('../Images/Icons/mute.png'),
 		unmute: require('../Images/Icons/unmute.png'),
-		cancelBlack: require('../Images/Icons/ic_cancelblack_nor.png')
+		cancelBlack: require('../Images/Icons/ic_cancelblack_nor.png'),
+		cancelPopup: require('../Images/Icons/ic_popupcancel_nor.png')
 	},
 	socailmedia: {
 		fb: require('../Images/socailmedias/ic_facebook_nor.png'),
@@ -101,7 +102,11 @@ const images = {
 	},
 
 	scoreBackground: require('../Images/ui_scorebg.png'),
-	score: require('../Images/ui_score.png')
+	score: require('../Images/ui_score.png'),
+
+	ad:{
+		alien: require('../Images/ui_ad_alien.png'),
+	}
 };
 
 export default images;

@@ -10,7 +10,7 @@ import withCollapsible from '../../Utils/withCollapsible';
 
 const URL = 'https://unsplash.it';
 const PRODUCTS = Array.from({ length: 24 }).map((_, i) => `${URL}/300/300?random&__id=${'product'}${i}`);
-const BANNERS = Array.from({ length: 10 }).map((_, i) => `${URL}/363/161?random&__id=${'banners'}${i}`);
+const BANNERS = Array.from({ length: 10 }).map((_, i) => `${URL}/363/161?random&__id=${'banner'}${i}`);
 
 class HotScreen extends Component {
 	static navigationOptions = {};
