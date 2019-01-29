@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { View, Animated, Dimensions, StyleSheet } from 'react-native';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 
-export default function withOverlay(WrappedComponent) {
+export default function withPopup(WrappedComponent) {
 	const { height } = Dimensions.get('window');
 
 	class EnhancedComponent extends Component {
-		static displayName = `withOverlay(${WrappedComponent.displayName})`;
+		static displayName = `withPopup(${WrappedComponent.displayName})`;
 
 		state = {
 			translateY: new Animated.Value(height)

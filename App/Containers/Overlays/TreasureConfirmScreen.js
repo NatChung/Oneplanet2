@@ -7,7 +7,7 @@ import I18n from '../../I18n';
 import { Images } from '../../Themes';
 import RoundedButton from '../../Components/RoundedButton';
 import RichI18n from '../../Components/RichI18n';
-import withOverlay from '../../Utils/withOverlay';
+import withPopup from '../../Utils/withPopup';
 
 class TreasureConfirmScreen extends Component {
 	state = {
@@ -78,4 +78,4 @@ class TreasureConfirmScreen extends Component {
 	}
 }
 
-export default withOverlay(TreasureConfirmScreen);
+export default withPopup(TreasureConfirmScreen);

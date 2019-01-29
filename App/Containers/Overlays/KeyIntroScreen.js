@@ -5,7 +5,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from './Styles/KeyIntroScreenStyle';
 import I18n from '../../I18n';
 import { Images } from '../../Themes';
-import withOverlay from '../../Utils/withOverlay';
+import withPopup from '../../Utils/withPopup';
 import RoundedButton from '../../Components/RoundedButton';
 import RichI18n from '../../Components/RichI18n';
 
@@ -57,4 +57,4 @@ class KeyIntroScreen extends Component {
 	}
 }
 
-export default withOverlay(KeyIntroScreen);
+export default withPopup(KeyIntroScreen);
