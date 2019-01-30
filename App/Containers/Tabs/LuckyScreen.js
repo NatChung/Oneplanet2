@@ -12,7 +12,8 @@ import withCollapsible from '../../Utils/withCollapsible';
 
 class LuckyScreen extends Component {
 	static navigationOptions = {
-		header: null
+		header: null,
+		headerBackTitle: null
 	};
 
 	state = {

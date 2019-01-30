@@ -3,13 +3,19 @@ import { View, Text, ScrollView, Image , TouchableOpacity} from 'react-native'
 import { Pages } from 'react-native-pages'
 import { Images } from "../Themes"
 import LockerButton from "../Components/LockerButton"
+import I18n from "../I18n";
 
 // Styles
 import styles from './Styles/ProductDetailScreenStyle';
 
 class ProductDetailScreen extends Component {
   static navigationOptions = {
-		headerForceInset: { top: 'never' }
+    headerForceInset: { top: 'never' },
+    headerStyle: {
+      backgroundColor: '#191919',
+    },
+    title: I18n.t('product'),
+    headerTintColor: 'white'
   };
   
   render () {

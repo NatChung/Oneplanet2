@@ -57,5 +57,8 @@
 	"#":"LuckyScreen",
 	"products":"Products",
 	"unlocked":"Unlocked",
-	"countdownToBidding": "COUNTDOWN TO BIDDING..."
+	"countdownToBidding": "COUNTDOWN TO BIDDING...",
+
+	"#":"ProductDetailScreen",
+	"product": "Product"
 }
