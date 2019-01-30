@@ -12,8 +12,7 @@ const BaseStyles = StyleSheet.create({
 		zIndex: 1,
 		shadowOpacity: 1,
 		shadowRadius: 7.5,
-		shadowOffset: { width: 0, height: 0 },
-		elevation: 1
+		shadowOffset: { width: 0, height: 0 }
 	}
 });
 
@@ -30,8 +29,7 @@ export default StyleSheet.create({
 		shadowOpacity: 1,
 		shadowColor: '#5FD2CE',
 		shadowRadius: 4,
-		shadowOffset: { width: 0, height: 0 },
-		elevation: 1
+		shadowOffset: { width: 0, height: 0 }
 	},
 	scoreBackgroundImage: {
 		width: Dimensions.get('window').width > 320 ? 143 : 88,

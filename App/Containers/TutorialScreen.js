@@ -14,14 +14,20 @@ import RoundedButton from '../Components/RoundedButton';
 class TutorialScreen extends Component {
 	onSkip = () => this.props.navigation.navigate('LandingScreen');
 
+	renderTutorialItem = (img, i) => {
+		return (
+			<View key={i} style={styles.mainContainer}>
+				<Image style={styles.tutorialImage} source={img} />
+			</View>
+		);
+	};
+
 	render() {
 		return (
 			<View style={styles.mainContainer}>
 				<Image source={Images.loginBackground} style={styles.backgroundImage} />
 				<View style={styles.container}>
-					<Pages>
-						{Images.tutorials.map((img, i) => <Image key={i} style={styles.tutorialImage} source={img} />)}
-					</Pages>
+					<Pages>{Images.tutorials.map(this.renderTutorialItem)}</Pages>
 					<RoundedButton outline style={styles.skip} text={I18n.t('skip')} onPress={this.onSkip} />
 				</View>
 			</View>

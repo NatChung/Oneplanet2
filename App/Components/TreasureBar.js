@@ -39,7 +39,6 @@ export default class TreasureBar extends Component {
 
 	test = async () => {
 		const { animator } = this.state;
-		// const currValue = scoreWidth._value;
 
 		animator.score.setValue(0);
 		await this.animate(animator.score, { duration: 1000, toValue: 1 });

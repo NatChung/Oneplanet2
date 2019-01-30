@@ -27,8 +27,7 @@ export default StyleSheet.create({
 		shadowOpacity: 0.5,
 		shadowColor: '#000000',
 		shadowRadius: 2,
-		shadowOffset: { width: 0, height: 2 },
-		elevation: 1
+		shadowOffset: { width: 0, height: 2 }
 	},
 	checkbox: {
 		marginVertical: 16
