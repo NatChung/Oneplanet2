@@ -7,4 +7,7 @@ export default StyleSheet.create({
   lockerTitle: {
     color:'red',
   },
+  unlockerTitle: {
+    color:'green',
+  }
 })

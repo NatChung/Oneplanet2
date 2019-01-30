@@ -12,15 +12,15 @@ export default class LockerButton extends Component {
   // }
   //
   // // Defaults for props
-  // static defaultProps = {
-  //   someSetting: false
-  // }
+  static defaultProps = {
+    locked: true
+  }
 
   render () {
     return (
       <TouchableOpacity style={this.props.style} onPress={this.props.onPress}>
-            <Image source={Images.lucky.lock.off} />
-            <Text style={styles.lockerTitle}>Lock</Text>
+            <Image source={(this.props.locked) ? Images.lucky.lock.off : Images.lucky.lock.on} />
+            <Text style={(this.props.locked) ? styles.lockerTitle : styles.unlockerTitle }>{(this.props.locked) ? 'Lock' : 'Unlock'}</Text>
       </TouchableOpacity>
     )
   }

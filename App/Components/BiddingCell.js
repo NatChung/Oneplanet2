@@ -13,16 +13,22 @@ export default class BiddingCell extends Component {
   // }
   //
   // // Defaults for props
-  // static defaultProps = {
-  //   someSetting: false
-  // }
+  static defaultProps = {
+    onLockPress: () => {}
+  }
+
+  LockerButtonProps = () => ({
+    onPress:() => this.props.onLockPress(this.props.index),
+     style:styles.lockerContainer,
+     locked:this.props.item.locked
+  })
 
   render () {
     return (
       <TouchableOpacity style={styles.container} onPress={this.props.onPress}>
-        <Image style={styles.productImage} source={{uri:'https://via.placeholder.com/60'}} />
-        <Text style={styles.contenxtText}>Bidding kkkkkk sljfkajdskfjalskfjas; lksjdf;a lsfjkasd;fjds;</Text>
-        <LockerButton style={styles.lockerContainer}/>
+        <Image style={styles.productImage} source={{uri:this.props.item.image}} />
+        <Text style={styles.contenxtText}>{this.props.item.title}</Text>
+        <LockerButton {...this.LockerButtonProps()}/>
       </TouchableOpacity>
     )
   }
