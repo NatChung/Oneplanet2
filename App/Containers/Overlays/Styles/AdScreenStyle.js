@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { Colors, ApplicationStyles } from '../../../Themes';
+import { ApplicationStyles } from '../../../Themes';
 
 export default StyleSheet.create({
 	...ApplicationStyles.screen,
@@ -27,7 +27,8 @@ export default StyleSheet.create({
 		shadowOpacity: 0.5,
 		shadowColor: '#000000',
 		shadowRadius: 2,
-		shadowOffset: { width: 0, height: 2 }
+		shadowOffset: { width: 0, height: 2 },
+		elevation: 1
 	},
 	checkbox: {
 		marginVertical: 16

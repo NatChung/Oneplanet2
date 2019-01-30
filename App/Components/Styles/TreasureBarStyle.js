@@ -1,11 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const BaseStyles = StyleSheet.create({
 	treasureText: {
 		width: 32,
 		textAlign: 'center',
 		marginLeft: 6,
-		marginRight: 12,
 		fontSize: 12,
 		fontWeight: 'bold'
 	},
@@ -13,7 +12,8 @@ const BaseStyles = StyleSheet.create({
 		zIndex: 1,
 		shadowOpacity: 1,
 		shadowRadius: 7.5,
-		shadowOffset: { width: 0, height: 0 }
+		shadowOffset: { width: 0, height: 0 },
+		elevation: 1
 	}
 });
 
@@ -22,17 +22,20 @@ export default StyleSheet.create({
 		height: 28,
 		backgroundColor: '#191919',
 		flexDirection: 'row',
-		alignItems: 'center'
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		paddingHorizontal: 12
 	},
 	score: {
-		marginLeft: 12,
 		shadowOpacity: 1,
 		shadowColor: '#5FD2CE',
 		shadowRadius: 4,
-		shadowOffset: { width: 0, height: 0 }
+		shadowOffset: { width: 0, height: 0 },
+		elevation: 1
 	},
 	scoreBackgroundImage: {
-		width: 143
+		width: Dimensions.get('window').width > 320 ? 143 : 88,
+		resizeMode: 'stretch'
 	},
 	scoreAnimation: {
 		...StyleSheet.absoluteFillObject,
