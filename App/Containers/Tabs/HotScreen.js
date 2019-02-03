@@ -19,7 +19,11 @@ class HotScreen extends Component {
 
 	renderBannerItem = (banner, i) => {
 		const { imgUrl: uri } = banner;
-		return <Image key={i} style={styles.bannerImage} source={{ uri }} />;
+		return (
+			<View key={i} style={styles.mainContainer}>
+				<Image style={styles.bannerImage} source={{ uri }} />
+			</View>
+		);
 	};
 
 	renderBanners = () => {

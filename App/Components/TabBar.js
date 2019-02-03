@@ -115,8 +115,7 @@ class TabBar extends Component {
 		const style = [
 			styles.iconWithExplicitHeight,
 			showLabel === false && !horizontal && styles.iconWithoutLabel,
-			showLabel !== false && !horizontal && styles.iconWithLabel,
-			{ backgroundColor: 'skyblue' }
+			showLabel !== false && !horizontal && styles.iconWithLabel
 		];
 
 		return (

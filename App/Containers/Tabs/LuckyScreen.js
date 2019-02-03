@@ -49,7 +49,8 @@ class LuckyScreen extends Component {
 			locked: true,
 			category:'Other'
 		}],
-		selected:'left'
+		selected:'left',
+		
 	};
 
 	onFilter = () => this.props.navigation.navigate('ProductFilterScreen')
@@ -66,7 +67,6 @@ class LuckyScreen extends Component {
 		const data = [...this.state.data]
 		data[index].locked = false
 		this.setState(data)
-		console.tron.log(data)
 	}
 
 	render() {
